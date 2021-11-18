@@ -38,6 +38,9 @@
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
 		
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		
+		<!-- jeongho Menubar -->
+		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 		<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 		
 		<!-- datepicker 사용 sources -->
@@ -216,21 +219,21 @@
 	          <div id="responsive-nav">
 	             <!-- NAV -->
 	             
-	             <div id="menu">
+	             <div class="menu">
 	             
 	            <ul class="main-nav nav navbar-nav">
-						<li class="active"><a href="#">BEST</a></li>
+						<li class="active"><a href="${pageContext.request.contextPath}/" >BEST</a></li>
 						<li><a href="${pageContext.request.contextPath}/product/clothes.do">의류</a>
 							<ul>
-								<li><a href="/product/list?c1=0&c2=1">탑</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=2">니트웨어</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=3">셔츠/자켓</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=4">셔츠</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=5">수트</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=6">팬츠</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=7">언더웨어</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=8">비치웨어</a></li>&nbsp;
-								<li><a href="/product/list?c1=0&c2=9">기능성의류</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/top.do">탑</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/knit.do">니트웨어</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/jacket.do">셔츠/자켓</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/shirt.do">셔츠</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/suit.do">수트</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/pants.do">팬츠</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/under.do">언더웨어</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/beach.do">비치웨어</a></li>&nbsp;
+								<li><a href="${pageContext.request.contextPath}/product/func.do">기능성의류</a></li>&nbsp;
 							</ul>
 						</li>
 						<li><a href="/product/shoes">슈즈</a></li>

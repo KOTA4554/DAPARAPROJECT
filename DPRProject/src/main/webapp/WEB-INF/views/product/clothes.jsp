@@ -17,242 +17,112 @@
 		
 
 	<div class="container">
+	
     <!--div{$번째 영역}*3-->
     <div class="title">
     <h3>의류</h3>    
     </div>
     
     <div class="firstPar">
+    <c:forEach var="row" begin="0" end="3" items="${list}">
+   
+    
         <div class ="first">
-            <div class = "product-img">
+            <div class = "productimg">
             <img  src=".." alt="logo" class = "">
             </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
+            <input type="hidden" name="productNo" value="${row.productNo }">
+            
+            <div class="productinfo"></div>
+                <div class="productcategory">
+                <p>카테고리</p>
             </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
+            <div class="productname">
+                <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
+												
             </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
+            <div class="productprice">
+               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
             </div>
 
             <br>
             <br>
         </div>
         
+         </c:forEach>
+        
         </div>
     </div>
-    <div class="container">
+   <div class="container">
+	
     <!--div{$번째 영역}*3-->
+    <div class="title">
+    <h3>의류</h3>    
+    </div>
     
     <div class="firstPar">
+    <c:forEach var="row" begin="4" end="7" items="${list}">
+   
+    
         <div class ="first">
-            <div class = "product-img">
+            <div class = "productimg">
             <img  src=".." alt="logo" class = "">
             </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
+             <input type="hidden" name="productNo" value="${row.productNo }">
+            <div class="productinfo"></div>
+                <div class="productcategory">
+                <p>카테고리</p>
             </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
+            <div class="productname">
+                <p name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
+												
             </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
+            <div class="productprice">
+               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
             </div>
 
             <br>
             <br>
         </div>
         
+         </c:forEach>
+        
         </div>
     </div>
+    
     <div class="container">
+	
     <!--div{$번째 영역}*3-->
+    <div class="title">
+    <h3>의류</h3>    
+    </div>
     
     <div class="firstPar">
+    <c:forEach var="row" begin="8" end="11" items="${list}">
+   
+    
         <div class ="first">
-            <div class = "product-img">
+            <div class = "productimg">
             <img  src=".." alt="logo" class = "">
             </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
+             <input type="hidden" name="productNo" value="${row.productNo }">
+            <div class="productinfo"></div>
+                <div class="productcategory">
+                <p>카테고리</p>
             </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
+            <div class="productname">
+                <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
+												
             </div>
-            <div class="product-price">
-                <h4>990000</h4>
+            <div class="productprice">
+               <p  name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </p>
             </div>
 
             <br>
             <br>
         </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
-        <div class ="first">
-            <div class = "product-img">
-            <img  src=".." alt="logo" class = "">
-            </div>
-            <div class="product-info"></div>
-                <div class="product-category">
-                <h4>카테고리</h4>
-            </div>
-            <div class="product-name">
-                <h4>구찌 후두티</h4>
-            </div>
-            <div class="product-price">
-                <h4>990000</h4>
-            </div>
-
-            <br>
-            <br>
-        </div>
+        
+         </c:forEach>
         
         </div>
     </div>

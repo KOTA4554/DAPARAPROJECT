@@ -15,4 +15,12 @@
 	<select id="selectList" parameterType="int" resultType="Product">
 		SELECT * FROM PRODUCT  ORDER BY PRODUCTNO DESC
 	</select>
+	
+	<select id="selectListTop" parameterType="int" resultType="Product">
+      SELECT ROWNUM RN, P.*
+      FROM (SELECT * FROM PRODUCT
+             ORDER BY PRODUCTCOUNT DESC) P
+      WHERE ROWNUM &lt; 5
+   </select>
+   
 </mapper>

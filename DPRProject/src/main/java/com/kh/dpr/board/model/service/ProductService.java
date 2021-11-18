@@ -14,6 +14,8 @@ public interface ProductService {
 
 	List<Product> selectList(int maxpage);
 
+	List<Product> selectListTop(int maxpage);
+
 	
 	
 	
