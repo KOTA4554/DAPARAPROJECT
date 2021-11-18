@@ -37,7 +37,7 @@
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css"/>
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
 		
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
 		
 		<!-- datepicker 사용 sources -->
@@ -54,7 +54,9 @@
 
 		
 		<!-- jQuery Plugins -->
-		<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+		<%-- !! 제이쿼리 버전이 안맞음
+			 <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+		--%>
 		<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/js/slick.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/js/nouislider.min.js"></script>
