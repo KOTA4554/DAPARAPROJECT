@@ -1,8 +1,9 @@
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!-- FOOTER -->
-		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/common.css"/>
 		<footer id="footer">
 			<!-- top footer -->
 			<div class="section">
@@ -42,7 +43,11 @@
 								<h3 class="footer-title">Service</h3>
 								<ul class="footer-links">
 									<li><a href="#">장바구니</a></li>
-									<li><a href="#">마이페이지</a></li>
+
+
+									<li><a href="${pageContext.request.contextPath}/myPage/myPage.do">마이페이지</a></li>
+
+
 									<li><a href="#">이용약관</a></li>
 									<li><a href="#">전자 금융거래 약관</a></li>
 									<li><a href="#">개인정보 처리 방침</a></li>
@@ -61,11 +66,6 @@
 			</div>
 			<!-- /top footer -->
 		</footer>
-				<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/nouislider.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/jquery.zoom.min.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
-		
+
+
 		<!-- /FOOTER -->
