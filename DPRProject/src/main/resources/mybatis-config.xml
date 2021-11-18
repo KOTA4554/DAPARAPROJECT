@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+	<!-- #1 Mybatis settings -->
+ 	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 		<setting name="cacheEnabled" value="true"/>
+ 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+ 	</settings>
+ 	
+	<!-- #2 Java full package class access to alias -->
+ 	<typeAliases>
+ 		<typeAlias alias="Seller" type="com.kh.dpr.seller.model.vo.Seller"/>
+ 		<typeAlias alias="Member" type="com.kh.dpr.member.model.vo.Member"/>
+ 	</typeAliases>
+ 	
+ 	<!-- 데이터를 DB로 전달할 때, 바꾸기를 희망하는 자료형을 찾아서
+ 		 변환해주는 기능을 수행하는 객체 -->
+ 	<!-- <typeHandlers>
+ 		<package name="com.kh.spring.common"/>
+ 	</typeHandlers> -->
+ 	
+ </configuration>
