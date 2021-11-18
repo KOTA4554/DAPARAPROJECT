@@ -10,10 +10,13 @@
  	</settings>
  	
 	<!-- #2 Java full package class access to alias -->
+
  	<typeAliases>
  		<typeAlias alias="Order" type="com.kh.dpr.order.model.vo.Order"/>
  		<typeAlias alias="OrderDetail" type="com.kh.dpr.order.model.vo.OrderDetail"/>
  		<typeAlias alias="MyTypeHandler" type="com.kh.dpr.common.MyTypeHandler"/>
+   <typeAlias alias="Seller" type="com.kh.dpr.seller.model.vo.Seller"/>
+ 		<typeAlias alias="Member" type="com.kh.dpr.member.model.vo.Member"/>
  	</typeAliases>
  	
  	<!-- 데이터를 DB로 전달할 때, 바구기를 희망하는 자료형을 찾아서
@@ -21,5 +24,6 @@
  	<typeHandlers>
  		<package name="com.kh.dpr.common"/>
  	</typeHandlers>
+
  	
  </configuration>
