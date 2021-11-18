@@ -14,10 +14,12 @@
 
 	/////////////////////////////////////////
 
+/*
 	// Products Slick
 	$('.products-slick').each(function() {
 		var $this = $(this),
-			$nav = $this.attr('data-nav');
+				$nav = $this.attr('data-nav');
+
 
 		$this.slick({
 			slidesToShow: 4,
@@ -61,7 +63,10 @@
 		});
 	});
 
+*/
 	/////////////////////////////////////////
+
+
 
 	// Product Main img Slick
 	$('#product-main-img').slick({

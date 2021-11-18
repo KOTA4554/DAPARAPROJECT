@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -183,28 +184,28 @@
 	             
 	             <div id="menu">
 	             
-	             <ul class="main-nav nav navbar-nav">
-	                <li class="active"><a href="#">BEST</a></li>
-	                <li><a href="${pageContext.request.contextPath}/product/clothes.do">의류</a>
-	                   <ul>
-	                      <li><a href="/product/list?c1=0&c2=1">탑</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=2">니트웨어</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=3">셔츠/자켓</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=4">셔츠</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=5">수트</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=6">팬츠</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=7">언더웨어</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=8">비치웨어</a></li>&nbsp;
-	                      <li><a href="/product/list?c1=0&c2=9">기능성의류</a></li>&nbsp;
-	                    </ul>
-	                </li>
-	                <li><a href="/product/shoes">슈즈</a></li>
-	                     
-	                <li><a href="${pageContext.request.contextPath}/product/bagpack.do">가방</a></li>
-	                <li><a href="${pageContext.request.contextPath}/product/accessories.do">액세서리</a></li>
-	                <li><a href="${pageContext.request.contextPath}/product/jewellery.do">쥬얼리</a></li>
-	                <li><a href="${pageContext.request.contextPath}/product/clothes.do">SALES</a></li>
-	             </ul>
+	            <ul class="main-nav nav navbar-nav">
+						<li class="active"><a href="#">BEST</a></li>
+						<li><a href="${pageContext.request.contextPath}/product/clothes.do">의류</a>
+							<ul>
+								<li><a href="/product/list?c1=0&c2=1">탑</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=2">니트웨어</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=3">셔츠/자켓</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=4">셔츠</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=5">수트</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=6">팬츠</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=7">언더웨어</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=8">비치웨어</a></li>&nbsp;
+								<li><a href="/product/list?c1=0&c2=9">기능성의류</a></li>&nbsp;
+							</ul>
+						</li>
+						<li><a href="/product/shoes">슈즈</a></li>
+							
+						<li><a href="${pageContext.request.contextPath}/product/bagpack.do">가방</a></li>
+						<li><a href="${pageContext.request.contextPath}/product/accessories.do">액세서리</a></li>
+						<li><a href="${pageContext.request.contextPath}/product/jewellery.do">쥬얼리</a></li>
+						<li><a href="${pageContext.request.contextPath}/product/clothes.do">SALES</a></li>
+					</ul>
 	             </div>
 	             </div>
 	               <!-- /NAV -->
