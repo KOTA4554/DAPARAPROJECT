@@ -1,27 +1,28 @@
-package com.kh.dpr.product.vo;
+package com.kh.dpr.product.model.vo;
 
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 @Component
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString
 public class Product {
-
-	private int productno;
-	private int categoryno2;
-	private int sizeid;
-	private String sellerid;
-	private int productid;
-	private String productname;
-	private int productprice;
-	private int productamount;
-	private String productstatus;
-	private String productinfo;
-	private int productcount;
-	
+	private int productNo;
+	private int categoryNo2;
+	private int sizeId;
+	private String sellerId;
+	private int productId;
+	private String productName;
+	private int productPrice;
+	private int productAmount;
+	private String productStatus;
+	private String productInfo;
+	private int productCount;
 }
