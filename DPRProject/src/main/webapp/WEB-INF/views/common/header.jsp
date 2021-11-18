@@ -1,4 +1,5 @@
 
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -28,6 +29,7 @@
 
 		<!-- Font Awesome Icon -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"/>
 
 		<!-- Custom stlylesheet -->
@@ -40,12 +42,24 @@
 		<!-- datepicker 사용 sources -->
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
+
+		
+		<!-- jQuery Plugins -->
+		<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+		<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
+		<script src="${pageContext.request.contextPath }/resources/js/slick.min.js"></script>
+		<script src="${pageContext.request.contextPath }/resources/js/nouislider.min.js"></script>
+		<script src="${pageContext.request.contextPath }/resources/js/jquery.zoom.min.js"></script>
+		<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
+		
+
 </head>
 		<!-- HEADER -->
 		<header>
@@ -53,6 +67,7 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-right">
+
 					<c:if test="${empty seller && empty member}">
 						<li><a href="${pageContext.request.contextPath}/member/memberLoginView.do"><i class="fas fa-key"></i> 로그인</a></li>
 						<li><a href="${pageContext.request.contextPath}/member/memberSignUp.do"><i class="fa fa-user-o"></i> 회원가입</a></li>
@@ -65,13 +80,16 @@
 		   				<li><i class="fa fa-user-o"></i><a>${member.userId} 님 안녕하세요.</a></li>
 		   				<li><i class="fas fa-sign-out-alt"></i><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
 		   			</c:if>
+
 					</ul>
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
 
 			<!-- MAIN HEADER -->
+
 			<c:if test="${empty seller}">
+
 			<div id="header">
 				<!-- container -->
 				<div class="container">
@@ -81,7 +99,9 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="#" class="logo">
+
 									<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="">
+
 								</a>
 							</div>
 						</div>
@@ -103,7 +123,9 @@
 							<div class="header-ctn">
 								<!-- Wishlist -->
 								<div>
-									<a href="#">
+
+									<a href="${pageContext.request.contextPath}/myPage/myPage.do">
+
 										<i class="fas fa-user"></i>
 										<span>My Page</span>
 										<!-- <div class="qty">2</div> -->
@@ -175,6 +197,7 @@
 		<!-- /HEADER -->
 
 		<!-- NAVIGATION -->
+
 	    <nav id="navigation">
 	       <!-- container -->
 	       <div class="container">
@@ -218,6 +241,7 @@
 		</c:if>
 		
 		<c:if test="${!empty seller}">
+
 		<nav id="navigation">
 			<!-- container -->
 			<div class="container">
@@ -225,6 +249,7 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
+
 						<li class="active"><a href="#">HOME</a></li>
 						<li><a href="#">상품관리</a>
 							<ul>
@@ -247,6 +272,7 @@
 						</li>
 						<li><a href="#">통계</a>
 						</li>
+
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -254,5 +280,7 @@
 			</div>
 			<!-- /container -->
 		</nav>
+
 		</c:if>
 		<!-- /NAVIGATION -->
+

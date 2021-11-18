@@ -1,3 +1,4 @@
+
 <%@page import="java.io.PrintStream"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isErrorPage="true"%>
@@ -25,4 +26,5 @@ div#error-container{text-align:center;}
 	</div>
 <c:import url="${pageContext.request.contextPath}/views/common/footer.jsp"/>
 </body>
+
 </html>
