@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class MypageController {
 
-	@RequestMapping("/myPage/myPage.do")
+	@RequestMapping("myPage/myPage.do")
 	public String myPage(
 			//@RequestParam String userId
 			//Model model
