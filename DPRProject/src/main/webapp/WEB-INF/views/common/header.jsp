@@ -1,6 +1,9 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <head>
 		<meta charset="utf-8">
@@ -25,14 +28,17 @@
 
 		<!-- Font Awesome Icon -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
-		<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css"/>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"/>
 
 		<!-- Custom stlylesheet -->
-		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css"/> 
-		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
+		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css"/>
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/common.css"/>
+		
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.min.js"></script>
-		<script src="${pageContext.request.contextPath }/resources/js/slick.min.js"></script>
+		
+		<!-- datepicker 사용 sources -->
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -47,14 +53,25 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-right">
-						<li><a href="#"><i class="fas fa-key"></i> 로그인</a></li>
-						<li><a href="#"><i class="fa fa-user-o"></i> 회원가입</a></li>
+					<c:if test="${empty seller && empty member}">
+						<li><a href="${pageContext.request.contextPath}/member/memberLoginView.do"><i class="fas fa-key"></i> 로그인</a></li>
+						<li><a href="${pageContext.request.contextPath}/member/memberSignUp.do"><i class="fa fa-user-o"></i> 회원가입</a></li>
+					</c:if>
+		   			<c:if test="${!empty seller}">
+		   				<li><i class="fa fa-user-o"></i><a>(seller) ${seller.sellerId} 님 안녕하세요.</a></li>
+		   				<li><i class="fas fa-sign-out-alt"></i><a href="${pageContext.request.contextPath}/seller/logout.do">로그아웃</a></li>
+		   			</c:if>
+		   			<c:if test="${!empty member}">
+		   				<li><i class="fa fa-user-o"></i><a>${member.userId} 님 안녕하세요.</a></li>
+		   				<li><i class="fas fa-sign-out-alt"></i><a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a></li>
+		   			</c:if>
 					</ul>
 				</div>
 			</div>
 			<!-- /TOP HEADER -->
 
 			<!-- MAIN HEADER -->
+			<c:if test="${empty seller}">
 			<div id="header">
 				<!-- container -->
 				<div class="container">
@@ -64,7 +81,7 @@
 						<div class="col-md-3">
 							<div class="header-logo">
 								<a href="#" class="logo">
-									<img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="">
+									<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="">
 								</a>
 							</div>
 						</div>
@@ -158,16 +175,16 @@
 		<!-- /HEADER -->
 
 		<!-- NAVIGATION -->
-		<nav id="navigation">
-			<!-- container -->
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					
-					<div id="menu">
-					
-					<ul class="main-nav nav navbar-nav">
+	    <nav id="navigation">
+	       <!-- container -->
+	       <div class="container">
+	          <!-- responsive-nav -->
+	          <div id="responsive-nav">
+	             <!-- NAV -->
+	             
+	             <div id="menu">
+	             
+	            <ul class="main-nav nav navbar-nav">
 						<li class="active"><a href="#">BEST</a></li>
 						<li><a href="${pageContext.request.contextPath}/product/clothes.do">의류</a>
 							<ul>
@@ -189,12 +206,53 @@
 						<li><a href="${pageContext.request.contextPath}/product/jewellery.do">쥬얼리</a></li>
 						<li><a href="${pageContext.request.contextPath}/product/clothes.do">SALES</a></li>
 					</ul>
-					</div>
-					</div>
+	             </div>
+	             </div>
+	               <!-- /NAV -->
+	            </div>
+	            <!-- /responsive-nav -->
+	         </div>
+	         <!-- /container -->
+	      </nav>
+	      <!-- /NAVIGATION -->
+		</c:if>
+		
+		<c:if test="${!empty seller}">
+		<nav id="navigation">
+			<!-- container -->
+			<div class="container">
+				<!-- responsive-nav -->
+				<div id="responsive-nav">
+					<!-- NAV -->
+					<ul class="main-nav nav navbar-nav">
+						<li class="active"><a href="#">HOME</a></li>
+						<li><a href="#">상품관리</a>
+							<ul>
+								<li><a href="${pageContext.request.contextPath}/seller/addProduct.do">상품 등록</a></li>
+								<li><a href="">상품 조회</a></li>
+								<li><a href="">상품 삭제</a></li>
+							</ul>
+						</li>
+						<li><a href="#">클레임관리</a>
+							<ul>
+								<li><a href="">문의 관리</a></li>
+								<li><a href="">리뷰 관리</a></li>
+							</ul>
+						</li>
+						<li><a href="#">정산조회</a>
+							<ul>
+								<li><a href="">판매 현황</a></li>
+								<li><a href="">정산 내역</a></li>
+							</ul>
+						</li>
+						<li><a href="#">통계</a>
+						</li>
+					</ul>
 					<!-- /NAV -->
 				</div>
 				<!-- /responsive-nav -->
 			</div>
 			<!-- /container -->
 		</nav>
+		</c:if>
 		<!-- /NAVIGATION -->
