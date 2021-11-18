@@ -1,3 +1,4 @@
+
 package com.kh.dpr.member.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,7 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public Member selectOneMember(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return memberDAO.selectOneMember(userId);
 	}
 
 	@Override
@@ -42,3 +42,4 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 }
+

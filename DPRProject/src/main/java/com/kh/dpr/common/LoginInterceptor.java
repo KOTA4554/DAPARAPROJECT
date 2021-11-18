@@ -6,19 +6,23 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+
 import com.kh.dpr.member.model.vo.Member;
+
 
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		
+
 		HttpSession session = request.getSession();
 		
 		Member loginMember = (Member)session.getAttribute("member");
 		
+
 		if(loginMember == null) {
+
 			
 			request.setAttribute("loc", "/");
 			request.setAttribute("msg", "로그인 후 이용해 주세요!");

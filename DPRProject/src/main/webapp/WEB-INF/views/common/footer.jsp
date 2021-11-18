@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -41,7 +42,11 @@
 								<h3 class="footer-title">Service</h3>
 								<ul class="footer-links">
 									<li><a href="#">장바구니</a></li>
-									<li><a href="#">마이페이지</a></li>
+
+
+									<li><a href="${pageContext.request.contextPath}/myPage/myPage.do">마이페이지</a></li>
+
+
 									<li><a href="#">이용약관</a></li>
 									<li><a href="#">전자 금융거래 약관</a></li>
 									<li><a href="#">개인정보 처리 방침</a></li>
@@ -60,4 +65,5 @@
 			</div>
 			<!-- /top footer -->
 		</footer>
+
 		<!-- /FOOTER -->

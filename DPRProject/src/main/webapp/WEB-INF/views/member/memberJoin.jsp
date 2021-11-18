@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -55,7 +56,7 @@ div#userId-container span.error, span.invalid {
 	<!-- SECTION -->
 	<div class="Section">
 		<!-- container -->
-		<div id="MemberJoin">
+		<div id="memberContainer">
 			<!-- row -->
 			<div class="row">
 
@@ -104,8 +105,7 @@ div#userId-container span.error, span.invalid {
 							<button type="button" onclick="searchAddress();">주소 검색</button>
 							<input class="input" type="text" name="searchAddr" id="searchAddr" placeholder="검색을 통해 주소를 입력하세요." disabled required>
 							<input class="input" type="text" name="detailAddr" id="detailAddr" placeholder="상세 주소를 입력하세요.">
-							<input class="input" type="text" name="userAddress" id="userAddress">
-							<!--  #userAddress에서 disable로 인한 DB 연결 실패 -->
+							<input class="input" type="text" name="userAddress" id="userAddress" disabled>
 						</div>
 						<div class="form-group">
 							<input class="input" type="tel" name="userPhone" 
@@ -119,8 +119,8 @@ div#userId-container span.error, span.invalid {
 					<input type="reset" class="btn cancel" value="취소"/>
 				
 				</form>
-				<!-- /row -->
-			</div>
+			</div> <!-- /row -->
+			</div> <!-- membercontainer -->
 			<!-- /container -->
 		</div>
 		<!-- /SECTION -->
@@ -238,7 +238,7 @@ div#userId-container span.error, span.invalid {
 					$("#userAddress").val(zipCode + " / " + searchAddr + " / " + detailAddr);
 				});
 			});
-			var check = false;
+			
 		    function searchAddress(){
 				new daum.Postcode({
 			        oncomplete: function(data) {
@@ -299,17 +299,6 @@ div#userId-container span.error, span.invalid {
 <c:import url="../common/footer.jsp" />
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

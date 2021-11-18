@@ -1,3 +1,4 @@
+
 package com.kh.dpr.member.model.dao;
 
 import com.kh.dpr.member.model.vo.Member;
@@ -14,3 +15,4 @@ public interface MemberDAO {
 	int checkIdDuplicate(String userId);
 
 }
+

@@ -1,3 +1,4 @@
+
 package com.kh.dpr.member.model.service;
 
 import com.kh.dpr.member.model.vo.Member;
@@ -15,3 +16,4 @@ public interface MemberService {
 	int checkIdDuplicate(String userId);
 
 }
+

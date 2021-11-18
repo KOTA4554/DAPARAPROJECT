@@ -1,3 +1,4 @@
+
 package com.kh.dpr.member.model.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -20,8 +21,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public Member selectOneMember(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("memberSQL.selectMember", userId);
 	}
 
 	@Override
@@ -42,3 +42,4 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 }
+
