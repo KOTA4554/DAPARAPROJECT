@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.dpr.board.model.dao.ProductDAO;
-import com.kh.dpr.board.model.vo.Product;
+import com.kh.dpr.product.model.vo.Product;
 
 @Service
 public class ProductServiceImpl implements ProductService {

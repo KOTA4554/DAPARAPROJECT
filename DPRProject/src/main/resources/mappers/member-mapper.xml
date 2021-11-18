@@ -4,7 +4,6 @@
 <mapper namespace="memberSQL">
 
 
-
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO "USER" VALUES( #{userId}, #{userPw}, #{userName}, #{userBirthDate}, #{userGender}, #{userAddress}, #{userPhone}, #{userEmail}, SYSDATE, 'Y', null)
 	</insert>

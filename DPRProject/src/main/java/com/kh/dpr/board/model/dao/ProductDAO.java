@@ -3,7 +3,7 @@ package com.kh.dpr.board.model.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.kh.dpr.board.model.vo.Product;
+import com.kh.dpr.product.model.vo.Product;
 
 public interface ProductDAO {
 

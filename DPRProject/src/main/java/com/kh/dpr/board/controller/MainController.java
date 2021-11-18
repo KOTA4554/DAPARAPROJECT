@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.kh.dpr.board.model.service.ProductService;
-import com.kh.dpr.board.model.vo.Product;
+import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.common.Utils;
 
 @Controller
