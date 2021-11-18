@@ -1,0 +1,112 @@
+@charset "UTF-8";
+  .first{
+            border : 1px solid black;
+            background : white;
+            width : 1889px;
+            height: 500px;
+            float:left;
+        }
+        .second{
+            border : 1px black;
+            background : white;
+            width : 1889px;
+            height: 500px;
+            float : left;
+        }
+        .third{
+            border : 1px black;
+            background : white;
+            width : 1889px;
+            height: 500px;
+            float : left;
+        }
+       
+        .float {
+            width : 1889px;
+            height: 1500px;
+            border : 3px solid ;
+            
+         }
+
+        
+         .a1{
+            display: block;
+            text-align: center;
+            background-color: white;
+            color: black;
+            font-size: 20pt;
+            padding: 4px 10px;
+        }
+        
+        .firstPar{
+           display:flex;
+           justify-content: center;
+        }
+
+        .container{
+            display:flex;
+            flex-direction: column;
+        }
+
+       
+        .first{
+           
+            width : 263px;
+            height: 409px;
+            border: 1px solid #aaa;
+            background-color: white;
+            margin-top : 50px;
+            margin-left:  20px;
+            margin-right: 20px;
+            margin-bottom : 50px;
+            
+
+            
+            
+        }
+        .second{
+           
+            width : 263px;
+            height: 409px;
+            border: 1px;
+            background-color: indianred;
+        }
+        .title{
+    
+            width : 1200px;
+            height: 50px;
+            border:1px;
+          	padding-top:60px;
+          	padding-bottom:25px;
+            
+            
+            
+            
+            
+        }
+
+        .product-img{
+            width: 250px;
+            height : 204px;
+            margin:15px;
+        }
+        .product-info{
+            width:250px;
+            height:40px;
+        }
+
+        .product-category{
+            width: 263px;
+            height:10px;
+            text-align: center;
+        }
+        .product-name{
+            width: 263px;
+            height:10px;
+            text-align: center;
+        }
+        .product-price{
+            width:263px;
+            height:10px;
+            text-align: center;
+        }
