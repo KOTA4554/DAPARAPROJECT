@@ -27,6 +27,7 @@
 		<footer>
 		<c:import url="views/common/footer.jsp"/>
 		</footer>
+
 		
 		<!-- jQuery Plugins -->
 		<script src="resources/js/jquery.min.js"></script>

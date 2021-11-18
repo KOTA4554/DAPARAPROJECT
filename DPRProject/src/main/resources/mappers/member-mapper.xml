@@ -4,7 +4,6 @@
 <mapper namespace="memberSQL">
 
 
-
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO "USER" VALUES( #{userId}, #{userPw}, #{userName}, #{userBirthDate}, #{userGender}, #{userAddress}, #{userPhone}, #{userEmail}, SYSDATE, 'Y', null)
 	</insert>
@@ -12,10 +11,12 @@
 	<select id="checkIdDuplicate" parameterType="string" resultType="int">
 		SELECT COUNT(*) FROM "USER" WHERE USERID = #{userId}
 	</select>
+
 	
 	<select id="selectMember" parameterType="string" resultType="Member">
 		SELECT * FROM "USER" WHERE USERID = #{userId}
 	</select>
 	
+
 
 </mapper>

@@ -1,3 +1,4 @@
+
 package com.kh.dpr.member.model.vo;
 
 import java.sql.Date;
@@ -30,3 +31,4 @@ public class Member {
 		this.userPw = userPw;
 	}
 }
+

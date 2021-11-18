@@ -1,5 +1,4 @@
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -30,6 +29,7 @@
 		<!-- Font Awesome Icon -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
+
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css"/>
 
 		<!-- Custom stlylesheet -->
@@ -50,6 +50,7 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 
+
 		
 		<!-- jQuery Plugins -->
 		<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
@@ -60,6 +61,7 @@
 		<script src="${pageContext.request.contextPath }/resources/js/main.js"></script>
 		
 
+
 </head>
 		<!-- HEADER -->
 		<header>
@@ -67,6 +69,7 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-right">
+
 
 					<c:if test="${empty seller && empty member}">
 						<li><a href="${pageContext.request.contextPath}/member/memberLoginView.do"><i class="fas fa-key"></i> 로그인</a></li>
@@ -86,9 +89,11 @@
 			</div>
 			<!-- /TOP HEADER -->
 
+
 			<!-- MAIN HEADER -->
 
 			<c:if test="${empty seller}">
+
 
 			<div id="header">
 				<!-- container -->
@@ -100,7 +105,9 @@
 							<div class="header-logo">
 								<a href="#" class="logo">
 
+
 									<img src="${pageContext.request.contextPath}/resources/img/logo.png" alt="">
+
 
 								</a>
 							</div>
@@ -124,7 +131,9 @@
 								<!-- Wishlist -->
 								<div>
 
+
 									<a href="${pageContext.request.contextPath}/myPage/myPage.do">
+
 
 										<i class="fas fa-user"></i>
 										<span>My Page</span>
@@ -198,6 +207,7 @@
 
 		<!-- NAVIGATION -->
 
+
 	    <nav id="navigation">
 	       <!-- container -->
 	       <div class="container">
@@ -242,6 +252,7 @@
 		
 		<c:if test="${!empty seller}">
 
+
 		<nav id="navigation">
 			<!-- container -->
 			<div class="container">
@@ -249,6 +260,7 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
+
 
 						<li class="active"><a href="#">HOME</a></li>
 						<li><a href="#">상품관리</a>
@@ -273,6 +285,7 @@
 						<li><a href="#">통계</a>
 						</li>
 
+
 					</ul>
 					<!-- /NAV -->
 				</div>
@@ -281,6 +294,8 @@
 			<!-- /container -->
 		</nav>
 
+
 		</c:if>
 		<!-- /NAVIGATION -->
+
 

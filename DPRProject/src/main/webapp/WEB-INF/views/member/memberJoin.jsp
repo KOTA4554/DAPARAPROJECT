@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -298,17 +299,6 @@ div#userId-container span.error, span.invalid {
 <c:import url="../common/footer.jsp" />
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -43,7 +43,9 @@
 								<ul class="footer-links">
 									<li><a href="#">장바구니</a></li>
 
+
 									<li><a href="${pageContext.request.contextPath}/myPage/myPage.do">마이페이지</a></li>
+
 
 									<li><a href="#">이용약관</a></li>
 									<li><a href="#">전자 금융거래 약관</a></li>
