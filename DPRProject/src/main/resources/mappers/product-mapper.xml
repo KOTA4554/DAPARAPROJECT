@@ -15,4 +15,6 @@
 	<select id="selectList" parameterType="int" resultType="Product">
 		SELECT * FROM PRODUCT  ORDER BY PRODUCTNO DESC
 	</select>
+	
+	
 </mapper>

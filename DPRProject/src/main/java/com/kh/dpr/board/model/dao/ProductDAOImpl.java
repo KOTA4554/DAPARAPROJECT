@@ -39,5 +39,6 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectList("product.selectList", maxpage);
 	}
 
+	
 
 }

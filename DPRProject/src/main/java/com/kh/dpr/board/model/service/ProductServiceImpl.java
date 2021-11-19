@@ -34,6 +34,6 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productDAO.seletList(maxpage);
 	}
-	
+
 	
 }

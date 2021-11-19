@@ -21,7 +21,7 @@ public class ReviewController {
 		
 		//model.addAttribute("detailNo", detailNo);
 		
-		return "review/reviewForm";
+		return "myPage/reviewForm";
 		//return null;
 	}
 	

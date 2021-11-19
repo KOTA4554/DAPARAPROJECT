@@ -61,20 +61,20 @@
 					<tr>
 						<td>이름 <p>*</p></td>
 						<td>
-							<input type="text" name="userId" id="userId" value="user01" hidden />
-							<input id="userName" name="userName" type="text" value="김철수">
+							<input type="text" name="userId" id="userId" value="${member.userId}" hidden />
+							<input id="userName" name="userName" type="text" value="${member.userName}">
 							<!-- ${ user.getUserName } -->
 						</td>
 					</tr>
 					<tr>
 						<td>이메일 <p>*</p></td>
-						<td><input id="userEmail" name="userEmail" type="text" value="user01@example.com"></td>
+						<td><input id="userEmail" name="userEmail" type="text" value="${member.userEmail}"></td>
 							<!-- ${ user.getUserEmail } -->
 					</tr>
 					<tr>
 						<td>휴대폰 <p>*</p></td>
 						<td>
-							<input type="tel" name="userPhone" class="phoneNumber" id="userPhone" value="010-1111-1111">
+							<input type="tel" name="userPhone" class="phoneNumber" id="userPhone" value="${member.userPhone}">
 							<!-- ${ user.getUserPhone } -->
 						</td>
 					</tr>
@@ -171,32 +171,34 @@
 					
 					<%-- <%for(int i = 0; int i < product.length; i++){ %> --%>
 					<tr>
-						<td rowspan="3" id="productImage"><img src="" alt="상품이미지"></td><!-- ${ product.getProductImage } -->
+						<td rowspan="3" id="productImage">
+							<img src="${pageContext.request.contextPath}/resources/img/${productImg}.jpg" width="120" height="120" alt="상품이미지">
+						</td><!-- ${ getProductImage } -->
 						<td style="padding-left: 5px; width:500px;">
-							<input type="text" name="productNo" value="1" hidden/>
-							<!-- ${ product.getProductNo } -->
-							<input type="text" name="sellerCompany" id ="sellerCompany" value="브랜드명" size="50" readonly/>
-							<!-- ${ seller.getSellerCompany } -->
+							<input type="text" name="productNo" value="${product.productNo}" hidden/>
+							<!-- ${ getProductNo } -->
+							<input type="text" name="sellerCompany" id ="sellerCompany" value="${sellerCompany}" size="50" readonly/>
+							<!-- ${ getSellerCompany } -->
 						</td>
 						<td rowspan="3" align="center">
-							<input type="text" name="productAmount" value="1" size="3" readonly/>
+							<input type="text" name="detailAmount" value="${detailAmount}" size="3" readonly/>
 							<!-- ${ productAmount } -->
 						</td>
 						<td rowspan="3" align="center">
-							<input type="text" name="detailPrice" value="400000" size="15" readonly/>
+							<input type="text" name="detailPrice" value="${detailPrice}" size="15" readonly/>
 							<!-- ${ detailPrice } -->
 						</td>
 						<td rowspan="3" align="center">무료</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 5px; width:500px;">
-							<input type="text" name="productName" value="상품명" size="50"  readonly/>
-							<!-- ${ product.getProductName } -->
+							<input type="text" name="productName" value="${product.productName}" size="50"  readonly/>
+							<!-- ${ getProductName } -->
 						</td>
 					</tr>
 					<tr>
 						<td style="padding-left: 5px; width:500px;">
-							옵션 : <input type="text" name="detailSize" value="L" size="50"  readonly/>
+							옵션 : <input type="text" name="detailSize" value="${detailSize}" size="50"  readonly/>
 							<!-- ${ detailSize } -->
 						</td>
 					</tr>
@@ -212,11 +214,11 @@
 						<th>최종 결제 금액</th>
 					</tr>
 					<tr>
-						<td><label id="orderPrice">400000</label> 원</td> <!-- ${ detailPrice } -->
+						<td><label id="orderPrice">${detailPrice}</label> 원</td> <!-- ${ detailPrice } -->
 						<td><i class="fas fa-plus"></i></td>
 						<td><label id="delCharge">0</label> 원</td>
 						<td><i class="fas fa-equals"></i></td>
-						<td><label id="totalPrice">400000</label> <span>원</span></td> <!-- ${ orderPrice + delCharge } -->
+						<td><label id="totalPrice">${detailPrice + 0}</label> <span>원</span></td> <!-- ${ orderPrice + delCharge } -->
 					</tr>
 				</table>
 			</div>
@@ -469,22 +471,16 @@ E-mail : inirm@inicis.com
 		$(document).on("keyup", ".phoneNumber", function() {
 			$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 			});
-
 	
-	
-		// 주문자 정보와 동일 값 넣기
-		//if($('#userAddr').is(":checked")) {
-			//$('#orderReceiver').val(${ user.getUserName });
-			//$('#orderPhone').val(${ user.getUserPhone });
-			//$('#postNo').val(${ user.get });
-			//$('#addr1').val(${ user.get });
-			//$('#addr2').val(${ user.get });
-		//}
-		var orderReceiver = '김철수';
-		var orderPhone = '010-1111-1111';
-		var postNo = '06234';
-		var addr1 = '서울 강남구 테헤란로14길 6 (역삼동, 남도빌딩)';
-		var addr2 = 'KH정보교육원'
+		// user 주소 분할
+		var userAddr = '${member.userAddress}'.split(' / ');
+		
+		// 수령인 정보
+		var orderReceiver = '${member.userName}';
+		var orderPhone = '${member.userPhone}';
+		var postNo = userAddr[0];
+		var addr1 = userAddr[1];
+		var addr2 = userAddr[2];
 		var orderAddress = postNo + '/' + addr1 + '/' + addr2;
 		
 		if($('#userAddr').is(":checked")) {	
@@ -550,16 +546,6 @@ E-mail : inirm@inicis.com
 	          }).open();          
 
 		}
-		
-/* 		$('#addr2').keyup(function(){
-			var text = $(this).val();
-			console.log(text);
-			
-			var addr = $('#orderAddress').val();
-			
-			$('#orderAddress').val(addr + text);
-			console.log(addr);
-		}); */
 		
 		// 결제 수단 선택
 		$('#noBankbookLabel').click(function(){
@@ -658,43 +644,14 @@ E-mail : inirm@inicis.com
 					pg : 'html5_inicis',
 					pay_method : 'card', // card : 신용카드 , vbank : 가상계좌
 					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : 'DAPARA 상품 결제',
+					name : '${product.productName}', // productName
 					amount : 100, //$('#totalPrice').val(),
-					buyer_email : 'user01@example.com', // ${ getUserEmail }.val(),
-					buyer_name : '김철수', 				// ${ getUserName }.val(),
-					buyer_tel : '010-1111-1111',		// ${ getUserPhone }.val(),
-					buyer_addr : '서울시 강남구 역삼동',		// ${ getUserAddress }.val(),
-					buyer_postcode : '01234'
+					buyer_email : '${member.userEmail}', // ${ getUserEmail }.val(),
+					buyer_name : '${member.userName}', 				// ${ getUserName }.val(),
+					buyer_tel : '${member.userPhone}',		// ${ getUserPhone }.val(),
+					buyer_addr : addr1 + addr2,		// ${ getUserAddress }.val(),
+					buyer_postcode : postNo
 				}, function(rsp) {
-					// if (rsp.success) {
-					// 	//[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
-					// 	$.ajax({
-					// 		url : "/api/orderconfirm.do", //cross-domain error가 발생하지 않도록 동일한 도메인으로 전송
-					// 		type : 'POST',
-					// 		dataType : 'json',
-					// 		data : {
-					// 			item : 'toy',
-					// 			code : 'P0001',
-					// 			quan : $('#quan').val(),
-					// 			imp_uid : rsp.imp_uid,
-					// 			pay_method : rsp.pay_method,
-					// 			price : rsp.paid_amount,
-					// 			status : rsp.status,
-					// 			title : rsp.name,
-					// 			pg_tid : rsp.pg_tid,
-					// 			buyer_name : rsp.buyer_name,
-					// 			paid_at : rsp.paid_at,
-					// 			receipt_url : rsp.receipt_url
-					// 		//기타 필요한 데이터가 있으면 추가 전달
-					// 		}
-					// 	});
-					// 	//성공시 이동할 페이지
-					// 	location.href="mainPage.html";
-					// } else {
-					// 	var msg = '결제에 실패하였습니다.';
-					// 	msg += '\n에러내용 : ' + rsp.error_msg;
-					// 	alert(msg);
-					// }
 					if (rsp.success) {
 						$('#orderForm').attr("action", "${pageContext.request.contextPath}/order/orderByCreditCard.do");
 						$('#orderForm').submit();
@@ -715,11 +672,11 @@ E-mail : inirm@inicis.com
 					pg : 'html5_inicis',
 					pay_method : 'vbank', // card : 신용카드 , vbank : 가상계좌
 					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : 'DAPARA 상품 결제',
+					name : 'DAPARA 상품 결제', // productName
 					amount : 100, //$('#totalPrice').val(),
-					buyer_email : 'user01@example.com', // ${ getUserEmail }.val(),
-					buyer_name : '김철수', 				// ${ getUserName }.val(),
-					buyer_tel : '010-1111-1111',		// ${ getUserPhone }.val(),
+					buyer_email : '${member.userEmail}', // ${ getUserEmail }.val(),
+					buyer_name : '${member.userName}',	// ${ getUserName }.val(),
+					buyer_tel : '${member.userPhone}',		// ${ getUserPhone }.val(),
 					buyer_addr : '서울시 강남구 역삼동',		// ${ getUserAddress }.val(),
 					buyer_postcode : '01234'
 				}, function(rsp) {

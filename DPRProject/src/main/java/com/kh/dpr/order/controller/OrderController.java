@@ -18,14 +18,39 @@ public class OrderController {
 	OrderService orderService;
 	
 	@RequestMapping("/order/order.do")
-	public String order(Product[] product,
-						@RequestParam(value="productAmount[]") int[] productAmount,
-						@RequestParam(value="detailPrice[]") int[] detailPrice,
-						@RequestParam(value="detailSize[]") String[] detailSize,
-						@RequestParam(value="sellerCompany[]") String[] sellerCompany, Model model) {
+	public String order(//Product[] product,
+						//@RequestParam(value="productImg[]") String[] productImg,
+						//@RequestParam(value="detailAmount[]") int[] detailAmount,
+						//@RequestParam(value="detailPrice[]") int[] detailPrice,
+						//@RequestParam(value="detailSize[]") String[] detailSize,
+						//@RequestParam(value="sellerCompany[]") String[] sellerCompany,
+						Model model) {
+		
+		// 임시데이터
+		Product product = new Product();
+		
+		product.setProductNo(2);
+		product.setCategoryNo2(1);
+		product.setSizeId(0);
+		product.setSellerId("seller01");
+		product.setProductId(111);
+		product.setProductName("구찌후드티");
+		product.setProductPrice(300000);
+		product.setProductAmount(20);
+		product.setProductStatus("Y");
+		product.setProductInfo("구찌구찌");
+		product.setProductContent("간지나는구찌");
+		product.setProductCount(0);
+		
+		int detailAmount = 1;
+		int detailPrice = 300000;
+		String detailSize = "L"; 
+		String sellerCompany = "GUCCI";
+		String productImg = "guccihoodie";
 		
 		model.addAttribute("product", product);
-		model.addAttribute("productAmount", productAmount);
+		model.addAttribute("productImg", productImg);
+		model.addAttribute("detailAmount", detailAmount);
 		model.addAttribute("detailPrice", detailPrice);
 		model.addAttribute("detailSize", detailSize);
 		model.addAttribute("sellerCompany", sellerCompany);

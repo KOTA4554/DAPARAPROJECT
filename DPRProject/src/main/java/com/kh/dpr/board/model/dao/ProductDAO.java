@@ -13,4 +13,5 @@ public interface ProductDAO {
 	int selectProductTotalContents();
 
 	List<Product> seletList(int maxpage);
+	
 }

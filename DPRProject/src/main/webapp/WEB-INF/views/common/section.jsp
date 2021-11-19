@@ -99,9 +99,7 @@
 		});
 	});
 
-
-
-
+	
 		
 		</script>
 		
@@ -362,7 +360,7 @@
 							<div class="products-tabs">
 								<!-- tab -->
 								<div id="tab2" class="tab-pane fade in active">
-									<div class="products-slick" data-nav="#slick-nav-2">
+									<div class="top4" data-nav="#slick-nav-2">
 										<!-- product -->
 										<div class="product">
 											<div class="product-img">
