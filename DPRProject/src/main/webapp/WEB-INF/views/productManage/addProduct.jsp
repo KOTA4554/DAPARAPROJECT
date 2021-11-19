@@ -47,7 +47,7 @@ table input[type="text"], select, input[type="number"] {
 	border: 1px solid #E4E7ED;
 	padding: 0px 5px;	
 }
-#productName {
+#productTitle {
 	width: 470px;
 }
 #productInfo{
@@ -136,6 +136,12 @@ textarea {
 	resize: none;
 	border: 1px solid lightgray;
 }
+#submitBtnArea {
+	display: flex;
+    margin-top: 30px;
+    margin-right: 100px;
+    justify-content: center;
+}
 
 </style>
 </head>
@@ -144,53 +150,54 @@ textarea {
 
 <div class="mainSectionForm">
 <h3>상품 등록</h3>
-<form action="">
-    <!-- sellerId 정보 hidden 으로 담아주기 -->
+<form action="${pageContext.request.contextPath}/seller/productInsert.do" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="sellerId" value="${seller.sellerId}"/>
+    <input type="hidden" id="productNo" name="productNo" value="${productNo}"/>
     <table border="0" id="mainTable">
         <th colspan="4" class="sectionTitles">상품 기본 정보</th>
         <tr>
             <th>상품명</th>
             <td>
-                <input type="text" name="productName" id="productName" placeholder="상품명을 입력하세요.">                
+                <input type="text" name="productTitle" id="productTitle" placeholder="상품명을 입력하세요." required>                
             </td>        
             <th style="width: 150px;">카테고리</th>
             <td>
                 <div id="categorySelects">
-                    <select name="categroyNo" id="categroyNo">
+                    <select name="categoryNo" id="categoryNo">
                         <option value="">대분류</option>
-                        <option value="">의류</option>
-                        <option value="">슈즈</option>
-                        <option value="">가방</option>
-                        <option value="">액세서리</option>
-                        <option value="">주얼리</option>
+                        <option value="0">의류</option>
+                        <option value="1">슈즈</option>
+                        <option value="2">가방</option>
+                        <option value="3">액세서리</option>
+                        <option value="4">주얼리</option>
                     </select>
-                    <select name="categroyNo2" id="categroyNo2">
+                    <select name="categoryNo2" id="categoryNo2">
                     	<option value="">소분류</option>
-                        <option value="">탑</option>
-                        <option value="">니트웨어</option>
-                        <option value="">셔츠/자켓</option>
-                        <option value="">셔츠</option>
-                        <option value="">수트</option>
-                        <option value="">팬츠</option>
-                        <option value="">언더웨어</option>
-                        <option value="">비치웨어</option>
-                        <option value="">기능성의류</option>
+                        <option value="1">탑</option>
+                        <option value="2">니트웨어</option>
+                        <option value="3">셔츠/자켓</option>
+                        <option value="4">셔츠</option>
+                        <option value="5">수트</option>
+                        <option value="6">팬츠</option>
+                        <option value="7">언더웨어</option>
+                        <option value="8">비치웨어</option>
+                        <option value="9">기능성의류</option>
                     </select>
                 </div>
             </td>
         </tr>
         <tr>
         	<th>상품설명</th>
-        	<td colspan="3"><textarea name="productInfo" id="productInfo" fixed></textarea></td>
+        	<td colspan="3"><textarea name="productInfo" id="productInfo" fixed required></textarea></td>
         </tr>
         <tr>
             <th>판매기간</th>
             <td colspan="3">
                 <div class="datePickerDiv">
-                	<input type="text" class="datepicker" name="productStartDate" id="startDate" placeholder="판매시작일">
+                	<input type="text" class="datepicker" name="productStartdate" id="startDate" placeholder="판매시작일" required>
                 	<input type="text" value="00:00:00" class="defaultTime" disabled>
                 	<span style="display: inline-block; margin: 0px 50px;"> ~ </span> 
-                	<input type="text" class="datepicker" name="productEndDate" id="endDate" placeholder="판매종료일">
+                	<input type="text" class="datepicker" name="productEnddate" id="endDate" placeholder="판매종료일" required>
                 	<input type="text" value="23:59:59" class="defaultTime" disabled>
                 </div>
             </td>
@@ -202,10 +209,11 @@ textarea {
             <td colspan="3">
 				<span style="display: inline-block; margin: 5px 0px; color:gray; font-size: 11px;">
 					사이즈 및 옵션 등록 <br />
-					 : 한 번 등록된 옵션은 삭제가 불가능합니다.
-				</span> 
+					 : 모든 옵션의 가격은 동일해야 합니다.
+				</span>
                 <button type="button" class="OptionBtns" onclick="delOptionRow();">선택 삭제</button>
                 <button type="button" class="OptionBtns" onclick="addOptionRow(this);" >옵션 추가</button>
+                <button type="button" class="OptionBtns" onclick="saveOption();" >옵션 저장</button>
                 
                 <table id="optionTable" style="width: 100%; margin:25px 0px; padding:5px;"  border="1">
                     <tr>
@@ -216,10 +224,10 @@ textarea {
                         <th class="optionTh" id="optionTh5">판매가격</th>
                         <th class="optionTh" id="optionTh6">판매수량</th>
                     </tr>
-                    <tr>
+                    <tr class="product-opt">
                         <td class="optionCheckbox" ><input type="checkbox" name="" id=""></td>
-                        <td class="optionNo"><span id="productNo">자동부여</span></td>
-                        <td><input type="text" class="optionProductName" name="" id="" readonly/></td>
+                        <td class="optionNo"><span class="productNo">자동반영</span></td>
+                        <td><input type="text" class="optionProductName" name="productName" id="" readonly/></td>
                         <td>
 	                        <select class="optionSize" name="sizeId" id="sizeId">
 	                        	<option value="0">XS</option>
@@ -244,21 +252,21 @@ textarea {
 	            	<div class="productImgSection">
 		            	<div class="productMainImg">
 			            	<img src="${pageContext.request.contextPath}/resources/img/addImage.png" alt="상품추가" id="mainImg"  width="555" height="555"/>
-			            	<input type="file" class="fileSelector" name="mainProductImg" id="mainProductImg" onchange="loadImg(this);"/>
+			            	<input type="file" class="fileSelector" name="mainImg" id="mainProductImg" onchange="loadImg(this);"/>
 		            	</div>
 	
 			            <div id="additionalImgSection">
 				            <div class="productAdditionalImg">
 				           		<img src="${pageContext.request.contextPath}/resources/img/addImage.png" alt="상품추가" class="optionalImg" width="245" height="175"/>
-					            <input type="file" class="fileSelector" name="optionalProductImg1" id="optionalProductImg1"  onchange="loadImg(this)"/>
+					            <input type="file" class="fileSelector" name="optionalImg" id="optionalProductImg1"  onchange="loadImg(this)"/>
 				            </div>
 				            <div class="productAdditionalImg">
 				            	<img src="${pageContext.request.contextPath}/resources/img/addImage.png" alt="상품추가" class="optionalImg" width="245" height="175"/>
-					            <input type="file" class="fileSelector" name="optionalProductImg2" id="optionalProductImg2"  onchange="loadImg(this)"/>
+					            <input type="file" class="fileSelector" name="optionalImg" id="optionalProductImg2"  onchange="loadImg(this)"/>
 				            </div>
 				            <div class="productAdditionalImg">
 				            	<img src="${pageContext.request.contextPath}/resources/img/addImage.png" alt="상품추가" class="optionalImg" width="245" height="175"/>
-					            <input type="file" class="fileSelector" name="optionalProductImg3" id="optionalProductImg3" onchange="loadImg(this)"/>
+					            <input type="file" class="fileSelector" name="optionalImg" id="optionalProductImg3" onchange="loadImg(this)"/>
 				            </div>
 			            </div>
 		            </div>
@@ -270,11 +278,11 @@ textarea {
         		<div id="contentImgSection">
 	        		<div class="productContentImg">
 	        			<img src="${pageContext.request.contextPath}/resources/img/addImage.png" alt="상품추가" class="contentImg" width="395" height="295"/>
-		        		<input type="file" class="fileSelector" name="contentProductImg1" id="contentProductImg1"  onchange="loadImg(this)"/>
+		        		<input type="file" class="fileSelector" name="contentImgs" id="contentProductImg1"  onchange="loadImg(this)"/>
 	        		</div>
 	        		<div class="productContentImg">
 	        			<img src="${pageContext.request.contextPath}/resources/img/addImage.png" alt="상품추가" class="contentImg" width="395" height="295"/>
-		        		<input type="file" class="fileSelector" name="contentProductImg2" id="contentProductImg2"  onchange="loadImg(this)"/>
+		        		<input type="file" class="fileSelector" name="contentImgs" id="contentProductImg2"  onchange="loadImg(this)"/>
 	        		</div>
         		</div>
         	</td>
@@ -286,33 +294,117 @@ textarea {
             </td>
         </tr>
     </table>
-    <button>등록</button>
-    <button>취소</button>
+    <div id="submitBtnArea">
+	    <input type="submit" id="submitBtn" value="혹시안되면" hidden/>
+	    <button class="primary-btn order-submit" type="button" id="confirmBtn" onclick="insertProduct();">등록</button>
+    </div>
 </form>
 </div>
 
 <c:import url="../common/footer.jsp"/>
 <script>
+	
+	function validate(){
+		
+		var validate = true;
+		var title = $('#productTitle').val(), info = $('#productInfo').val();
+		var startDate = $('#startDate').val(), endDate = $('#endDate').val();
+		var cate = $('#categoryNo').val(), cate2 = $('#categoryNo2').val();
+		var mainImg = $('#mainProductImg').val();
+		 
+		if(cate == "" || cate2 == ""){
+			alert("카테고리를 선택해주세요.");
+			validate = false;
+		} else if(info == ""){
+			alert("상품 설명을 입력해주세요. (상세 설명 제외)");
+			validate = false;
+		} else if(startDate > endDate || startDate == "" || endDate == ""){
+			alert("판매기간을 확인해주세요.");
+			validate = false;
+		} else if(!mainImg){
+			alert("메인 이미지를 추가해주세요.");
+			validate = false;
+		} 
+	
+		return validate;
+	}
+	
+	function insertProduct(){
+		
+		if(validate() == true){
+			saveOption();
+		} 
+	}
 
+	function saveOption(){
+		
+		var result;
+		
+		var productNo = Number($('#productNo').val());
+		console.log("productNo : " + productNo);
+		
+		var optionList = [];
+		$('.product-opt').each(function(){
+			var productName = $(this).find('.optionProductName').val();
+			var sizeId = Number($(this).find('.optionSize').val());
+			var productPrice = Number($(this).find('.optionPrice').val());
+			var productAmount = Number($(this).find('.optionAmount').val());
+			
+			var obj = {
+					productNo : productNo,
+					productName : productName,
+					sizeId : sizeId,
+					productPrice : productPrice,
+					productAmount : productAmount,
+				};
+			optionList.push(obj);
+		});
+		
+		console.log(optionList);
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/seller/optionInsert.do",
+			type: "post",
+			data: JSON.stringify(optionList),
+			contentType: "application/json; charset=UTF-8",
+			success: function(data){
+				console.log("전달 성공");
+				result = true;
+				$('#submitBtn').trigger("click");
+			},
+			error: function(error){
+				result = false;
+				console.log("전달 실패");
+				console.log(error);
+			},
+			async: false
+		});
+		
+		return result;
+	}
 
-	// 옵션명 반영
+	
+	// 옵션명 / 가격 반영
 	$(function(){
-		$('#productName').on("keyup", function(){
-			var productNm = $('#productName').val();
-			$('.optionProductName').val(productNm);
-		})
+		$('#productTitle').on("keyup", function(){
+			var productName = $('#productTitle').val();
+			$('.optionProductName').val(productName);
+		});
 	});
 	
 	
 	// 옵션 추가.삭제
-	function addOptionRow(tags){
+	function addOptionRow(btn){
 		console.log('클릭 확인');
+		var numRow = $('input[type="checkbox"]').length;
+		console.log(numRow);
 		
-		var origin = $(tags).next();
-		var originHtml = $(tags).next().html();
-		var newRow = '<tr>' +
+		var origin = $(btn).next().next();
+		console.log(origin);
+		var originHtml = $(btn).next().next().html();	// lastchild 에 추가해주기 //
+		var newRow = '<tr class="product-opt">' +
         				'<td class="optionCheckbox" ><input type="checkbox" name="" id=""></td>' +
-       					'<td class="optionNo"><span id="productNo">자동부여</span></td>' +
+       					'<td class="optionNo"><span class="productNo">자동반영</span></td>' +
         				'<td><input type="text" class="optionProductName" name="" id="" readonly/></td>' +
         				'<td>' +
             				'<select class="optionSize" name="sizeId" id="sizeId">' +
@@ -323,13 +415,13 @@ textarea {
 	            				'<option value="4">XL</option>' +
             				'</select>' +
         				'</td>' +
-				        '<td><input class="optionPrice" type="number" name="productPrice" id="productPrice" min="0" /></td>' +
+				        '<td><input class="optionPrice" type="number" name="productPrice" id="productPrice" min="0" readonly/></td>' +
 				        '<td><input class="optionAmount" type="number" name="productAmount" id="productAmount" min="0" /></td>' +
 				    '</tr>' + 
 				    '</tbody>' ;
 		
 		origin.html(originHtml.replace("</tbody>","") + newRow);
-		var productName = $('#productName').val();
+		var productName = $('#productTitle').val();
 		$('.optionProductName').val(productName);
 		
 	}
@@ -337,9 +429,17 @@ textarea {
 	function delOptionRow(){
 		var delRow = $('input[type="checkbox"]:checked').parent().parent();
 		delRow.replaceWith('');
+
+		var numRow = $('input[type="checkbox"]').length;
+		console.log(numRow);
+		 
+		for(i = 0; i < numRow; i++){
+			var rows = $('.productNo');
+			console.log(rows);
+			console.log(rows[i]);
+		} 
 	}
-	
-	
+
 	// 이미지 추가
 	$(function(){
 		$('.optionalImg, #mainImg, .contentImg').click(function(){
@@ -351,8 +451,6 @@ textarea {
 		
 	});
 
-	
-	
 	function loadImg(img){
 
 		if(img.files && img.files[0]){

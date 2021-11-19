@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="manageSQL">
+
+	<update id="insertProduct" parameterType="Product">
+		UPDATE PRODUCT_DETAIL SET CATEGORYNO2 = #{categoryNo2}, SELLERID = #{sellerId}, PRODUCTNAME = #{productName},
+												PRODUCTSTATUS = 'Y', PRODUCTINFO = #{productInfo},
+												PRODUCTSTARTDATE = #{productStartdate}, PRODUCTENDDATE = #{productEnddate},
+												PRODUCTCONTENT = #{productContent}, PRODUCTCOUNT = 0
+		WHERE PRODUCTNO = #{productNo}
+	</update>
+	
+	<insert id="insertImage" parameterType="ProductImage">
+		<!-- 이미 컨트롤러에서 지정 
+		<selectKey keyProperty="productNo" resultType="_int" order="BEFORE">
+			SELECT SEQ_BOARDNO.CURRVAL FROM DUAL		
+		</selectKey> 
+		-->
+		INSERT INTO PRODUCTIMAGE VALUES( SEQ_PRODUCTIMAGENO.NEXTVAL, #{productNo}, #{imageCategoryNo},
+										 #{productOldImage}, #{productNewImage} )
+	</insert>
+	
+	<insert id="insertTempProduct">
+		INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, 'Y', NULL,
+										   NULL, NULL, NULL, NULL )
+	</insert>
+	
+	<select id="selectTempProduct" resultType="int">
+		SELECT nvl(MAX(PRODUCTNO), 1) FROM PRODUCT_DETAIL
+	</select>
+	
+	<insert id="insertOption" parameterType="Product">
+		INSERT INTO PRODUCT_OPTION VALUES( SEQ_OPTIONNO.NEXTVAL, #{productNo}, #{sizeId}, #{productPrice}, #{productAmount}, 'Y')
+	</insert>
+	
+</mapper>
