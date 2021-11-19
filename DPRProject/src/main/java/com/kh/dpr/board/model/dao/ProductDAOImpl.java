@@ -39,5 +39,10 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectList("product.selectList", maxpage);
 	}
 
+	@Override
+	   public List<Product> seletListTop(int maxpage) {
+
+	      return sqlSession.selectList("product.selectListTop", maxpage);
+	   }
 
 }

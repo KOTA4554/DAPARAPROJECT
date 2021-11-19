@@ -35,7 +35,7 @@ public class MainController {
 			) {
 		
 		// 한 페이지당 게시글 수
-		int numPerPage = 10;
+		int numPerPage = 12;
 		
 		// 현재 페이지의 게시글 수
 		List<Map<String, String>> list = productService.selectProductList(cPage, numPerPage);
@@ -64,9 +64,6 @@ public class MainController {
 	public void ajaxMain(HttpServletResponse response) throws IOException {
 		
 		
-		
-		
-		
 		int maxpage = 4;
 		List<Product> product = productService.selectList(maxpage);
 		
@@ -82,10 +79,32 @@ public class MainController {
 			
 		}
 		
-	
-		
-		
 		
 	}
 	
+	
+	@RequestMapping(value="/top.do", method = RequestMethod.POST, produces = "application/text; charset=UTF-8")
+	   public void ajaxMain2(HttpServletResponse response) throws IOException {
+	      
+	      
+	      
+	      
+	      
+	      int maxpage = 4;
+	      List<Product> product = productService.selectListTop(maxpage);
+	      
+	      response.setContentType("application/json");
+	      response.setCharacterEncoding("UTF-8");
+	      new Gson().toJson(product, response.getWriter());
+
+	      System.out.println(product);
+	      
+	      if(product != null) {
+	         
+	      }else {
+	         
+	      }
+
+	
+}
 }

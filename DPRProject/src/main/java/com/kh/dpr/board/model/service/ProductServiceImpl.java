@@ -34,6 +34,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productDAO.seletList(maxpage);
 	}
+
+	@Override
+	   public List<Product> selectListTop(int maxpage) {
+	      // TODO Auto-generated method stub
+	      return productDAO.seletListTop(maxpage);
+	   }
 	
 	
 }

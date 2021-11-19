@@ -27,7 +27,7 @@
 							<div class="footer">
 								<h3 class="footer-title">Categories</h3>
 								<ul class="footer-links">
-									<li><a href="#">의류</a></li>
+									<li><a href="${pageContext.request.contextPath}/product/clothes.do">의류</a></li>
 									<li><a href="#">슈즈</a></li>
 									<li><a href="#">가방</a></li>
 									<li><a href="#">액세서리</a></li>
