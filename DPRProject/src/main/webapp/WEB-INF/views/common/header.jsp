@@ -57,7 +57,7 @@
 
 		
 		<!-- jQuery Plugins -->
-		<script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>
+		<!--  <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>-->
 		<script src="${pageContext.request.contextPath }/resources/js/bootstrap.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/js/slick.min.js"></script>
 		<script src="${pageContext.request.contextPath }/resources/js/nouislider.min.js"></script>
