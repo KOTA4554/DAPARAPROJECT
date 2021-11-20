@@ -23,4 +23,29 @@
       WHERE ROWNUM &lt; 5
    </select>
    
+   <select id="selectTopList" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT 
+		WHERE CATEGORYNO2 = 1
+		 ORDER BY PRODUCTNO DESC
+	</select>
+	 
+   <select id="selectKnitList" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT 
+		WHERE CATEGORYNO2 = 2
+		 ORDER BY PRODUCTNO DESC
+	</select>
+	
+	<select id="selectJacketList" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT 
+		WHERE CATEGORYNO2 = 3
+		 ORDER BY PRODUCTNO DESC
+	</select>
+	
+	<select id="selectSearchList" parameterType="string" resultType="Product">
+		SELECT * FROM PRODUCT 
+		WHERE  PRODUCTNAME like '%' ||  #{sresult} || '%'
+		 ORDER BY PRODUCTNO DESC
+	</select>
+	
+   
 </mapper>

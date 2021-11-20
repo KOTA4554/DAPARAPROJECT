@@ -16,6 +16,14 @@ public interface ProductService {
 
 	List<Product> selectListTop(int maxpage);
 
+	List<Map<String, String>> selectTopList(int cPage, int numPerPage);
+
+	List<Map<String, String>> selectKnitList(int cPage, int numPerPage);
+
+	List<Map<String, String>> selectJacketList(int cPage, int numPerPage);
+
+	List<Map<String, String>> selectSearchList(int cPage, int numPerPage, String sresult);
+
 	
 	
 	
