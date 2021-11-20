@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +32,7 @@
 					<div id="sideMenu">
 	
 						<div id="infoDiv">
-							<div>user01 님</div>
+							<div>${member.userId} 님</div>
 							<button type="button" id="myInfoBtn" onclick="goMyInfo();">회원정보 수정</button>
 						</div>
 	
@@ -104,45 +106,50 @@
 								</h3>
 							</div>
 	
-							<!--forEach-->
-							<div class="ordersArea">
-								<div class="orderAreaHead">
-									<p class="orderDate">2021.11.16</p> <!-- order.getOrderDate -->
-									<span class="orderNo">주문번호 : <span>00000</span></span> <!-- order.getOrderNo -->
-									<input type="hidden" name="detailNo" value="1" /> <!-- orderDetail.getDetailNo -->
+							<c:forEach var="order" items="${orderList}" varStatus="status">
+								<div class="ordersArea">
+									<div class="orderAreaHead">
+										<p class="orderDate">${order.orderDate}</p> <!-- order.getOrderDate -->
+										<span>주문번호 : <span class="orderNo">${order.orderNo}</span></span> <!-- order.getOrderNo -->
+										<input type="hidden" name="detailNo" id="detailNo" value="${orderDetailList[status.index].detailNo}" /> <!-- orderDetail.getDetailNo -->
+									</div>
+									<table class="orderTable">
+										<tr>
+											<td rowspan="4" class="productImg"><img src="" alt="상품이미지" width=100 height=100></td>
+											<td style="width : 450px; font-weight: bold;">
+												${sellerList[status.index].sellerCompany}
+												<input type="hidden" name="productNo" value="${orderDetailList[status.index].productNo}" /> <!-- orderDetail.getProductNo -->
+											</td>
+											<td rowspan="4" align="center" style="border-left: 1px solid lightgray;">
+												<p>${sellerList[status.index].sellerId}</p> <!-- seller.getSellerId -->
+												<p>${sellerList[status.index].sellerPhone}</p> <!-- seller.getSellerPhone -->
+												<button type="button" class="qnaBtn">문의하기</button>
+											</td>
+											<td rowspan="4" align="center" class="btnArea2">
+												<button type="button">배송 조회</button>
+												<button type="button">취소, 교환, 반품 신청</button>
+												<!-- processCode가 4 인 orderDetail일 경우 -->
+												<c:if test="${ orderDetailList[status.index].processCode == 4 }">
+													<button type="button">구매 확정</button>
+												</c:if>
+												<!-- processCode가 5 인 orderDetail일 경우 -->
+												<c:if test="${ orderDetailList[status.index].processCode == 1 }">
+													<button type="button" onclick="goReviewForm(${orderDetailList[status.index].detailNo});">리뷰 작성</button>
+												</c:if>
+											</td>
+										</tr>
+										<tr>
+											<td>${ prodNameList[status.index] }</td>
+										</tr>
+										<tr>
+											<td>옵션 : ${ orderDetailList[status.index].detailSize }</td>
+										</tr>
+										<tr>
+											<td>${ orderDetailList[status.index].detailPrice }원 ${ orderDetailList[status.index].detailAmount }개</td>
+										</tr>
+									</table>
 								</div>
-								<table class="orderTable">
-									<tr>
-										<td rowspan="4" class="productImg"><img src="" alt="상품이미지" width=100 height=100></td>
-										<td style="width : 450px; font-weight: bold;">
-											브랜드명
-											<input type="hidden" name="productNo" value="" /> <!-- orderDetail.getProductNo -->
-										</td>
-										<td rowspan="4" align="center" style="border-left: 1px solid lightgray;">
-											<p>판매자ID</p> <!-- seller.getSellerId -->
-											<p>02-111-1111</p> <!-- seller.getSellerPhone -->
-											<button type="button" class="qnaBtn">문의하기</button>
-										</td>
-										<td rowspan="4" align="center" class="btnArea2">
-											<button type="button">배송 조회</button>
-											<button type="button">취소, 교환, 반품 신청</button>
-											<!-- processCode가 4 인 orderDetail일 경우 -->
-											<button type="button">구매 확정</button>
-											<!-- processCode가 5 인 orderDetail일 경우 -->
-											<button type="button" onclick="goReviewForm(1);">리뷰 작성</button>
-										</td>
-									</tr>
-									<tr>
-										<td>상품명</td>
-									</tr>
-									<tr>
-										<td>옵션 : L</td>
-									</tr>
-									<tr>
-										<td>400000원 1개</td>
-									</tr>
-								</table>
-							</div>
+							</c:forEach>
 						</div>
 	
 					</div>

@@ -31,7 +31,7 @@
 					<div id="sideMenu">
 	
 						<div id="infoDiv">
-							<div>user01 님</div>
+							<div>${member.userId} 님</div>
 							<button type="button" id="myInfoBtn">회원정보 수정</button>
 						</div>
 	
