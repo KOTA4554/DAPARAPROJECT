@@ -8,11 +8,11 @@ import com.kh.dpr.product.model.vo.Product;
 public interface ProductService {
 
 
-	List<Map<String, String>> selectProductList(int cPage, int numPerPage);
+   List<Map<String, String>> selectProductList(int cPage, int numPerPage);
 
-	int selectProductTotalContents();
+   int selectProductTotalContents();
 
-	List<Product> selectList(int maxpage);
+   List<Product> selectList(int maxpage);
 
 	List<Product> selectListTop(int maxpage);
 
@@ -28,3 +28,4 @@ public interface ProductService {
 	
 	
 }
+
