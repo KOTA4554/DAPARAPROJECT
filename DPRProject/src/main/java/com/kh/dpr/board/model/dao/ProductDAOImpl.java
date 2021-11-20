@@ -45,4 +45,32 @@ public class ProductDAOImpl implements ProductDAO {
 	      return sqlSession.selectList("product.selectListTop", maxpage);
 	   }
 
+	@Override
+	public List<Map<String, String>> selectTopList(int cPage, int numPerPage) {
+		
+		RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
+		return sqlSession.selectList("product.selectTopList", null, rows);
+	}
+
+	@Override
+	public List<Map<String, String>> seletKnitList(int cPage, int numPerPage) {
+		
+		RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
+		return sqlSession.selectList("product.selectKnitList", null, rows);
+	}
+
+	@Override
+	public List<Map<String, String>> selectJacketList(int cPage, int numPerPage) {
+
+		RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
+		return sqlSession.selectList("product.selectJacketList", null, rows);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSearchList(int cPage, int numPerPage, String sresult) {
+
+		RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
+		return sqlSession.selectList("product.selectSearchList", sresult, rows);
+	}
+
 }

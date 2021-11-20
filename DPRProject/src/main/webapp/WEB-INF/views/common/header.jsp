@@ -122,8 +122,15 @@
 						<div class="col-md-6">
 							<div class="header-search">
 								<form>
-									<input class="input" placeholder="검색어를 입력하세요.">
-									<button class="search-btn">Search</button>
+									<input class="input" id= sresult2 type="text" placeholder="상품명을 입력하세요." name="sresult">
+									<button type="button" onclick="search2();" class="search-btn" >Search</button>
+									<script>
+									function search2(){
+										var a = $("#sresult2").val();
+										location.href="${pageContext.request.contextPath}/product/search.do?sresult=" + a ;
+									}
+									
+									</script>
 								</form>
 							</div>
 						</div>

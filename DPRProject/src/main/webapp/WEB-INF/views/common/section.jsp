@@ -26,6 +26,7 @@ $(function(){
                 var product = data[i];
                 result //+= '<div class="products-slick" data-nav="#slick-nav-' + i + '">'
                     += '<div class="product">'
+                    +'<input type="hidden" name="productNo" >' + product.productNo + '</input>'
                     + '<div class="product-img">'
                     + '<img src="resources/img/product01.png" alt="">'
                     + '<div class="product-label">'

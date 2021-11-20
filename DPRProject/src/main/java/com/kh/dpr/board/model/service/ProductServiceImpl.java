@@ -37,9 +37,33 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	   public List<Product> selectListTop(int maxpage) {
-	      // TODO Auto-generated method stub
+	  
 	      return productDAO.seletListTop(maxpage);
 	   }
+
+	@Override
+	public List<Map<String, String>> selectTopList(int cPage, int numPerPage) {
+		
+		return productDAO.selectTopList(cPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> selectKnitList(int cPage, int numPerPage) {
+		
+		return productDAO.seletKnitList(cPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> selectJacketList(int cPage, int numPerPage) {
+
+		return productDAO.selectJacketList(cPage,numPerPage);
+	}
+
+	@Override
+	public List<Map<String, String>> selectSearchList(int cPage, int numPerPage, String sresult) {
+		
+		return productDAO.selectSearchList(cPage,numPerPage,sresult);
+	}
 	
 	
 }
