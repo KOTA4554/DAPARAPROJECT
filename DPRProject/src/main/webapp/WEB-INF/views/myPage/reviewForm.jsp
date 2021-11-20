@@ -69,19 +69,20 @@
 							<table class="productTable">
 								<tr>
 									<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath }/resources/img/guccihoodie.jpg" alt="상품이미지" width=100 height=100></td>
-									<td style="width : 450px; font-weight: bold; padding-left: 13px;">GUCCI</td>
+									<td style="width : 450px; font-weight: bold; padding-left: 13px;">${ sellerCompany }</td>
 								</tr>
 								<tr>
-									<td style="padding-left: 13px;">GUCCI Hoodie</td>
+									<td style="padding-left: 13px;">${ product.productName }</td>
 								</tr>
 								<tr>
-									<td style="padding-left: 13px;">옵션 : L</td>
+									<td style="padding-left: 13px;">옵션 : ${ sizeName }</td>
 								</tr>
 							</table>
 						</div>
 
-						<form action="" id="reviewForm" method="post" onsubmit="return validate();" enctype="multipart/form-data">
-							<input type="hidden" name="detailNo" value="1">
+						<form action="${pageContext.request.contextPath}/review/reviewInsert.do" id="reviewForm" method="post" onsubmit="return validate();" enctype="multipart/form-data">
+							<input type="hidden" name="detailNo" value="${ detailNo }">
+							<input type="hidden" name="userId" value="${ member.userId }">
 							<div id="starArea">
 								<span class="text">별점</span>
 								<i class="fas fa-star"></i>
@@ -117,7 +118,7 @@
 							<div class="fileArea" id="fileArea">
 								<!-- 첨부할 사진 추가 영역 -->
 								<!-- (input:file#thumbnailImg[name=thumbnailImg onchange=loadImg(this, )])*4 -->
-								<input type="file" name="image" id="image" onchange="loadImg(this,1);" />
+								<input type="file" name="upFile" id="upFile" onchange="loadImg(this,1);" multiple />
 								
 							</div>
 
@@ -143,7 +144,7 @@
 	// 사진 미리보기
 	$(function(){
 		$('#imgInput').click(function(){
-			$('#image').click();
+			$('#upFile').click();
 		});
 	
 		$('#fileArea').hide();
