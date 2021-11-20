@@ -181,7 +181,7 @@ padding-left: 20px;
 </head>
 <body>
 	<c:import url="../common/header.jsp"/>
-    <div style="padding-left: 17%; padding-top: 100px; padding-right: 17%;">
+    <div style="padding-left: 20%; padding-top: 42px; padding-right: 20%;">
         <div id="section-header" ">
             <h2 id="orderTitle">
                 <i class="fas fa-shopping-cart"></i>

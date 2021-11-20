@@ -25,7 +25,7 @@ $(function(){
             for(var i in data){
                 var product = data[i];
                 result //+= '<div class="products-slick" data-nav="#slick-nav-' + i + '">'
-                    += '<div class="product">'
+                    +='<div class="product">'
                     + '<div class="product-img">'
                     + '<img src="resources/img/product01.png" alt="">'
                     + '<div class="product-label">'
@@ -33,7 +33,7 @@ $(function(){
                     + '</div></div>'
                     + '<div class="product-body">'
                     + '<p class="product-category">' + product.categoryNo + '</p>'
-                    + '<h3 class="product-name"><a href="#">' + product.productName + '</a></h3>'
+                    + '<h3 class="product-name"><a href="<%=request.getContextPath()%>/prod_detail.do?prodNo='+product.productNo +'">' + product.productName + '</a></h3>'
                     + '<h4 class="product-price">' + product.productPrice + '</h4>'
                     + '<div class="product-rating"></div>'
                     + '<div class="product-btns"></div></div>'

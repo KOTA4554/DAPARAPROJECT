@@ -11,6 +11,7 @@
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title>DAPARA : 상품 상세보기</title>
+		
 
  		<!-- Google font -->
  		<link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
@@ -38,20 +39,14 @@
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 		<![endif]-->
 		
-			<!-- jQuery Plugins -->
-<script src="${pageContext.request.contextPath}js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath}js/nouislider.min.js"></script>
-<script src="${pageContext.request.contextPath}js/jquery.zoom.min.js"></script>
-<script src="${pageContext.request.contextPath}js/main.js"></script>
+		
 		
 
 		<script src="https://kit.fontawesome.com/c10cbac54f.js" crossorigin="anonymous"></script>
 
     </head>
 	<body>
-			<c:import url="../common/header.jsp"/>
+		<c:import url="../common/header.jsp"/>
 		<!-- BREADCRUMB -->
 		<div id="breadcrumb" class="section">
 			<!-- container -->
@@ -60,9 +55,57 @@
 				<div class="row">
 					<div class="col-md-12">
 						<ul class="breadcrumb-tree">
-							<li><a href="#">Home</a></li>
-							<li><a href="#">의류</a></li>
-							<li class="active">명품 그 자체! 발렌시아가 후드티!</li>
+							<li><a href="${pageContext.request.contextPath}/">Home</a></li>
+							<li>
+							<c:if test="${prod.categoryNo2 < 10}">
+							<a href="#">의류</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 > 10}">
+							<a href="#">몰랑</a>
+							</c:if>
+						</li>
+						<li>
+						<c:if test="${prod.categoryNo2 == 1}">
+							<a href="#">탑</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 2}">
+							<a href="#">니트웨어</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 3}">
+							<a href="#">셔츠/자켓</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 4}">
+							<a href="#">셔츠</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 5}">
+							<a href="#">수트</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 6}">
+							<a href="#">팬츠</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 7}">
+							<a href="#">언더웨어</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 8}">
+							<a href="#">비치웨어</a>
+							</c:if>
+							
+							<c:if test="${prod.categoryNo2 == 9}">
+							<a href="#">기능성의류</a>
+							</c:if>
+							
+						</li>
+						
+						
+							<li class="active">${prod.productName}</li>
 						</ul>
 					</div>
 				</div>
@@ -124,17 +167,20 @@
 
 					<!-- Product details -->
 					<div class="col-md-5">
-						<div class="product-details">
-							<h2 class="product-name">명품 그 자체! 발렌시아가 후드티!</h2>
+						<div class="product-details" style ="height: 458px; display: flex; flex-direction: column; justify-content: space-between;">
+						<div>
+							<h2 class="product-name">${prod.productName}</h2>
 							<div>
 								
 								<a class="review-link" href="#">10개의 리뷰가 있습니다! </a>
 							</div>
 							<div>
-								<h3 class="product-price">399,900원 <del class="product-old-price"></del></h3>
+								<h3 class="product-price">${prod.productPrice}원 <del class="product-old-price"></del></h3>
 							</div>
-							<p>상품설명은 이곳에 들어가게 됩니다 이 후드티는 좀 따뜻한데 금방 헤질거같고 좀 구립니다. 대신 가격이 많이 비쌉니다 비싸고 따뜻해요 많이 사가세요 명품인척 하고있습니다. 길게보이려고 아무말이나 쓰는중입니다. 로렘입섬 찾아도 되는데 그냥 이편이 조금이라도 덜  귀찮은거같습니다. 잠이옵니다. 모든걸 내려놓고 한숨 푹 자고싶습니다 라는 생각을 뒤로하고 담배를 물며 버텨봅니다</p>
-
+							<p>${prod.productInfo}</p>
+							</div>
+							
+							<div>
 							<div class="product-options">
 								<label>
 									사이즈 
@@ -168,16 +214,11 @@
 
 							<ul class="product-links">
 								<li>카테고리 :</li>
-								<li><a href="#">의류</a></li></ul>
+								<li><c:if test="${prod.categoryNo2 < 10}">
+							<label>의류</label>
+							</c:if></li></ul>
 
-							<ul class="product-links">
-								<li>공유하기 :</li>
-								<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i></a></li>
-							</ul>
-
+						</div>
 						</div>
 					</div>
 					<!-- /Product details -->
@@ -199,7 +240,7 @@
 								<div id="tab1" class="tab-pane fade in active">
 									<div class="row">
 										<div class="col-md-12">
-											<p>이곳에는 판매자가 게시하는 상세정보 사진이 들어가게됩니다.</p>
+											<p>${prod.productContent}</p>
 										</div>
 									</div>
 								</div>
@@ -436,13 +477,13 @@
 		<!-- /Section -->
 
 		
-	<c:import url="../common/footer.jsp"/>
+	 <c:import url="../common/footer.jsp"/> 
 		
 	
 
 	</body>
 	
-	<script>
+<!-- 	<script>
 	
 	
 
@@ -478,7 +519,16 @@
 	
 	
 	</script>
-	
+ -->	
+ 
+ 	<!-- jQuery Plugins -->
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/nouislider.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.zoom.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+ 
 	
 	
 </html>
