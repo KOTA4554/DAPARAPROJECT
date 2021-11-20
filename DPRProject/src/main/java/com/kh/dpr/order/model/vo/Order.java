@@ -16,7 +16,7 @@ import lombok.ToString;
 @Data
 @ToString
 public class Order implements Serializable{
-	private int oderNo;
+	private int orderNo;
 	private String userId;
 	private Date orderDate;
 	private String[] orderAddress;

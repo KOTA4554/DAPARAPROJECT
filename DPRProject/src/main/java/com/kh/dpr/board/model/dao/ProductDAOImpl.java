@@ -15,29 +15,29 @@ import com.kh.dpr.product.model.vo.Product;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
-	@Inject
-	SqlSessionTemplate sqlSession;
-	
+   @Inject
+   SqlSessionTemplate sqlSession;
+   
 
-	@Override							
-	public List<Map<String, String>> selectProductList(int cPage, int numPerPage) {
-		// 데이터베이스에서 특정 갯수의 행만 가져오는 객체
-		RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
-		
-		return sqlSession.selectList("product.selectProductList", null, rows);
-	}
+   @Override                     
+   public List<Map<String, String>> selectProductList(int cPage, int numPerPage) {
+      // 데이터베이스에서 특정 갯수의 행만 가져오는 객체
+      RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
+      
+      return sqlSession.selectList("product.selectProductList", null, rows);
+   }
 
-	@Override
-	public int selectProductTotalContents() {
-		
-		return sqlSession.selectOne("product.selectProductTotalContents");
-	}
+   @Override
+   public int selectProductTotalContents() {
+      
+      return sqlSession.selectOne("product.selectProductTotalContents");
+   }
 
-	@Override
-	public List<Product> seletList(int maxpage) {
-		
-		return sqlSession.selectList("product.selectList", maxpage);
-	}
+   @Override
+   public List<Product> seletList(int maxpage) {
+      
+      return sqlSession.selectList("product.selectList", maxpage);
+   }
 
 	@Override
 	   public List<Product> seletListTop(int maxpage) {
