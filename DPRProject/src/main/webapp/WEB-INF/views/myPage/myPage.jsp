@@ -127,10 +127,8 @@
 											</td>
 											<td rowspan="4" align="center" class="btnArea2">
 												<button type="button">배송 조회</button>
-												
 												<button type="button" onclick="goClaim(${orderDetailList[status.index].productNo});">취소, 교환, 반품 신청</button>
 												<!-- processCode가 4 인 orderDetail일 경우 -->
-												
 												<c:if test="${ orderDetailList[status.index].processCode == 4 }">
 													<button type="button">구매 확정</button>
 												</c:if>

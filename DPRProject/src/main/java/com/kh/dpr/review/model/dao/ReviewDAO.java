@@ -1,9 +1,9 @@
-package com.kh.dpr.review.model.service;
+package com.kh.dpr.review.model.dao;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.review.model.vo.Review;
 
-public interface ReviewService {
+public interface ReviewDAO {
 	
 	Product selectProduct(int detailNo);
 	

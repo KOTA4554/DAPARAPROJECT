@@ -13,21 +13,21 @@ import com.kh.dpr.product.model.vo.Product;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	
-	@Inject
-	ProductDAO productDAO;
+   
+   @Inject
+   ProductDAO productDAO;
 
-	@Override
-	public List<Map<String, String>> selectProductList(int cPage, int numPerPage) {
-		
-		return productDAO.selectProductList(cPage, numPerPage);
-	}
+   @Override
+   public List<Map<String, String>> selectProductList(int cPage, int numPerPage) {
+      
+      return productDAO.selectProductList(cPage, numPerPage);
+   }
 
-	@Override
-	public int selectProductTotalContents() {
-		
-		return productDAO.selectProductTotalContents();
-	}
+   @Override
+   public int selectProductTotalContents() {
+      
+      return productDAO.selectProductTotalContents();
+   }
 
 	@Override
 	public List<Product> selectList(int maxpage) {
@@ -67,3 +67,4 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 }
+

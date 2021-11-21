@@ -18,14 +18,39 @@ public class OrderController {
 	OrderService orderService;
 	
 	@RequestMapping("/order/order.do")
-	public String order(Product[] product,
-						@RequestParam(value="productAmount[]") int[] productAmount,
-						@RequestParam(value="detailPrice[]") int[] detailPrice,
-						@RequestParam(value="detailSize[]") String[] detailSize,
-						@RequestParam(value="sellerCompany[]") String[] sellerCompany, Model model) {
+	public String order(//Product[] product,
+						//@RequestParam(value="productImg") String[] productImg,
+						//@RequestParam(value="detailAmount") int[] detailAmount,
+						//@RequestParam(value="detailPrice") int[] detailPrice,
+						//@RequestParam(value="detailSize") String[] detailSize,
+						//@RequestParam(value="sellerCompany") String[] sellerCompany,
+						Model model) {
+		
+		// 임시데이터
+		Product product = new Product();
+		
+		product.setProductNo(13);
+		product.setCategoryNo2(3);
+		product.setSizeId(0);
+		product.setSellerId("seller01");
+		product.setProductId(122);
+		product.setProductName("지방시셔츠");
+		product.setProductPrice(900000);
+		product.setProductAmount(99);
+		product.setProductStatus("Y");
+		product.setProductInfo("지오지방시");
+		product.setProductContent("지오지방시가입은지방시셔츠");
+		product.setProductCount(1);
+		
+		int detailAmount = 1;
+		int detailPrice = 300000;
+		String detailSize = "L"; 
+		String sellerCompany = "GUCCI";
+		String productImg = "guccihoodie";
 		
 		model.addAttribute("product", product);
-		model.addAttribute("productAmount", productAmount);
+		model.addAttribute("productImg", productImg);
+		model.addAttribute("detailAmount", detailAmount);
 		model.addAttribute("detailPrice", detailPrice);
 		model.addAttribute("detailSize", detailSize);
 		model.addAttribute("sellerCompany", sellerCompany);
@@ -37,7 +62,7 @@ public class OrderController {
 	@RequestMapping("/order/orderByCreditCard.do")
 	public String orderByCreditCard(Order order,
 									@RequestParam int[] productNo,
-									@RequestParam int[] productAmount,
+									@RequestParam int[] detailAmount,
 									@RequestParam int[] detailPrice,
 									@RequestParam String[] detailSize, Model model) {
 		
@@ -59,7 +84,7 @@ public class OrderController {
 				orderDetail = new OrderDetail();
 				
 				orderDetail.setProductNo(productNo[i]);
-				orderDetail.setDetailAmount(productAmount[i]);
+				orderDetail.setDetailAmount(detailAmount[i]);
 				//orderDetail.setDetailPrice(productAmount[i] * productId[i].getProductPrice());
 				orderDetail.setDetailPrice(detailPrice[i]);
 				orderDetail.setDetailSize(detailSize[i]);
