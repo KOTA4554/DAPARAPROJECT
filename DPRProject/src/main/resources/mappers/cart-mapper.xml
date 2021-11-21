@@ -12,6 +12,12 @@ INSERT INTO "CART" VALUES(#{userId},#{productNo},#{cartAmount},#{sizeName},#{sel
 SELECT * FROM CART WHERE USERID = #{userId}
 </select>	
 
+<update id="changeAmountP" parameterType="Cart">
+UPDATE CART SET CARTAMOUNT = CARTAMOUNT+1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
+</update>
 
+<update id="changeAmountM" parameterType="Cart">
+UPDATE CART SET CARTAMOUNT = CARTAMOUNT-1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
+</update>
 
 </mapper>

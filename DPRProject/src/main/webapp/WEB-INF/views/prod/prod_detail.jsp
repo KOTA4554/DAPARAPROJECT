@@ -212,7 +212,6 @@
 							
 								<button onclick="addcartbtn();" type="button" class="add-to-cart-btn" id="addcart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기 </button>
 								<button type="button" class="add-to-cart-btn"><i class="far fa-credit-card"></i></i></i></i>&nbsp;&nbsp;즉시 구매하기&nbsp;&nbsp;</button>
-						
 							</div>
 
     <c:if test="${member eq null}"> 
