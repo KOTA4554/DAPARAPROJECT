@@ -20,7 +20,7 @@
 	
     <!--div{$번째 영역}*3-->
     <div class="title">
-    <h3>의류</h3>    
+    <h3>검색 결과</h3>    
     </div>
     
     <div class="firstPar">
@@ -56,7 +56,7 @@
    <div class="container">
 	
     <!--div{$번째 영역}*3-->
-    
+   
     
     <div class="firstPar">
     <c:forEach var="row" begin="4" end="7" items="${list}">
@@ -91,7 +91,7 @@
     <div class="container">
 	
     <!--div{$번째 영역}*3-->
-    
+  
     
     <div class="firstPar">
     <c:forEach var="row" begin="8" end="11" items="${list}">

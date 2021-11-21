@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>의류</title>
+<title>의류 - 탑 </title>
 	<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 </head>
 <body>
@@ -20,7 +20,7 @@
 	
     <!--div{$번째 영역}*3-->
     <div class="title">
-    <h3>의류</h3>    
+    <h3>자켓</h3>    
     </div>
     
     <div class="firstPar">
