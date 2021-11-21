@@ -24,7 +24,6 @@ public class Claim {
 	    private int claimCode;
 	    private String claimContent;
 	    private Date claimDate;
-	    private String claimImage;
 	    private Date CompleteClaim;
 	   
 	

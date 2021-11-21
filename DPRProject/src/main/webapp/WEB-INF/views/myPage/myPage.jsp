@@ -178,7 +178,7 @@
 		}
 		
 		function goClaim(productNo){
-			location.href="${page.Context.request.contextPath}/claim/claim.do?productNo=" + productNo + "";
+			location.href="${pageContext.request.contextPath}/claim/claim.do?productNo=" + productNo + "";
 		}
 		
 	</script>	
