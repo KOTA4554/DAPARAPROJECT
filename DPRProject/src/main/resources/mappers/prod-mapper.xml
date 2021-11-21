@@ -7,6 +7,12 @@
 		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{prodNo}
 	</select>
 	
+	<select id="selectSeller" parameterType="int" resultType="Seller">
+		SELECT * FROM SELLER WHERE SELLERID IN (SELECT SELLERID FROM PRODUCT WHERE PRODUCTNO = #{prodNo})
+	</select>
+	
+	
+	
    <update id="viewcount" parameterType="int" >
         UPDATE PRODUCT_DETAIL SET PRODUCTCOUNT = PRODUCTCOUNT+1 WHERE PRODUCTNO = #{prodNo}
    </update>

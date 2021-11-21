@@ -180,35 +180,84 @@
 							<p>${prod.productInfo}</p>
 							</div>
 							
+							<form id="order">
 							<div>
 							<div class="product-options">
 								<label>
 									사이즈 
-									<select class="input-select">
-										<option value="0">XS</option>
-										<option value="1">S</option>
-										<option value="2">M</option>
-										<option value="3">L</option>
-										<option value="4">XL</option>
+									<select name="sizeName" class="input-select" id="sizeName">
+										<option value="XS">XS</option>
+										<option value="S">S</option>
+										<option value="M">M</option>
+										<option value="L">L</option>
+										<option value="XL">XL</option>
 									</select>
 								</label>
 							
 								<div class="qty-label">
 									수량
 									<div class="input-number">
-										<input type="number" value="1" id="prodqty">
+										<input name="cartAmount" type="number" value="1" id="prodqty">
 										<span class="qty-up">+</span>
 										<span class="qty-down">-</span>
 									</div>
 								</div>
 							</div>
+							<input type="hidden" name="userId" value="${member.userId}"/>							
+							<input type="hidden" name="productNo" value="${prod.productNo}"/>
+							<input type="hidden" name="sellerCompany" value="${seller2.sellerCompany}" />
+							</form>
 
 							<div class="add-to-cart">
 							
-								<button class="add-to-cart-btn" id="addcart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기 </button>
-								<button class="add-to-cart-btn"><i class="far fa-credit-card"></i></i></i></i>&nbsp;&nbsp;즉시 구매하기&nbsp;&nbsp;</button>
+								<button onclick="addcartbtn();" type="button" class="add-to-cart-btn" id="addcart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기 </button>
+								<button type="button" class="add-to-cart-btn"><i class="far fa-credit-card"></i></i></i></i>&nbsp;&nbsp;즉시 구매하기&nbsp;&nbsp;</button>
 						
 							</div>
+
+    <c:if test="${member eq null}"> 
+    <script>
+    function addcartbtn(){
+	 alert("로그인 하셔야합니다.");
+	 } 
+    </script>
+    </c:if>
+	 <c:if test="${member ne null}"> 
+	 
+	 <script>
+
+	function addcartbtn(){
+	
+		var params ={
+				
+				userId : "${member.userId}",
+				productNo : "${prod.productNo}",
+                cartAmount : $("#prodqty").val(),
+				sizeName : $("#sizeName").val(),
+				sellerCompany : "${seller2.sellerCompany}" 	
+		};
+
+	 $.ajax({
+		 url : "/dpr/addcart.do",
+		 type: 'post',
+		 data : params,
+		 success : function(data) {
+			 
+		 if (data == '1') {
+				 alert("장바구니에 등록되었습니다.");
+			 } else {
+				 alert("장바구니 등록에 실패하였습니다..");
+			 }
+		 }, error : function( code ) {
+			 alert("장바구니 등록에 실패하였습니다..");
+		 }
+	 });
+
+	}
+	
+	</script>
+	</c:if>
+	 
 
 					
 
@@ -483,43 +532,7 @@
 
 	</body>
 	
-<!-- 	<script>
-	
-	
 
-    $('#addcart').on('click', function(){
-    	
-		
-		var params ={
-				userId : // jstl로 세션에서 유저아이디 받아오기 $("#userID").val(),
-				qty : $("#prodqty").val()
-				prodno : // 제품에서 받아온 객체에서 productno 받아오기
-				
-   	 
-   
-		 $.ajax({
-			 url : '/dpr/addcart.do',
-			 type: 'post',
-			 data : params,
-			 success : function( data ) {
-				 
-			 if (data == '1') {
-					 alert("장바구니에 등록되었습니다.");
-				 } else {
-					 alert("장바구니 등록에 실패하였습니다..");
-				 }
-			 }, error : function( code ) {
-				 console.log( code );
-			 }
-		 });
-	});
-	 
-
-	
-	
-	
-	</script>
- -->	
  
  	<!-- jQuery Plugins -->
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
@@ -532,3 +545,7 @@
 	
 	
 </html>
+
+
+
+

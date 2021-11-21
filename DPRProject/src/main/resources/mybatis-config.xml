@@ -21,6 +21,7 @@
 
  		<typeAlias alias="Member" type="com.kh.dpr.member.model.vo.Member"/>
  		<typeAlias alias="Product" type="com.kh.dpr.product.model.vo.Product"/>
+ 		<typeAlias alias="Cart" type="com.kh.dpr.cart.model.vo.Cart"/>
  		
  	</typeAliases>
  	
