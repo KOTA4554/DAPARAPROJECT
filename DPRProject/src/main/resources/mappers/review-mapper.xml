@@ -5,7 +5,7 @@
 
 	<select id="selectProduct" parameterType="int" resultType="Product">
 		SELECT *
-		FROM PRODUCT
+		FROM PRODUCT_DETAIL
 		WHERE PRODUCTNO = (SELECT PRODUCTNO
 						   FROM ORDERDETAIL
 						   WHERE DETAILNO = #{ detailNo })
@@ -15,7 +15,7 @@
 		SELECT SELLERCOMPANY
 		FROM SELLER
 		WHERE SELLERID = (SELECT SELLERID
-        	              FROM PRODUCT
+        	              FROM PRODUCT_DETAIL
                 		  WHERE PRODUCTNO = #{ productNo })
 	</select>
 	

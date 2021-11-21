@@ -25,19 +25,19 @@ import com.kh.dpr.review.model.vo.Review;
 public class ReviewController {
 	
 	@Autowired
-	ReviewService reviewSerivce;
+	ReviewService reviewSerivice;
 	
 	@RequestMapping("/reviewForm.do")
 	public String reviewForm(@RequestParam int detailNo, Model model) {
 		
 		
-		Product product = reviewSerivce.selectProduct(detailNo); 
+		Product product = reviewSerivice.selectProduct(detailNo); 
 		
 		int productNo = product.getProductNo();
 		
-		String sellerCompany = reviewSerivce.selectCompany(productNo);
+		String sellerCompany = reviewSerivice.selectCompany(productNo);
 		
-		String sizeName = reviewSerivce.selectSizeName(detailNo);
+		String sizeName = reviewSerivice.selectSizeName(detailNo);
 		
 		model.addAttribute("detailNo", detailNo);
 		model.addAttribute("product", product);
@@ -74,7 +74,7 @@ public class ReviewController {
 		}
 		
 		// 리뷰 DB등록
-		int result = reviewSerivce.insertReview(review);
+		int result = reviewSerivice.insertReview(review);
 		
 		String loc = "/myPage/myPage.do";
 		String msg = "";
