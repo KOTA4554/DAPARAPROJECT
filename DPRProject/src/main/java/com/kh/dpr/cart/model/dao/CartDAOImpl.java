@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.cart.model.vo.Cart;
+import com.kh.dpr.product.model.vo.Product;
 
 
 @Repository
@@ -32,4 +33,23 @@ public class CartDAOImpl implements CartDAO {
 		
 	};
 	
+	@Override
+	public Product selectProd(int prodNo) {
+
+		return sqlSession.selectOne("prod.selectProd", prodNo);
+	}
+	
+	@Override
+	public int changeAmountP(Cart c) {	
+		
+	return sqlSession.update("cart.changeAmountP",c);
+	
+	}
+	
+	@Override
+	public int changeAmountM(Cart c) {	
+		
+	return sqlSession.update("cart.changeAmountM",c);
+	
+	}
 }

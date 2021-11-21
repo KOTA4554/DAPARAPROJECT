@@ -138,7 +138,7 @@ padding-left: 20px;
 
 }
 
-.input-number .qty-up, .input-number .qty-down {
+.input-number .up, .input-number .down {
   position: absolute;
   display: block;
   width: 20px;
@@ -156,20 +156,20 @@ padding-left: 20px;
  
 }
 
-.input-number .qty-up {
+.input-number .up {
   right: 0;
   top: 0;
   border-bottom: 0px;
 }
 
-.input-number .qty-down {
+.input-number .down {
   right: 0;
   bottom: 0;
   padding-bottom: 2px;
   
 }
 
-.input-number .qty-up:hover, .input-number .qty-down:hover {
+.input-number .up:hover, .input-number .down:hover {
   background-color: #E4E7ED;
   color: #D10024;
 }
@@ -206,7 +206,7 @@ padding-left: 20px;
 <th id="th" style="width: 75px; height: 50px;"><input type="checkbox" name="Y"></i></th>
 <th id="th" colspan="2" style="width: 1500px;">상품정보</th>
 <th id="th" style="width: 100px; ">수량</th>
-<th id="th" style="width: 300px;">가격</th>
+<th id="th" style="width: 300px; text-align:right; padding-right : 25px;">가격</th>
 <th id="th" style="width: 100px; text-align: left;">배송비</th>
 </tr>
 
@@ -214,18 +214,113 @@ padding-left: 20px;
 <tr>
 <td id="CIP" style="height: 150px;"><input type="checkbox" name="Y"> </td>
 <td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="./img/hood1.jpg"> </td>
-<td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >${cart.sellerCompany}</label><br> <label id="prodname"> 명품 그 자체! 발렌시아가 후드티!</label><br> <label id="size">사이즈 : ${cart.sizeName} <br> <button id="sizebtn">옵션변경</button> </td>
+<td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >${cart.sellerCompany}</label><br> <label id="prodname">${cartProduct[status.index].productName}</label>
+<br> <label id="size">사이즈 : ${cart.sizeName} <br></label> <button id="sizebtn">옵션변경</button> </td>
 <td id="CIP" >  <div class="input-number"> 
-    <input type="number" value="${cart.cartAmount}" >
-    <span class="qty-up">+</span>
-    <span class="qty-down">-</span>
+  <input id="pdn" type="hidden" value="${cart.productNo}"/>
+  <input id="pri" type="hidden" value ="${cartProduct[status.index].productPrice}" />
+    <input id="amount" type="number" readonly value="${cart.cartAmount}" style="outline:none;" >
+    <span class="up">+</span>
+  
+    <span  class="down">-</span>
 </div></td>
-<td id="CIP">399,000원</td>
-<td id="CIP" style="text-align: left;">3,000원</td>
+<td id="CIP"><input class="PRICE" readonly type="text" value="${cartProduct[status.index].productPrice*cart.cartAmount}" style="text-align:right; border-style:none; outline:none;" />원</td>
+<td id="CIP" style="text-align: left;">무료</td>
 </tr>
 </c:forEach>
 
+<script>
 
+$('.up').click(function(){
+	
+	
+	var productNoVal =$(this).parent().find('#pdn').val();
+	var amount = parseInt($(this).parent().find('#amount').val());
+	var amountNo = $(this).parent().find('#amount');
+	var dprice = $(this).parent().find('#pri').val();
+	var price = $(this).parent().parent().parent().find('.PRICE');
+	
+	
+	var params ={
+			
+			userId : "${member.userId}",
+			productNo : productNoVal
+			
+	};
+	
+	
+	$.ajax({
+		 url : "/dpr/changeAmountP.do",
+		 type: 'post',
+		 data : params,
+		 success : function(data) {
+			 
+		 if (data == '1') {
+			 
+			 amount += 1;
+			 dprice *= amount;
+			 
+			 
+			 console.log(amount)
+			 
+			 price.val(dprice);
+		     amountNo.val(amount);
+			 
+			 } else {
+			console.log("실패")
+			 }
+		 }, error : function( code ) {
+            console.log("오류")
+		 }
+	 });
+	})
+
+
+
+$('.down').click(function(){
+
+
+	var productNoVal =$(this).parent().find('#pdn').val();
+	var amount = parseInt($(this).parent().find('#amount').val());
+	var amountNo = $(this).parent().find('#amount');
+	var dprice = $(this).parent().find('#pri').val();
+	var price = $(this).parent().parent().parent().find('.PRICE');
+	
+    var params ={
+			
+			userId : "${member.userId}",
+			productNo : productNoVal
+			
+	};
+	
+	
+	
+    $.ajax({
+		 url : "/dpr/changeAmountM.do",
+		 type: 'post',
+		 data : params,
+		 success : function(data) {
+			 
+		 if (data == '1') {
+			 
+			 amount -= 1;
+			 dprice *= amount;
+			 
+			 console.log(amount)
+			 
+			 price.val(dprice);
+		     amountNo.val(amount);
+			 
+			 } else {
+			console.log("실패")
+			 }
+		 }, error : function( code ) {
+           console.log("오류")
+		 }
+	 });
+	})
+
+</script>
 
     
     <tr>
@@ -262,7 +357,7 @@ padding-left: 20px;
     <tr>
         <td style="font-size: 25px; text-align: center;">399,000원</td>
         <td style="font-size: 40px;">+</td>
-        <td style="text-align: center; font-size: 25px;">3,000원</td>
+        <td style="text-align: center; font-size: 25px;">0원</td>
         <td style="font-size: 40px;">=</td>
         <td style="text-align: center; font-size: 25px; color: #D10024;">402,000원</td>
     </tr>

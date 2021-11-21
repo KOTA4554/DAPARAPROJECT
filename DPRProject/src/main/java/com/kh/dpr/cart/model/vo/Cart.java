@@ -22,6 +22,13 @@ public class Cart {
 	private int cartAmount;
 	private String sizeName;
 	private String sellerCompany;
+
+
+public Cart(String userId,int productNo){
+	super();
+	this.userId=userId;
+	this.productNo=productNo;
+}
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.kh.dpr.cart.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,12 +35,34 @@ public class CartController {
 
         String userId = member.getUserId();
 		System.out.println("/cart.do가 실행되었음");
+		
+		//카트정보조회
 		List<Cart> c = CartService.cartList(userId);
+		//조회된 카트내의 품목 갯수
 		int count =  c.size();
+		//조회된 카트 배열 각각에 해당하는 product_detail정보
+
+		List<Product> cartProductList = new ArrayList<Product>(); 
+		
+		
+		for(int i = 0; i < count; i++) {
+
+	            int productNo = c.get(i).getProductNo();
+
+	            Product prod = CartService.selectProd(productNo);
+
+	            cartProductList.add(prod);
+	            
+	        }
+		
+		
+		
+		
 		
 		
 		model.addAttribute("cart", c);
         model.addAttribute("count", count);
+        model.addAttribute("cartProduct", cartProductList);
 		
 	return "prod/cart";
 		
@@ -65,9 +88,41 @@ public class CartController {
 		
 		
 	}
+
+
+	@RequestMapping("/changeAmountP.do")
+	public void changeAmount(@RequestParam String userId, int productNo, HttpServletResponse response) throws IOException {
 	
+		
+		Cart c = new Cart(userId,productNo);
+		
+		System.out.println("장바구니 숫자변경 접근 확인" + c);
+		
+		
+		
+		int result = CartService.changeAmountP(c);
+		
+		response.getWriter().print(result);
 	
+		
+	}
 	
+	@RequestMapping("/changeAmountM.do")
+	public void changeAmount2(@RequestParam String userId, int productNo, HttpServletResponse response) throws IOException {
+	
+		
+		Cart c = new Cart(userId,productNo);
+		
+		System.out.println("장바구니 숫자변경 접근 확인" + c);
+		
+		
+		
+		int result = CartService.changeAmountM(c);
+		
+		response.getWriter().print(result);
+	
+		
+	}
 		
 		
 	}
