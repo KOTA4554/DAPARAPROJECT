@@ -181,11 +181,11 @@ padding-left: 20px;
 </head>
 <body>
 	<c:import url="../common/header.jsp"/>
-    <div style="padding-left: 17%; padding-top: 100px; padding-right: 17%;">
+    <div style="padding-left: 20%; padding-top: 42px; padding-right: 20%;">
         <div id="section-header" ">
             <h2 id="orderTitle">
                 <i class="fas fa-shopping-cart"></i>
-                장바구니 (1)
+                장바구니(${count})
             </h2>
 
             <div id="pageNav" style="padding-top: 50px;">
@@ -210,20 +210,20 @@ padding-left: 20px;
 <th id="th" style="width: 100px; text-align: left;">배송비</th>
 </tr>
 
-
+<c:forEach var="cart" items="${cart}" varStatus="status">
 <tr>
 <td id="CIP" style="height: 150px;"><input type="checkbox" name="Y"> </td>
 <td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="./img/hood1.jpg"> </td>
-<td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >BALENCIAGA</label><br> <label id="prodname"> 명품 그 자체! 발렌시아가 후드티!</label><br> <label id="size">사이즈 : XL <br> <button id="sizebtn">옵션변경</button> </td>
+<td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >${cart.sellerCompany}</label><br> <label id="prodname"> 명품 그 자체! 발렌시아가 후드티!</label><br> <label id="size">사이즈 : ${cart.sizeName} <br> <button id="sizebtn">옵션변경</button> </td>
 <td id="CIP" >  <div class="input-number"> 
-    <input type="number" value="1" >
+    <input type="number" value="${cart.cartAmount}" >
     <span class="qty-up">+</span>
     <span class="qty-down">-</span>
 </div></td>
 <td id="CIP">399,000원</td>
 <td id="CIP" style="text-align: left;">3,000원</td>
 </tr>
-
+</c:forEach>
 
 
 
@@ -286,12 +286,12 @@ padding-left: 20px;
 		
 
 
-<script src="${pageContext.request.contextPath}js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}js/slick.min.js"></script>
-<script src="${pageContext.request.contextPath}js/nouislider.min.js"></script>
-<script src="${pageContext.request.contextPath}js/jquery.zoom.min.js"></script>
-<script src="${pageContext.request.contextPath}js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/slick.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/nouislider.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery.zoom.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 
 
 </body>
