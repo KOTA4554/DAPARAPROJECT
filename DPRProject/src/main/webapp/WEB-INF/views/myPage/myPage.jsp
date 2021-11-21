@@ -129,7 +129,7 @@
 												<button type="button">배송 조회</button>
 												<button type="button" onclick="goClaim(${orderDetailList[status.index].productNo});">취소, 교환, 반품 신청</button>
 												<!-- processCode가 4 인 orderDetail일 경우 -->
-												<c:if test="${ orderDetailList[status.index].processCode == 4 }">
+												<c:if test="${ orderDetailList[status.index].processCode == 1 }">
 													<button type="button">구매 확정</button>
 												</c:if>
 												<!-- processCode가 5 인 orderDetail일 경우 -->
@@ -170,7 +170,7 @@
 			location.href="${pageContext.request.contextPath}/myPage/myInfo.do";
 		}
 		
-		
+		//ajax로 detailno랑 유저아이디로 이미 등록한 리뷰있는지 확인하기
 		function goReviewForm(detailNo){
 			
 			location.href="${pageContext.request.contextPath}/review/reviewForm.do?detailNo=" + detailNo + "";

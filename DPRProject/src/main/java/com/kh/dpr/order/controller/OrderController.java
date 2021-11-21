@@ -29,7 +29,7 @@ public class OrderController {
 		// 임시데이터
 		Product product = new Product();
 		
-		product.setProductNo(13);
+		product.setProductNo(12);
 		product.setCategoryNo2(3);
 		product.setSizeId(0);
 		product.setSellerId("seller01");
