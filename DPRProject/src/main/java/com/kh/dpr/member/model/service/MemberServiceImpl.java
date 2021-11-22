@@ -30,14 +30,12 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int updateMember(Member member) {
-		// TODO Auto-generated method stub
-		return 0;
+		return memberDAO.updateMember(member);
 	}
 
 	@Override
 	public int deleteMember(String userId) {
-		// TODO Auto-generated method stub
-		return 0;
+		return memberDAO.deleteMember(userId);
 	}
 
 	@Override

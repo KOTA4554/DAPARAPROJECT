@@ -136,8 +136,7 @@ div#userId-container span.error, span.invalid {
 							<div class="form-group">
 								<i class="fas fa-phone fa-lg"></i>
 								<input class="input" type="text" name="sellerPhone" onKeyup="addHypenPhone(this);" placeholder="연락처를 '-' 없이 입력하세요." required>
-							</div>
-							<c:import url="../member/agreement.jsp"/>	
+							</div>	
 							<input type="submit" class="primary-btn order-submit" value="회원가입">
 						</form>
 
