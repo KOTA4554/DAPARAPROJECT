@@ -38,7 +38,6 @@ public class Product implements Serializable {
     private String productContent;
     private int productCount;
     private String productBrand;
-  
 
 
 }

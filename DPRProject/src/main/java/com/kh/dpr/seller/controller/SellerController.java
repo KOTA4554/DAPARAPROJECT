@@ -41,6 +41,12 @@ public class SellerController {
 		return "member/memberLogin";
 	}
 	
+	@RequestMapping("seller/sellerMain.do")
+	public String sellerMain() {
+		
+		return "seller/sellerMain";
+	}
+	
 	@RequestMapping("member/sellerSignUpEnd.do")
 	public String sellerSingUpEnd(Seller seller, Model model) {
 		
@@ -54,15 +60,16 @@ public class SellerController {
 		int result = sellerService.insertSeller(seller);
 		
 		if(result > 0) {
-			msg = "회원가입이 완료되었습니다.";
+			return "seller/sellerMain";
 		} else {
 			msg = "회원가입에 실패했습니다.";
+
+			model.addAttribute("loc", loc);
+			model.addAttribute("msg", msg);
+			
+			return "common/msg";
 		}
 		
-		model.addAttribute("loc", loc);
-		model.addAttribute("msg", msg);
-		
-		return "common/msg";
 	}
 	
 	@RequestMapping("member/checkSellerDuplicate.do")
