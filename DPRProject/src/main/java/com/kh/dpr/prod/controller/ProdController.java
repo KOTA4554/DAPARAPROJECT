@@ -32,12 +32,11 @@ public class ProdController {
 		Product prod = ProdService.selectProd(prodNo);
 		Seller seller2 = ProdService.selectSeller(prodNo);
 		
-		List<String> image = ProdService.loadImage(prodNo);
+		// List<String> image = ProdService.loadImage(prodNo);
 		
 		
 		model.addAttribute("prod", prod);
 		model.addAttribute("seller2", seller2);
-		model.addAttribute("image", image);
 		
 		System.out.println(prod);
 		System.out.println("셀러정보 :" + seller2);
