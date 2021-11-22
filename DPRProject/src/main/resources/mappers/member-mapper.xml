@@ -15,8 +15,6 @@
 	<select id="selectMember" parameterType="string" resultType="Member">
 		SELECT * FROM "USER" WHERE USERID = #{userId}
 	</select>
-	
-
 
 
 </mapper>

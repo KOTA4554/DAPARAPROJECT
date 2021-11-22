@@ -137,6 +137,7 @@ div#userId-container span.error, span.invalid {
 								<i class="fas fa-phone fa-lg"></i>
 								<input class="input" type="text" name="sellerPhone" onKeyup="addHypenPhone(this);" placeholder="연락처를 '-' 없이 입력하세요." required>
 							</div>
+							<c:import url="../member/agreement.jsp"/>	
 							<input type="submit" class="primary-btn order-submit" value="회원가입">
 						</form>
 
@@ -152,7 +153,7 @@ div#userId-container span.error, span.invalid {
 			<!-- row -->
 			<div class="row">
 
-				<form name="memberEnrollFrm" action="memberEnrollEnd.do" method="post" style="margin-left:20%;" onsubmit="return fn_enroll_validate();">				
+				<form name="memberEnrollFrm" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">				
 					<!-- 회원가입 -->
 					<div class="billing-details">
 						<div class="section-title">
@@ -206,21 +207,14 @@ div#userId-container span.error, span.invalid {
 						<div class="form-group">
 							<input type="text" name="userEmail" placeholder="이메일을 입력해주세요" class="input">
 						</div>
-					</div>
-					<input type="submit" class="btn success" value="가입" />
-					<input type="reset" class="btn cancel" value="취소"/>
-				
+					</div>	
+
+					<input type="submit" class="primary-btn order-submit" value="회원가입">
 				</form>
 			</div> <!-- /row -->
 			</div> <!-- membercontainer -->
 				
-				<div id="register">
-					제 1 조 (목 적)
 
-본 약관은 홈플러스 주식회사(이하 "회사"라 한다)가 운영하는 인터넷쇼핑몰 사이트 (이하 "사이트"라 합니다.)에서 제공하는 서비스 (이하 "서비스"라고 한다)를 이용함에 있어 회사와 이용자의 권리, 의무 및 책임사항을 규정함을 그 목적으로 합니다. 모바일 기기 등을 이용한 전자거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.
-					
-					<div><input type="checkbox" name="" id="registerCheck" />(필수) 약관에 동의합니다.</div>
-				</div>
 			</div><!-- /container -->
 		</div><!-- /SECTION -->
 		
@@ -608,9 +602,7 @@ div#userId-container span.error, span.invalid {
 		
 		
 		</script>
-		
-		
-		
+<c:import url="../member/agreement.jsp"/>
 <c:import url="../common/footer.jsp"/>
 </body>
 </html>

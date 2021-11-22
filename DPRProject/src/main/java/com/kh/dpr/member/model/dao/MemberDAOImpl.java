@@ -40,6 +40,6 @@ public class MemberDAOImpl implements MemberDAO {
 	public int checkIdDuplicate(String userId) {
 		return sqlSession.selectOne("memberSQL.checkIdDuplicate", userId);
 	}
-
+	
 }
 
