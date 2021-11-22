@@ -1,5 +1,9 @@
 package com.kh.dpr.product.model.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +40,17 @@ public class ProductDAO {
 
 	public int insertOption(Product opt) {
 		return sqlSession.insert("manageSQL.insertOption", opt);
+	}
+
+	public List<Map<String, String>> selectProductList(String sellerId, int prodPage, int numPerPage) {
+		
+		RowBounds rows = new RowBounds((prodPage-1)*numPerPage, numPerPage);
+		
+		return sqlSession.selectList("manageSQL.selectProductList", sellerId, rows);
+	}
+
+	public int selectTotalProduct(String sellerId) {
+		return sqlSession.selectOne("manageSQL.selectTotalProduct", sellerId);
 	}
 	
 	
