@@ -1,9 +1,9 @@
 package com.kh.dpr.product.model.vo;
 
+
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
@@ -15,8 +15,8 @@ import lombok.ToString;
 @Component
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @ToString
+@Data
 public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 11L;
@@ -37,5 +37,7 @@ public class Product implements Serializable {
     private Date productEnddate;
     private String productContent;
     private int productCount;
-    
+  
+
+
 }

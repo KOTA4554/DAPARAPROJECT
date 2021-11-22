@@ -15,6 +15,6 @@
 		</selectKey>
 		
 		INSERT INTO ORDERDETAIL VALUES(SEQ_ORDERDETAIL.NEXTVAL, #{ orderNo }, #{ productNo }, 
-				NULL, 1, 2, #{ detailAmount }, #{ detailPrice }, SYSDATE, #{ detailSize })
+				NULL, 1, 2, #{ detailAmount }, #{ detailPrice }, #{ detailSize }, DEFAULT)
 	</insert>
 </mapper>
