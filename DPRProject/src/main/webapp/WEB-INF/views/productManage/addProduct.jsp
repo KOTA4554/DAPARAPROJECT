@@ -160,7 +160,7 @@ textarea {
         <tr>
             <th>상품명</th>
             <td>
-                <input type="text" name="productTitle" id="productTitle" placeholder="상품명을 입력하세요." required>                
+                <input type="text" name="productName" id="productTitle" placeholder="상품명을 입력하세요." required>                
             </td>        
             <th style="width: 150px;">카테고리</th>
             <td>
