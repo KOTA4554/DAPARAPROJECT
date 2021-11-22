@@ -58,7 +58,7 @@
 	<script>
 
 		function goHome() {
-			location.href="${pageContext.request.contextPath}/##.do";
+			location.href="${pageContext.request.contextPath}/";
 		}
 		
 		function goOrderDetail() {
