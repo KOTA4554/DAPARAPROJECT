@@ -29,7 +29,7 @@
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${row.productNewImage}" alt="logo" class = "" width=230 height=240>
             </div>
             <input type="hidden" name="productNo" value="${row.productNo }">
             
@@ -64,7 +64,7 @@
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${row.productNewImage}" alt="logo" class = "" width=230 height=240>
             </div>
              <input type="hidden" name="productNo" value="${row.productNo }">
             <div class="productinfo"></div>
@@ -99,7 +99,7 @@
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${row.productNewImage}" alt="logo" class = "" width=230 height=240>
             </div>
              <input type="hidden" name="productNo" value="${row.productNo }">
             <div class="productinfo"></div>
