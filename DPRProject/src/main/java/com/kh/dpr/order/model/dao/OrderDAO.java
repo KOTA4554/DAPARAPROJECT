@@ -13,5 +13,7 @@ public interface OrderDAO {
 	int orderDetailInsert(OrderDetail orderDetail); 
 	
 	Product selectProduct(int prodcutNo);
+
+	String selectImg(int productNo);
 	
 }

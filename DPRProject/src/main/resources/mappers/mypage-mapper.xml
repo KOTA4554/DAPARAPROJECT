@@ -33,4 +33,8 @@
 		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
 	</select>
 	
+	<select id="selectImg" parameterType="int" resultType="string">
+		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
+	</select>
+	
 </mapper>

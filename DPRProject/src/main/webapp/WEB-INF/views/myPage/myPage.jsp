@@ -115,7 +115,7 @@
 									</div>
 									<table class="orderTable">
 										<tr>
-											<td rowspan="4" class="productImg"><img src="" alt="상품이미지" width=100 height=100></td>
+											<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath}/resources/productUpload/${productImgList[status.index]}" alt="상품이미지" width=100 height=100></td>
 											<td style="width : 450px; font-weight: bold;">
 												${prodList[status.index].productBrand}
 												<input type="hidden" name="productNo" value="${orderDetailList[status.index].productNo}" /> <!-- orderDetail.getProductNo -->

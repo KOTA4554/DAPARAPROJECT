@@ -31,6 +31,8 @@ public class OrderController {
 		
 		List<Integer> detailPriceList = new ArrayList<Integer>();
 		
+		List<String> productImgList = new ArrayList<String>();
+		
 		for(int i = 0; i < productNo.length; i++) {
 			// 제품 불러오기
 			Product product = orderService.selectProduct(productNo[i]);
@@ -41,6 +43,11 @@ public class OrderController {
 			int detailPrice = product.getProductPrice() * cartAmount[i];
 			
 			detailPriceList.add(detailPrice);
+			
+			// 상품 대표 이미지 불러오기
+			String productImg = orderService.selectImg(productNo[i]);
+			
+			productImgList.add(productImg);
 				
 		}
 		
@@ -60,6 +67,7 @@ public class OrderController {
 		model.addAttribute("detailSizeList", sizeName);
 		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("totalName", totalName);
+		model.addAttribute("productImgList", productImgList);
 		
 		return "order/orderSheet";
 	}

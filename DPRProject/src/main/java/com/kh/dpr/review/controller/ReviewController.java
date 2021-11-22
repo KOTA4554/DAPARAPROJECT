@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.dpr.order.model.service.OrderService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.review.model.service.ReviewService;
 import com.kh.dpr.review.model.vo.Review;
@@ -25,21 +26,24 @@ import com.kh.dpr.review.model.vo.Review;
 public class ReviewController {
 	
 	@Autowired
-	ReviewService reviewSerivice;
+	ReviewService reviewService;
 	
 	@RequestMapping("/reviewForm.do")
 	public String reviewForm(@RequestParam int detailNo, Model model) {
 		
 		
-		Product product = reviewSerivice.selectProduct(detailNo); 
+		Product product = reviewService.selectProduct(detailNo); 
 		
 		int productNo = product.getProductNo();
 		
-		String sizeName = reviewSerivice.selectSizeName(detailNo);
+		String sizeName = reviewService.selectSizeName(detailNo);
+		
+		String productImg = reviewService.selectImg(productNo);
 		
 		model.addAttribute("detailNo", detailNo);
 		model.addAttribute("product", product);
 		model.addAttribute("sizeName", sizeName);
+		model.addAttribute("productImg", productImg);
 		
 		return "myPage/reviewForm";
 	}
@@ -71,7 +75,7 @@ public class ReviewController {
 		}
 		
 		// 리뷰 DB등록
-		int result = reviewSerivice.insertReview(review);
+		int result = reviewService.insertReview(review);
 		
 		String loc = "/myPage/myPage.do";
 		String msg = "";
