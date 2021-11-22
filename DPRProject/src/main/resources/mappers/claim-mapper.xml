@@ -23,14 +23,14 @@
 		SELECT *
 		FROM SELLER
 		WHERE SELLERID = (SELECT SELLERID
-		                  FROM PRODUCT
+		                  FROM PRODUCT_DETAIL
 		                  WHERE PRODUCTNO = (SELECT PRODUCTNO
 		                                     FROM ORDERDETAIL
 		                                     WHERE DETAILNO = #{ detailNo }))
 	</select>
 	
 	<select id="selectProductName" parameterType="int" resultType="string">
-		SELECT PRODUCTNAME FROM PRODUCT WHERE PRODUCTNO = #{ productNo }
+		SELECT PRODUCTNAME FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
 	</select>
 	
 	<insert id="insertClaim" parameterType="Claim">

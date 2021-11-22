@@ -7,7 +7,7 @@
 		UPDATE PRODUCT_DETAIL SET CATEGORYNO2 = #{categoryNo2}, SELLERID = #{sellerId}, PRODUCTNAME = #{productName},
 												PRODUCTSTATUS = 'Y', PRODUCTINFO = #{productInfo},
 												PRODUCTSTARTDATE = #{productStartdate}, PRODUCTENDDATE = #{productEnddate},
-												PRODUCTCONTENT = #{productContent}, PRODUCTCOUNT = 0
+												PRODUCTCONTENT = #{productContent}, PRODUCTCOUNT = 0, PRODUCTPRICE = #{productPrice}, PRODUCTBRAND = #{productBrand}
 		WHERE PRODUCTNO = #{productNo}
 	</update>
 	
@@ -22,8 +22,8 @@
 	</insert>
 	
 	<insert id="insertTempProduct">
-		INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, 'Y', NULL,
-										   NULL, NULL, NULL, NULL )
+		INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, NULL, 'Y', NULL,
+										   NULL, NULL, NULL, NULL, NULL)
 	</insert>
 	
 	<select id="selectTempProduct" resultType="int">
@@ -31,7 +31,7 @@
 	</select>
 	
 	<insert id="insertOption" parameterType="Product">
-		INSERT INTO PRODUCT_OPTION VALUES( SEQ_OPTIONNO.NEXTVAL, #{productNo}, #{sizeId}, #{productPrice}, #{productAmount}, 'Y')
+		INSERT INTO PRODUCT_OPTION VALUES( SEQ_OPTIONNO.NEXTVAL, #{productNo}, #{sizeId}, #{productAmount}, 'Y')
 	</insert>
 	
 </mapper>
