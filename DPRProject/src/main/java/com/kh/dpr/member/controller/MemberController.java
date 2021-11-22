@@ -132,9 +132,44 @@ public class MemberController {
         return "redirect:"+loginUrl.toString();
 	}
 	
-	@RequestMapping(value = "/findInfo.do")
-	public String findInfo() throws Exception{
-		return "member/findInfo";
+	@RequestMapping("/myPage/myInfo.do")
+	public String myInfo(Member member, Model model) {
+		return "myPage/myInfo";
+	}
+	
+	@RequestMapping("/myPage/memberUpdate.do")
+	public String memberUpdate(Member member, Model model) {
+		
+		int result = memberService.updateMember(member);
+		
+		if(result > 0) {
+			msg = "회원 정보 수정 완료!";
+		} else {
+			msg = "회원 정보 수정 실패!";
+		}
+		
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "commom/msg";
+	}
+	
+	@RequestMapping("/myPage/memberDelete.do")
+	public String memberDelete(Member member, SessionStatus status, Model model) {
+		
+		int result = memberService.deleteMember(member.getUserId());
+		
+		if(result > 0) {
+			msg = "회원 탈퇴 완료!";
+			status.setComplete();
+		} else {
+			msg = "회원 탈퇴 실패!";
+		}
+		
+		model.addAttribute("loc", loc);
+		model.addAttribute(",sg", msg);
+		
+		return "common/msg";
 	}
 }
 

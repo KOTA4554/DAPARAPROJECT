@@ -16,5 +16,12 @@
 	<select id="selectMember" parameterType="string" resultType="Member">
 		SELECT * FROM "USER" WHERE USERID = #{userId}
 	</select>
-
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE "USER" SET USEREMAIL = #{userEmail}, USERNAME = #{userName}, USERBIRTHDATE = #{userBirthDate}, USERPHONE = #{userPhone}, USERADDRESS = #{userAddress} WHERE USERID = #{userId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="string">
+		DELETE FROM "USER" WHERE USERID = #{userId}
+	</delete>
 </mapper>
