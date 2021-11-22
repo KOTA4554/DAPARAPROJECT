@@ -13,5 +13,7 @@ public interface OrderService {
 	int orderDetailInsert(OrderDetail orderDetail); 
 	
 	Product selectProduct(int prodcutNo);
+
+	String selectImg(int productNo);
 	
 }

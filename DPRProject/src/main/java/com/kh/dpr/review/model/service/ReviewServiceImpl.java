@@ -31,4 +31,10 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.insertReview(review);
 	}
 
+	@Override
+	public String selectImg(int productNo) {
+		
+		return reviewDAO.selectImg(productNo);
+	}
+
 }

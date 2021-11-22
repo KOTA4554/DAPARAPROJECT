@@ -40,4 +40,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne("orderSQL.selectProduct", productNo);
 	}
 
+	@Override
+	public String selectImg(int productNo) {
+		
+		return sqlSession.selectOne("orderSQL.selectImg", productNo);
+	}
+
 }

@@ -18,4 +18,8 @@ public interface MyPageDAO {
 	
 	Product selectProd(int productNo);
 	
+	String selectImg(int productNo);
+
+	int updateComplete(int detailNo);
+	
 }

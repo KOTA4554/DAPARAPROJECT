@@ -68,7 +68,7 @@
 							
 							<table class="productTable">
 								<tr>
-									<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath }/resources/img/guccihoodie.jpg" alt="상품이미지" width=100 height=100></td>
+									<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath}/resources/productUpload/${productImg}" alt="상품이미지" width=100 height=100></td>
 									<td style="width : 450px; font-weight: bold; padding-left: 13px;">${ product.productBrand }</td>
 								</tr>
 								<tr>
