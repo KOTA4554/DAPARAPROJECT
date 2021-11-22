@@ -47,4 +47,10 @@ public class MyPageDAOImpl implements MyPageDAO {
 		return sqlSession.selectOne("myPageSQL.selectImg", productNo);
 	}
 
+	@Override
+	public int updateComplete(int detailNo) {
+		
+		return sqlSession.update("myPageSQL.updateComplete", detailNo);
+	}
+
 }

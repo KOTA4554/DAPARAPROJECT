@@ -37,4 +37,8 @@
 		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
 	</select>
 	
+	<update id="updateComplete" parameterType="int">
+		UPDATE ORDERDETAIL SET PROCESSCODE = 5 WHERE DETAILNO = #{detailNo}
+	</update>
+	
 </mapper>

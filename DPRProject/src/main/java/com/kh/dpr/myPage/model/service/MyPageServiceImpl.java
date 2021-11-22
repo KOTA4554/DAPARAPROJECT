@@ -48,4 +48,10 @@ public class MyPageServiceImpl implements MyPageService {
 		return myPageDAO.selectImg(productNo);
 	}
 
+	@Override
+	public int updateComplete(int detailNo) {
+		
+		return myPageDAO.updateComplete(detailNo);
+	}
+
 }

@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.myPage.model.service.MyPageService;
-import com.kh.dpr.order.model.service.OrderService;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
@@ -84,5 +84,25 @@ public class MypageController {
 		return "myPage/myPage";
 	}
 	
+	@RequestMapping("/myPage/complete.do")
+	public String complete(@RequestParam int detailNo, Model model) {
+		
+		int result = myPageService.updateComplete(detailNo);
+		
+		String loc = "/myPage/myPage.do";
+		String msg = "";
+		if(result > 0) {
+			
+			msg = "구매 확정 하였습니다.";
+		} else {
+			
+			msg = "구매 확정에 실패했습니다.";
+		}
+	
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "common/msg";
+	}
 	
 }
