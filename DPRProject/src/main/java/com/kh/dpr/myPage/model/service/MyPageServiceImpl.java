@@ -37,9 +37,9 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public String selectProdName(int productNo) {
+	public Product selectProd(int productNo) {
 		
-		return myPageDAO.selectProdName(productNo);
+		return myPageDAO.selectProd(productNo);
 	}
 
 }

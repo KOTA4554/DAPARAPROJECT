@@ -17,4 +17,8 @@
 		INSERT INTO ORDERDETAIL VALUES(SEQ_ORDERDETAIL.NEXTVAL, #{ orderNo }, #{ productNo }, 
 				NULL, 1, 2, #{ detailAmount }, #{ detailPrice }, #{ detailSize }, DEFAULT)
 	</insert>
+	
+	<select id="selectProduct" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
+	</select>
 </mapper>

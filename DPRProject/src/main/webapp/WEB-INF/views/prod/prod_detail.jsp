@@ -180,38 +180,38 @@
 							<p>${prod.productInfo}</p>
 							</div>
 							
-							<form id="order">
-							<div>
-							<div class="product-options">
-								<label>
-									사이즈 
-									<select name="sizeName" class="input-select" id="sizeName">
-										<option value="XS">XS</option>
-										<option value="S">S</option>
-										<option value="M">M</option>
-										<option value="L">L</option>
-										<option value="XL">XL</option>
-									</select>
-								</label>
-							
-								<div class="qty-label">
-									수량
-									<div class="input-number">
-										<input name="cartAmount" type="number" value="1" id="prodqty">
-										<span class="qty-up">+</span>
-										<span class="qty-down">-</span>
+							<form id="order" action="${pageContext.request.contextPath}/order/order.do" method="post">
+								<div>
+								<div class="product-options">
+									<label>
+										사이즈 
+										<select name="sizeName" class="input-select" id="sizeName">
+											<option value="XS">XS</option>
+											<option value="S">S</option>
+											<option value="M">M</option>
+											<option value="L">L</option>
+											<option value="XL">XL</option>
+										</select>
+									</label>
+								
+									<div class="qty-label">
+										수량
+										<div class="input-number">
+											<input name="cartAmount" type="number" value="1" id="prodqty">
+											<span class="qty-up">+</span>
+											<span class="qty-down">-</span>
+										</div>
 									</div>
 								</div>
-							</div>
-							<input type="hidden" name="userId" value="${member.userId}"/>							
-							<input type="hidden" name="productNo" value="${prod.productNo}"/>
-							<input type="hidden" name="sellerCompany" value="${seller2.sellerCompany}" />
+								<input type="hidden" name="userId" value="${member.userId}"/>							
+								<input type="hidden" name="productNo" value="${prod.productNo}"/>
+								<input type="hidden" name="sellerCompany" value="${seller2.sellerCompany}" />
 							</form>
 
 							<div class="add-to-cart">
 							
 								<button onclick="addcartbtn();" type="button" class="add-to-cart-btn" id="addcart"><i class="fa fa-shopping-cart"></i> 장바구니에 담기 </button>
-								<button type="button" class="add-to-cart-btn"><i class="far fa-credit-card"></i></i></i></i>&nbsp;&nbsp;즉시 구매하기&nbsp;&nbsp;</button>
+								<button type="submit" class="add-to-cart-btn"><i class="far fa-credit-card"></i></i></i></i>&nbsp;&nbsp;즉시 구매하기&nbsp;&nbsp;</button>
 							</div>
 
     <c:if test="${member eq null}"> 

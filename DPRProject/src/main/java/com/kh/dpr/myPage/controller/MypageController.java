@@ -55,7 +55,7 @@ public class MypageController {
 		}
 		
 		// productno 일치하는 product
-		List<String> prodNameList = new ArrayList<String>();
+		List<Product> prodList = new ArrayList<Product>();
 		
 		
 		for(int i = 0; i < orderDetailList.size(); i++) {
@@ -63,15 +63,15 @@ public class MypageController {
 			// productNo
 			int productNo = orderDetailList.get(i).getProductNo();
 			
-			String prodName = myPageService.selectProdName(productNo);
+			Product prod = myPageService.selectProd(productNo);
 			
-			prodNameList.add(prodName);
+			prodList.add(prod);
 		}
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderDetailList", orderDetailList);
 		model.addAttribute("sellerList", sellerList);
-		model.addAttribute("prodNameList", prodNameList);
+		model.addAttribute("prodList", prodList);
 		
 		return "myPage/myPage";
 	}

@@ -117,7 +117,7 @@
 										<tr>
 											<td rowspan="4" class="productImg"><img src="" alt="상품이미지" width=100 height=100></td>
 											<td style="width : 450px; font-weight: bold;">
-												${sellerList[status.index].sellerCompany}
+												${prodList[status.index].productBrand}
 												<input type="hidden" name="productNo" value="${orderDetailList[status.index].productNo}" /> <!-- orderDetail.getProductNo -->
 											</td>
 											<td rowspan="4" align="center" style="border-left: 1px solid lightgray;">
@@ -139,7 +139,7 @@
 											</td>
 										</tr>
 										<tr>
-											<td>${ prodNameList[status.index] }</td>
+											<td>${prodList[status.index].productName}</td>
 										</tr>
 										<tr>
 											<td>옵션 : ${ orderDetailList[status.index].detailSize }</td>

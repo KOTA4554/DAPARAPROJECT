@@ -5,8 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>agreement</title>
-<script
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
+
 <style>
 .answer {
 	display: none;
