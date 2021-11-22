@@ -38,6 +38,11 @@ public class Product implements Serializable {
     private String productContent;
     private int productCount;
     private String productBrand;
+    
+    
+    private String mainImage;
+    private int optionCount;
+    private String categoryName;
 
 
 }

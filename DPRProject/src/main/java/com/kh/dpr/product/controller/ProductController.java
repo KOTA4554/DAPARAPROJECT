@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.dpr.common.Utils;
 import com.kh.dpr.product.model.service.ProductService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
+@SessionAttributes({"seller"})
 public class ProductController {
 	
 	String loc = "/";
@@ -140,8 +146,62 @@ public class ProductController {
 	}
 	
 	@RequestMapping("seller/productList.do")
-	public String productList() {
+	public String productList(@RequestParam(value="prodPage", required=false, defaultValue="1") int prodPage,
+							  Seller seller, Model model) {
+		
+		int numPerPage = 15;
+		String sellerId = seller.getSellerId();
+		
+		List<Map<String, String>> list = productService.selectProductList(sellerId, prodPage, numPerPage);
+		
+		int totalProduct = productService.selectTotalProduct(sellerId);
+		
+		String pageBar = Utils.getPageBar(totalProduct, prodPage, numPerPage, "productList.do");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "productManage/productList";
 	}
+	
+	@RequestMapping("seller/searchProd.do")
+	public String searchProductList(@RequestParam(value="prodPage", required=false, defaultValue="1") int prodPage,
+									@RequestParam(value="searchNm", required=false) String searchNm,
+									@RequestParam(value="searchCate1", required=false, defaultValue="999") int searchCate1,
+									@RequestParam(value="searchCate2", required=false, defaultValue="999") int searchCate2,
+									@RequestParam(value="startDate", required=false) Date startDate,
+									@RequestParam(value="endDate", required=false) Date endDate,
+									@RequestParam(value="saleState", required=false, defaultValue="0") int saleState,
+									@RequestParam(value="searchBrand", required=false, defaultValue="") String searchBrand,
+									@RequestParam(value="searchPno", required=false, defaultValue="0") int searchPno,
+									Seller seller, Model model) {
+		
+		int numPerPage = 15;
+		String sellerId = seller.getSellerId();
+		
+		Map map= new HashMap();
+		
+		map.put("sellerId", sellerId);
+		map.put("searchNm", searchNm);
+		map.put("searchCate1", searchCate1);
+		map.put("searchCate2", searchCate2);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		map.put("saleState", saleState);
+		map.put("searchBrand", searchBrand);
+		map.put("searchPno", searchPno);
+		
+		System.out.println(map.get("sellerId"));
+		System.out.println(map.get("searchNm"));
+		System.out.println(map.get("searchCate1"));
+		System.out.println("페이지 : " + prodPage);
+		System.out.println("searchNm : " + searchNm);
+		
+		// List<Map<String, String>> list = productService.searchProductList(map, prodPage, numPerPage);
+		
+		return "productManage/productList";
+	}
+	
 }
