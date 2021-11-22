@@ -1,5 +1,7 @@
 package com.kh.dpr.prod.model.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -29,4 +31,9 @@ public class ProdServiceImpl implements ProdService  {
 	return ProdDAO.selectSeller(prodNo);
 }
 	
+	@Override
+	public List<String> loadImage(int prodNo) {
+		
+		return ProdDAO.loadImage(prodNo);
+	}
 }

@@ -115,7 +115,7 @@
 									</div>
 									<table class="orderTable">
 										<tr>
-											<td rowspan="4" class="productImg"><img src="" alt="상품이미지" width=100 height=100></td>
+											<td rowspan="4" class="productImg"><img src="${pageContext.request.contextPath}/resources/productUpload/${productImgList[status.index]}" alt="상품이미지" width=100 height=100></td>
 											<td style="width : 450px; font-weight: bold;">
 												${prodList[status.index].productBrand}
 												<input type="hidden" name="productNo" value="${orderDetailList[status.index].productNo}" /> <!-- orderDetail.getProductNo -->
@@ -130,10 +130,10 @@
 												<button type="button" onclick="goClaim(${orderDetailList[status.index].productNo});">취소, 교환, 반품 신청</button>
 												<!-- processCode가 4 인 orderDetail일 경우 -->
 												<c:if test="${ orderDetailList[status.index].processCode == 1 }">
-													<button type="button">구매 확정</button>
+													<button type="button" onclick="complete(${orderDetailList[status.index].detailNo});">구매 확정</button>
 												</c:if>
 												<!-- processCode가 5 인 orderDetail일 경우 -->
-												<c:if test="${ orderDetailList[status.index].processCode == 1 }">
+												<c:if test="${ orderDetailList[status.index].processCode == 5 }">
 													<button type="button" onclick="goReviewForm(${orderDetailList[status.index].detailNo});">리뷰 작성</button>
 												</c:if>
 											</td>
@@ -179,6 +179,12 @@
 		
 		function goClaim(productNo){
 			location.href="${pageContext.request.contextPath}/claim/claim.do?productNo=" + productNo + "";
+		}
+		
+		function complete(detailNo){
+			if(confirm("구매 확정 하시겠습니까?") == true){
+				location.href="${pageContext.request.contextPath}/myPage/complete.do?detailNo=" + detailNo + "";	
+			}
 		}
 		
 	</script>	

@@ -10,4 +10,6 @@ public interface ReviewDAO {
 	String selectSizeName(int detailNo);
 	
 	int insertReview(Review review);
+
+	String selectImg(int productNo);
 }

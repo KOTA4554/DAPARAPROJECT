@@ -1,6 +1,7 @@
 package com.kh.dpr.product.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
 public class ProductService {
@@ -48,5 +50,19 @@ public class ProductService {
 	public int insertOption(Product opt) {
 		return productDAO.insertOption(opt);
 	}
+
+	public List<Map<String, String>> selectProductList(String sellerId, int prodPage, int numPerPage) {
+		return productDAO.selectProductList(sellerId, prodPage, numPerPage);
+	}
+
+	public int selectTotalProduct(String sellerId) {
+		return productDAO.selectTotalProduct(sellerId);
+	}
+
+	public List<Map<String, String>> searchProductList(Map map, int prodPage, int numPerPage) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

@@ -5,7 +5,7 @@
 
 
 <insert id="addCart" parameterType="Cart">
-INSERT INTO "CART" VALUES(#{userId},#{productNo},#{cartAmount},#{sizeName},#{sellerCompany})
+INSERT INTO "CART" VALUES(#{userId},#{productNo},#{cartAmount},#{sizeName})
 </insert>
 
 <select id="cartList" parameterType="String" resultType="Cart">

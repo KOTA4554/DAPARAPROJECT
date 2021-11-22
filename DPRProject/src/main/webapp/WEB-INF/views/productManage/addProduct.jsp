@@ -152,7 +152,6 @@ textarea {
 <c:import url="../common/header.jsp"/>
 
 <div class="mainSectionForm">
-<h3>상품 등록</h3>
 <form action="${pageContext.request.contextPath}/seller/productInsert.do" method="post" enctype="multipart/form-data">
     <input type="hidden" name="sellerId" value="${seller.sellerId}"/>
     <input type="hidden" id="productNo" name="productNo" value="${productNo}"/>

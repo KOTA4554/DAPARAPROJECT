@@ -125,7 +125,7 @@
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
 							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood1.jpg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/img/hood3.jpg"alt="">
 							</div>
 
 							<div class="product-preview">
@@ -205,7 +205,7 @@
 								</div>
 								<input type="hidden" name="userId" value="${member.userId}"/>							
 								<input type="hidden" name="productNo" value="${prod.productNo}"/>
-								<input type="hidden" name="sellerCompany" value="${seller2.sellerCompany}" />
+								<input type="hidden" name="productBrand" value="${prod.productBrand}"/>
 							</form>
 
 							<div class="add-to-cart">
@@ -232,8 +232,7 @@
 				userId : "${member.userId}",
 				productNo : "${prod.productNo}",
                 cartAmount : $("#prodqty").val(),
-				sizeName : $("#sizeName").val(),
-				sellerCompany : "${seller2.sellerCompany}" 	
+				sizeName : $("#sizeName").val()
 		};
 
 	 $.ajax({

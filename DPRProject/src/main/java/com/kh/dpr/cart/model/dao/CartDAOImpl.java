@@ -52,4 +52,6 @@ public class CartDAOImpl implements CartDAO {
 	return sqlSession.update("cart.changeAmountM",c);
 	
 	}
+	
+	
 }

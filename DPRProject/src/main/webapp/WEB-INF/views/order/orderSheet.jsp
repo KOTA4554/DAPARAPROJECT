@@ -166,7 +166,7 @@
 					<c:forEach var="product" items="${productList}" varStatus = "status">
 						<tr>
 							<td rowspan="3" id="productImage">
-								<img src="${pageContext.request.contextPath}/resources/img/${productImg}.jpg" width="120" height="120" alt="상품이미지">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${productImgList[status.index]}" width="120" height="120" alt="상품이미지">
 							</td><!-- ${ getProductImage } -->
 							<td style="padding-left: 5px; width:500px;">
 								<input type="text" name="productNo" value="${product.productNo}" hidden/>

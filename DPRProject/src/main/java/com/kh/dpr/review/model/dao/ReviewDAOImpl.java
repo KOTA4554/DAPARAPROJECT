@@ -31,4 +31,10 @@ public class ReviewDAOImpl implements ReviewDAO {
 		return sqlSession.insert("reviewSQL.insertReview", review);
 	}
 
+	@Override
+	public String selectImg(int productNo) {
+	
+		return sqlSession.selectOne("reviewSQL.selectImg", productNo);
+	}
+
 }

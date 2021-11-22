@@ -38,4 +38,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.selectProduct(prodcutNo);
 	}
 
+	@Override
+	public String selectImg(int productNo) {
+		
+		return orderDAO.selectImg(productNo);
+	}
+
 }
