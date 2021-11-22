@@ -16,4 +16,5 @@ public interface CartDAO {
 	int changeAmountP(Cart c);
 	
 	int changeAmountM(Cart c);
+	
 }

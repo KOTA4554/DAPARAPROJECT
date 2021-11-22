@@ -41,7 +41,6 @@ public class CartController {
 		//조회된 카트내의 품목 갯수
 		int count =  c.size();
 		//조회된 카트 배열 각각에 해당하는 product_detail정보
-
 		List<Product> cartProductList = new ArrayList<Product>(); 
 		
 		
@@ -70,11 +69,11 @@ public class CartController {
 	
 	
 	@RequestMapping("/addcart.do")
-	public void addCart(@RequestParam String userId, int productNo, int cartAmount, String sizeName, String sellerCompany, HttpServletResponse response) throws IOException {
+	public void addCart(@RequestParam String userId, int productNo, int cartAmount, String sizeName, HttpServletResponse response) throws IOException {
 	
 		System.out.println("장바구니 추가 접근 확인" + productNo);
 		
-		Cart c = new Cart(userId,productNo,cartAmount,sizeName,sellerCompany);
+		Cart c = new Cart(userId,productNo,cartAmount,sizeName);
 		
 		System.out.println("장바구니 추가 접근 확인" + c);
 		
