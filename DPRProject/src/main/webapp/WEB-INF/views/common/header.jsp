@@ -54,7 +54,6 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
 
-
       
       <!-- jQuery Plugins -->
       <!--  <script src="${pageContext.request.contextPath }/resources/js/jquery.min.js"></script>-->
