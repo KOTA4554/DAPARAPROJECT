@@ -21,7 +21,6 @@ public class Cart {
 	private int productNo;
 	private int cartAmount;
 	private String sizeName;
-	private String sellerCompany;
 
 
 public Cart(String userId,int productNo){

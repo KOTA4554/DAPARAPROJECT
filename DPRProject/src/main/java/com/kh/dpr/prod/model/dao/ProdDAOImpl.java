@@ -1,5 +1,7 @@
 package com.kh.dpr.prod.model.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -32,6 +34,14 @@ public class ProdDAOImpl implements ProdDAO {
 	public int viewcount(int prodNo) {
 		
 		return sqlSession.update("prod.viewcount", prodNo);
+	}
+	
+	@Override
+	public List<String> loadImage(int prodNo) {
+
+
+		return sqlSession.selectList("prod.loadImage", prodNo);
+	
 	}
 
 	
