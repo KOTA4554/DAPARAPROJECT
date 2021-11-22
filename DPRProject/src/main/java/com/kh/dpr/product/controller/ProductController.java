@@ -138,4 +138,10 @@ public class ProductController {
 		
 		return pNo + sdf.format(new Date(System.currentTimeMillis())) + "_" + rnd + "." + ext;
 	}
+	
+	@RequestMapping("seller/productList.do")
+	public String productList() {
+		
+		return "productManage/productList";
+	}
 }

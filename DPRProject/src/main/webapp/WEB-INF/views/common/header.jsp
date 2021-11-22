@@ -232,16 +232,16 @@
          <div class="container">
             <!-- responsive-nav -->
             <div id="responsive-nav">
+               <div class="menu">
                <!-- NAV -->
                <ul class="main-nav nav navbar-nav">
 
 
-                  <li class="active"><a href="#">HOME</a></li>
+                  <li class="active"><a href="${pageContext.request.contextPath}/seller/sellerMain.do">HOME</a></li>
                   <li><a href="#">상품관리</a>
                      <ul>
                         <li><a href="${pageContext.request.contextPath}/seller/addProduct.do">상품 등록</a></li>
-                        <li><a href="">상품 조회</a></li>
-                        <li><a href="">상품 삭제</a></li>
+                        <li><a href="${pageContext.request.contextPath}/seller/productList.do">상품 조회</a></li>
                      </ul>
                   </li>
                   <li><a href="#">클레임관리</a>
@@ -262,6 +262,7 @@
 
                </ul>
                <!-- /NAV -->
+               </div>
             </div>
             <!-- /responsive-nav -->
          </div>
