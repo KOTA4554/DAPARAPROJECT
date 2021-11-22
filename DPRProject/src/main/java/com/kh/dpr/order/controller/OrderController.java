@@ -1,5 +1,8 @@
 package com.kh.dpr.order.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,42 +21,45 @@ public class OrderController {
 	OrderService orderService;
 	
 	@RequestMapping("/order/order.do")
-	public String order(//Product[] product,
+	public String order(@RequestParam(value="productNo") int[] productNo,
 						//@RequestParam(value="productImg") String[] productImg,
-						//@RequestParam(value="detailAmount") int[] detailAmount,
-						//@RequestParam(value="detailPrice") int[] detailPrice,
-						//@RequestParam(value="detailSize") String[] detailSize,
-						//@RequestParam(value="sellerCompany") String[] sellerCompany,
+						@RequestParam(value="cartAmount") int[] cartAmount,
+						@RequestParam(value="sizeName") String[] sizeName,
 						Model model) {
 		
-		// 임시데이터
-		Product product = new Product();
+		List<Product> productList = new ArrayList<Product>();
 		
-		product.setProductNo(12);
-		product.setCategoryNo2(3);
-		product.setSizeId(0);
-		product.setSellerId("seller01");
-		product.setProductId(122);
-		product.setProductName("지방시셔츠");
-		product.setProductPrice(900000);
-		product.setProductAmount(99);
-		product.setProductStatus("Y");
-		product.setProductInfo("지오지방시");
-		product.setProductContent("지오지방시가입은지방시셔츠");
-		product.setProductCount(1);
+		List<Integer> detailPriceList = new ArrayList<Integer>();
 		
-		int detailAmount = 1;
-		int detailPrice = 300000;
-		String detailSize = "L"; 
-		String sellerCompany = "GUCCI";
-		String productImg = "guccihoodie";
+		for(int i = 0; i < productNo.length; i++) {
+			// 제품 불러오기
+			Product product = orderService.selectProduct(productNo[i]);
+			
+			productList.add(product);
+			
+			// 수량 * 제품 가격
+			int detailPrice = product.getProductPrice() * cartAmount[i];
+			
+			detailPriceList.add(detailPrice);
+				
+		}
 		
-		model.addAttribute("product", product);
-		model.addAttribute("productImg", productImg);
-		model.addAttribute("detailAmount", detailAmount);
-		model.addAttribute("detailPrice", detailPrice);
-		model.addAttribute("detailSize", detailSize);
-		model.addAttribute("sellerCompany", sellerCompany);
+		int totalPrice = 0;
+		for(int i = 0; i < detailPriceList.size(); i++) {
+			totalPrice += detailPriceList.get(i);
+		}
+		
+		String totalName = "";
+		for(int i = 0; i < productList.size(); i++) {
+			totalName = productList.get(i).getProductName();
+		}
+		
+		model.addAttribute("productList", productList);
+		model.addAttribute("detailAmountList", cartAmount);
+		model.addAttribute("detailPriceList", detailPriceList);
+		model.addAttribute("detailSizeList", sizeName);
+		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("totalName", totalName);
 		
 		return "order/orderSheet";
 	}

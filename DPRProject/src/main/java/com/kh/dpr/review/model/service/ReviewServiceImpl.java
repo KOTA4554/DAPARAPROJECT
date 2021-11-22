@@ -20,12 +20,6 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public String selectCompany(int productNo) {
-
-		return reviewDAO.selectCompany(productNo);
-	}
-
-	@Override
 	public String selectSizeName(int detailNo) {
 		
 		return reviewDAO.selectSizeName(detailNo);

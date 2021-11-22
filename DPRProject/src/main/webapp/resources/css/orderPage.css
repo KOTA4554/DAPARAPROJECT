@@ -156,15 +156,13 @@ i:nth-child(4) {
 	outline : none;
 }
 
-#payTable [id="sellerCompany"], #payTable [name="productName"], #payTable [name="detailSize"] {
+#payTable [id="productBrand"], #payTable [name="productName"], #payTable [name="detailSize"] {
 	text-align : left;
 }
 
 /*-----order footer-----*/
 /*----------------------*/
-#order-footer {
-  height: 300px;
-}
+
 
 /*-----pay method-----*/
 /*----------------------*/

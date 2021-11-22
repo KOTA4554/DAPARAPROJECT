@@ -15,6 +15,6 @@ public interface MyPageService {
 	
 	Seller selectSeller(int detailNo);
 	
-	String selectProdName(int productNo);
+	Product selectProd(int productNo);
 	
 }

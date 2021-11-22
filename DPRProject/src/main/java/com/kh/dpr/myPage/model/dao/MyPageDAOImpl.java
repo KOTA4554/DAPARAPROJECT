@@ -36,9 +36,9 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 
 	@Override
-	public String selectProdName(int productNo) {
+	public Product selectProd(int productNo) {
 		
-		return sqlSession.selectOne("myPageSQL.selectProdName", productNo);
+		return sqlSession.selectOne("myPageSQL.selectProd", productNo);
 	}
 
 }

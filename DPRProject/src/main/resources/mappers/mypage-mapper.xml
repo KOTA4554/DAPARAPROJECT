@@ -29,8 +29,8 @@
 		                                     WHERE DETAILNO = #{ detailNo }))
 	</select>
 	
-	<select id="selectProdName" parameterType="int" resultType="string">
-		SELECT PRODUCTNAME FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
+	<select id="selectProd" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
 	</select>
 	
 </mapper>

@@ -35,13 +35,10 @@ public class ReviewController {
 		
 		int productNo = product.getProductNo();
 		
-		String sellerCompany = reviewSerivice.selectCompany(productNo);
-		
 		String sizeName = reviewSerivice.selectSizeName(detailNo);
 		
 		model.addAttribute("detailNo", detailNo);
 		model.addAttribute("product", product);
-		model.addAttribute("sellerCompany", sellerCompany);
 		model.addAttribute("sizeName", sizeName);
 		
 		return "myPage/reviewForm";
