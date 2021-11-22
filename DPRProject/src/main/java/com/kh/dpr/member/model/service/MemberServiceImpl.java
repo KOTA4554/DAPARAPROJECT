@@ -1,6 +1,10 @@
 
 package com.kh.dpr.member.model.service;
 
+import java.io.PrintWriter;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +44,7 @@ public class MemberServiceImpl implements MemberService {
 	public int checkIdDuplicate(String userId) {
 		return memberDAO.checkIdDuplicate(userId);
 	}
+	
 
 }
 

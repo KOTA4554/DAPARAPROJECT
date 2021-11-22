@@ -16,7 +16,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import com.kh.dpr.exception.MemberException;
 import com.kh.dpr.member.model.service.MemberService;
 import com.kh.dpr.member.model.vo.Member;
-import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
 @SessionAttributes({"member"})
@@ -121,6 +120,22 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/member/kakao_login.ajax")
+    public String kakaoLogin() {
+        StringBuffer loginUrl = new StringBuffer();
+        loginUrl.append("https://kauth.kakao.com/oauth/authorize?client_id=");
+        loginUrl.append("[내 애플리케이션]의 앱 KEY (REST API)"); 
+        loginUrl.append("&redirect_uri=");
+        loginUrl.append("[내 애플리케이션]의 redirect URL"); 
+        loginUrl.append("&response_type=code");
+        
+        return "redirect:"+loginUrl.toString();
+	}
+	
+	@RequestMapping(value = "/findInfo.do")
+	public String findInfo() throws Exception{
+		return "member/findInfo";
+	}
 }
 
 

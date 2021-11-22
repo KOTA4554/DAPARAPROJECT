@@ -94,12 +94,17 @@ input[type="radio"] {
 		<input type="password" name="userPw" id="userPw" placeholder="비밀번호를 입력하세요." required/>
 	</div>
 	<div class="signUp">
-		<a href="" id="signUp">아직 아이디가 없으신가요?</a>
+		<a href="${pageContext.request.contextPath}/member/memberSignUp.do" id="signUp">회원가입</a>
 	</div>
-	
+	<div class="findInfo">
+		<a href="${pageContext.request.contextPath}/member/findInfo.do" id="findInfo">아이디/비밀번호 찾기</a>	
+	</div>
 	<div class="formLine">
 		<input type="submit" id="loginBtn" class="primary-btn order-submit" value="Log-in">
 	</div>
+	<a href="${pageContext.request.contextPath}/member/kakao_login.ajax">
+		<img src="${pageContext.request.contextPath}/resources/img/kakao_login_large_narrow.png" alt="" />
+	</a>
 </form>
 </div>
 
