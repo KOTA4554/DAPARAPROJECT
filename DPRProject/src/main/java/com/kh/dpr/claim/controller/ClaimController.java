@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.dpr.claim.model.service.ClaimService;
@@ -59,40 +60,78 @@ public class ClaimController {
 		model.addAttribute("prodName", prodName);
 		
 		
+		
 		return "claim/claim";
 	}
 	
 	@RequestMapping("/claim/change.do")
-	public String insertClaimInfo(Claim claim) {
+	public String insertClaimInfo(Claim claim, Model model) {
 		
 		int result = ClaimService.insertClaim(claim);
 		
+		String loc = "/myPage/myPage.do";
+		String msg = "";
 		
-		return "claim/claim";
+		// orderDetail db에 넣기
+		if(result > 0) {
+			msg = " 교환 등록 성공!";
+		} else {
+			msg = "클레임 등록 실패!";
+		
+		}
+		
+		model.addAttribute("loc",loc);
+		model.addAttribute("msg",msg);
+		
+		return "common/msg";
 		
 		
 	}
-	
 	@RequestMapping("/claim/refund.do")
-	public String insertClaimInfo1(Claim claim) {
+	public String insertClaimInfo1(Claim claim,Model model) {
 		
 		int result = ClaimService.insertClaim1(claim);
 		
+		String loc = "/myPage/myPage.do";
+		String msg = "";
 		
-		return "claim/claim";
+		// orderDetail db에 넣기
+		if(result > 0) {
+			msg = " 환불 등록 성공!";
+		} else {
+			msg = "클레임 등록 실패!";
+		
+		}
+		
+		model.addAttribute("loc",loc);
+		model.addAttribute("msg",msg);
+		
+		return "common/msg";
 		
 		
 	}
 	
 	@RequestMapping("/claim/cancel.do")
-	public String insertClaimInfo2(Claim claim) {
+	public String insertClaimInfo2(Claim claim, Model model) {
 		
 		int result = ClaimService.insertClaim2(claim);
 		
+		String loc = "/myPage/myPage.do";
+		String msg = "";
 		
-		return "claim/claim";
+		// orderDetail db에 넣기
+		if(result > 0) {
+			msg = " 취소 등록 성공!";
+		} else {
+			msg = "클레임 등록 실패!";
+		
+		}
+		
+		model.addAttribute("loc",loc);
+		model.addAttribute("msg",msg);
+		
+		return "common/msg";
 		
 		
 	}
 }
-	
