@@ -24,18 +24,18 @@
     </div>
     
     <div class="firstPar">
-    <c:forEach var="row" begin="0" end="3" items="${list}">
+    <c:forEach var="row" begin="0" end="3" items="${list}" varStatus="status">
    
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${ image[status.index] }" alt="logo" class = "" width=230 height=240>
             </div>
             <input type="hidden" name="productNo" value="${row.productNo }">
             
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -59,17 +59,17 @@
     
     
     <div class="firstPar">
-    <c:forEach var="row" begin="4" end="7" items="${list}">
+    <c:forEach var="row" begin="4" end="7" items="${list}" varStatus="status">
    
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${ image[status.index] }" alt="logo" class = "" width=230 height=240>
             </div>
              <input type="hidden" name="productNo" value="${row.productNo }">
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+               <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
                 <p name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -94,17 +94,17 @@
     
     
     <div class="firstPar">
-    <c:forEach var="row" begin="8" end="11" items="${list}">
+    <c:forEach var="row" begin="8" end="11" items="${list}" varStatus="status">
    
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${ image[status.index] }" alt="logo" class = "" width=230 height=240>
             </div>
              <input type="hidden" name="productNo" value="${row.productNo }">
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>

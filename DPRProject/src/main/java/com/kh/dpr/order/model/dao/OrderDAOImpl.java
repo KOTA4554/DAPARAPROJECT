@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
+import com.kh.dpr.product.model.vo.Product;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO {
@@ -31,6 +32,18 @@ public class OrderDAOImpl implements OrderDAO {
 	
 		//return 1;
 		return sqlSession.insert("orderSQL.orderDetailInsert", orderDetail);
+	}
+
+	@Override
+	public Product selectProduct(int productNo) {
+		
+		return sqlSession.selectOne("orderSQL.selectProduct", productNo);
+	}
+
+	@Override
+	public String selectImg(int productNo) {
+		
+		return sqlSession.selectOne("orderSQL.selectImg", productNo);
 	}
 
 }

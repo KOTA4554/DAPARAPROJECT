@@ -1,6 +1,7 @@
 package com.kh.dpr.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,18 +36,30 @@ public class MainController {
       int numPerPage = 12;
       
       // 현재 페이지의 게시글 수
-      List<Map<String, String>> list = productService.selectProductList(cPage, numPerPage);
+      List<Product> list = productService.selectProductList(cPage, numPerPage);
       
       // 전체 게시글 수
       int totalContents = productService.selectProductTotalContents();
       
+      
+      List<String> imageList = new ArrayList<>();
+
+     
+      for(int i=0; i<list.size();i++) {
+    	  int productNo = list.get(i).getProductNo();
+
+    	  String image = productService.selectImage(productNo);
+    	  imageList.add(image);
+    	  System.out.println(productNo);
+      }
       // 페이지 처리 Utils 사용하기
       String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "boardList.do");
       
+      System.out.println(imageList);
       System.out.println("list : " + list);
       System.out.println("pageBar : " + pageBar);
       
-      
+      model.addAttribute("image", imageList);
       model.addAttribute("list", list);
       model.addAttribute("totalContents", totalContents);
       model.addAttribute("numPerPage", numPerPage);
@@ -67,7 +80,7 @@ public class MainController {
       response.setContentType("application/json");
       response.setCharacterEncoding("UTF-8");
       new Gson().toJson(product, response.getWriter());
-
+      
       System.out.println(product);
       
       if(product != null) {

@@ -47,8 +47,11 @@ table input[type="text"], select, input[type="number"] {
 	border: 1px solid #E4E7ED;
 	padding: 0px 5px;	
 }
-#productTitle {
+#productTitle, #productBrand {
 	width: 470px;
+}
+#productPrice {
+	width: 200px;
 }
 #productInfo{
 	height: 150px;
@@ -81,7 +84,7 @@ table input[type="text"], select, input[type="number"] {
 #optionTh4 { width: 100px; }
 #optionTh5 { width: 200px; }
 .optionCheckbox, .optionNo, .optionSize { text-align: center; }
-.optionProductName, .optionPrice, .optionAmount { width: 100% }
+.optionProductName, .optionBrand, .optionAmount { width: 100% }
 .optionPrice, .optionAmount { text-align: right; }
 .optionAmount { width: 115px; }
 
@@ -149,7 +152,6 @@ textarea {
 <c:import url="../common/header.jsp"/>
 
 <div class="mainSectionForm">
-<h3>상품 등록</h3>
 <form action="${pageContext.request.contextPath}/seller/productInsert.do" method="post" enctype="multipart/form-data">
     <input type="hidden" name="sellerId" value="${seller.sellerId}"/>
     <input type="hidden" id="productNo" name="productNo" value="${productNo}"/>
@@ -187,6 +189,12 @@ textarea {
             </td>
         </tr>
         <tr>
+        	<th>브랜드 명</th>
+        	<td><input type="text" name="productBrand" id="productBrand" placeholder="브랜드를 입력하세요." required></td>
+        	<th>판매 가격</th>
+        	<td><input type="number" name="productPrice" id="productPrice" placeholder="판매 가격을 입력하세요." required></td>
+        </tr>
+        <tr>
         	<th>상품설명</th>
         	<td colspan="3"><textarea name="productInfo" id="productInfo" fixed required></textarea></td>
         </tr>
@@ -209,25 +217,25 @@ textarea {
             <td colspan="3">
 				<span style="display: inline-block; margin: 5px 0px; color:gray; font-size: 11px;">
 					사이즈 및 옵션 등록 <br />
-					 : 모든 옵션의 가격은 동일해야 합니다.
+					 : 사이즈 중복에 유의해주세요.
 				</span>
                 <button type="button" class="OptionBtns" onclick="delOptionRow();">선택 삭제</button>
                 <button type="button" class="OptionBtns" onclick="addOptionRow(this);" >옵션 추가</button>
-                <button type="button" class="OptionBtns" onclick="saveOption();" >옵션 저장</button>
                 
                 <table id="optionTable" style="width: 100%; margin:25px 0px; padding:5px;"  border="1">
                     <tr>
                         <th class="optionTh" id="optionTh1">선택</th>
                         <th class="optionTh" id="optionTh2">NO.</th>
+                        <th class="optionTh" id="optionTh5">브랜드명</th>
                         <th class="optionTh" id="optionTh3">상품명</th>
                         <th class="optionTh" id="optionTh4">사이즈</th>
-                        <th class="optionTh" id="optionTh5">판매가격</th>
                         <th class="optionTh" id="optionTh6">판매수량</th>
                     </tr>
                     <tr class="product-opt">
                         <td class="optionCheckbox" ><input type="checkbox" name="" id=""></td>
-                        <td class="optionNo"><span class="productNo">자동반영</span></td>
-                        <td><input type="text" class="optionProductName" name="productName" id="" readonly/></td>
+                        <td class="optionNo"><span class="productNo">자동생성</span></td>
+                        <td><input class="optionBrand" type="text" name="optionBrand" id="optionBrand" min="0" /></td>
+                        <td><input type="text" class="optionProductName" name="optionName" id="optionName" readonly/></td>
                         <td>
 	                        <select class="optionSize" name="sizeId" id="sizeId">
 	                        	<option value="0">XS</option>
@@ -237,7 +245,6 @@ textarea {
 	                        	<option value="4">XL</option>
 	                        </select>
 	                    </td>
-                        <td><input class="optionPrice" type="number" name="productPrice" id="productPrice" min="0" /></td>
                         <td><input class="optionAmount" type="number" name="productAmount" id="productAmount" min="0" /></td>
                     </tr>
                 </table> 
@@ -295,7 +302,7 @@ textarea {
         </tr>
     </table>
     <div id="submitBtnArea">
-	    <input type="submit" id="submitBtn" value="혹시안되면" hidden/>
+	    <input type="submit" id="submitBtn" value="submitBtn" hidden/>
 	    <button class="primary-btn order-submit" type="button" id="confirmBtn" onclick="insertProduct();">등록</button>
     </div>
 </form>
@@ -341,20 +348,20 @@ textarea {
 		var result;
 		
 		var productNo = Number($('#productNo').val());
+		var productName = $('#productTitle').val();
+		var productBrand = $('#productBrand').val();
 		console.log("productNo : " + productNo);
 		
 		var optionList = [];
 		$('.product-opt').each(function(){
-			var productName = $(this).find('.optionProductName').val();
 			var sizeId = Number($(this).find('.optionSize').val());
-			var productPrice = Number($(this).find('.optionPrice').val());
 			var productAmount = Number($(this).find('.optionAmount').val());
 			
 			var obj = {
 					productNo : productNo,
 					productName : productName,
+					productBrand : productBrand,
 					sizeId : sizeId,
-					productPrice : productPrice,
 					productAmount : productAmount,
 				};
 			optionList.push(obj);
@@ -390,6 +397,11 @@ textarea {
 			var productName = $('#productTitle').val();
 			$('.optionProductName').val(productName);
 		});
+		$('#productBrand').on("keyup", function(){
+			var productBrand = $('#productBrand').val();
+			$('.optionBrand').val(productBrand);
+		});
+		
 	});
 	
 	
@@ -399,12 +411,13 @@ textarea {
 		var numRow = $('input[type="checkbox"]').length;
 		console.log(numRow);
 		
-		var origin = $(btn).next().next();
+		var origin = $(btn).next();
 		console.log(origin);
-		var originHtml = $(btn).next().next().html();	// lastchild 에 추가해주기 //
+		var originHtml = $(btn).next().html();
 		var newRow = '<tr class="product-opt">' +
         				'<td class="optionCheckbox" ><input type="checkbox" name="" id=""></td>' +
-       					'<td class="optionNo"><span class="productNo">자동반영</span></td>' +
+       					'<td class="optionNo"><span class="productNo">자동생성</span></td>' +
+       				 	'<td><input class="optionBrand" type="text" name="optionBrand" id="optionBrand" min="0" /></td>' +
         				'<td><input type="text" class="optionProductName" name="" id="" readonly/></td>' +
         				'<td>' +
             				'<select class="optionSize" name="sizeId" id="sizeId">' +
@@ -415,7 +428,6 @@ textarea {
 	            				'<option value="4">XL</option>' +
             				'</select>' +
         				'</td>' +
-				        '<td><input class="optionPrice" type="number" name="productPrice" id="productPrice" min="0" readonly/></td>' +
 				        '<td><input class="optionAmount" type="number" name="productAmount" id="productAmount" min="0" /></td>' +
 				    '</tr>' + 
 				    '</tbody>' ;
@@ -423,6 +435,8 @@ textarea {
 		origin.html(originHtml.replace("</tbody>","") + newRow);
 		var productName = $('#productTitle').val();
 		$('.optionProductName').val(productName);
+		var productBrand = $('#productBrand').val();
+		$('.optionBrand').val(productBrand);
 		
 	}
 	

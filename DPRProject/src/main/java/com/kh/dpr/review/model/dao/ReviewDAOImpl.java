@@ -20,12 +20,6 @@ public class ReviewDAOImpl implements ReviewDAO {
 	}
 
 	@Override
-	public String selectCompany(int productNo) {
-		
-		return sqlSession.selectOne("reviewSQL.selectCompany", productNo);
-	}
-
-	@Override
 	public String selectSizeName(int detailNo) {
 		
 		return sqlSession.selectOne("reviewSQL.selectSizeName", detailNo);
@@ -35,6 +29,12 @@ public class ReviewDAOImpl implements ReviewDAO {
 	public int insertReview(Review review) {
 		
 		return sqlSession.insert("reviewSQL.insertReview", review);
+	}
+
+	@Override
+	public String selectImg(int productNo) {
+	
+		return sqlSession.selectOne("reviewSQL.selectImg", productNo);
 	}
 
 }

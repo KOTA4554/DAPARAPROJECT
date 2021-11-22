@@ -7,9 +7,9 @@ public interface ReviewDAO {
 	
 	Product selectProduct(int detailNo);
 	
-	String selectCompany(int productNo);
-	
 	String selectSizeName(int detailNo);
 	
 	int insertReview(Review review);
+
+	String selectImg(int productNo);
 }

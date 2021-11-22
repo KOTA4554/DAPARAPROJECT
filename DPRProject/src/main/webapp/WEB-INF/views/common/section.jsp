@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/jeongho.css"/>
 </head>
 
 <body>
@@ -26,14 +27,14 @@ $(function(){
                 var product = data[i];
                 result //+= '<div class="products-slick" data-nav="#slick-nav-' + i + '">'
                     += '<div class="product">'
-                    +'<input type="hidden" name="productNo" >' + product.productNo + '</input>'
+                    +'<input type="hidden" name="productNo" ></input>'
                     + '<div class="product-img">'
-                    + '<img src="resources/img/product01.png" alt="">'
+                    + '<img  src="${pageContext.request.contextPath}/resources/productUpload/' + product.productNewImage + '" alt="logo" class = "" width=230 height=240>'
                     + '<div class="product-label">'
                     + '<span class="new">NEW</span>'
                     + '</div></div>'
                     + '<div class="product-body">'
-                    + '<p class="product-category">' + product.categoryNo + '</p>'
+                    + '<p class="product-category">' + product.productBrand + '</p>'
                     + '<h3 class="product-name"><a href="<%=request.getContextPath()%>/prod_detail.do?prodNo='+product.productNo +'">' + product.productName + '</a></h3>'
                     + '<h4 class="product-price">' + product.productPrice + '</h4>'
                     + '<div class="product-rating"></div>'
@@ -115,15 +116,15 @@ $(function(){
                      result //+= '<div class="products-slick" data-nav="#slick-nav-' + i + '">'
                   +='<div class ="first">'
                    +'<div class = "productimg">'
-                    +'<img  src=".." alt="logo" class = "">'
+                   + '<img  src="${pageContext.request.contextPath}/resources/productUpload/' + product.productNewImage + '" alt="logo" class = "" width=230 height=240>'
                      +'</div>'
                  +'<input type="hidden" name="productNo" value="${row.productNo }">'
                  +'<div class="productinfo"></div>'
                  +'<div class="productcategory">'
-                 +'<p>' + product.categoryNo + '</p>'
+                 +'<p>' + product.productBrand + '</p>'
                  +'</div>'
                  +'<div class="productname">'
-                 +'<p  name="productName" id="productName" value="${row.productName}" required>'+ product.productName +'</p>'                  
+                 +'<p style="font-weight:bold;" class="productname"><a href="<%=request.getContextPath()%>/prod_detail.do?prodNo='+product.productNo +'">' + product.productName + '</a></p>'                  
                  +'</div>'
                  +'<div class="productprice">'
                  +'<p  name="productPrice" value="${product.productPrice }" >'+ product.productPrice +' </p>'
@@ -132,7 +133,7 @@ $(function(){
                  +'<br>'
                  +'</div>'
                  }
-                 $('.firstPar').html(result);
+                 $('.firstPar').html(result); 
                  
 
                  
@@ -189,7 +190,7 @@ $(function(){
                                     </div>
                                  </div>
                                  <div class="product-body">
-                                    <p class="product-category">Category</p>
+                                    <p class="product-category" name="productBrand" id="productBrand" value="${product.Brand }">'${product.Brand}'</p>
                                     <h3 class="product-name" name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</h3>
                                     <h4 class="product-price" name="productPrice" value="${product.productPrice }" >'${row.productPrice }' </h4>
                                     <div class="product-rating">
@@ -290,7 +291,7 @@ $(function(){
             
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                <p id="productBrand" value="${row.productBrand}">'${row.productBrand }'</p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -313,7 +314,7 @@ $(function(){
             
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                 <p id="productBrand" value="${row.productBrand}">'${row.productBrand }'</p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -335,7 +336,7 @@ $(function(){
             
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                 <p id="productBrand" value="${row.productBrand}">'${row.productBrand }'</p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -358,7 +359,7 @@ $(function(){
             
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                 <p id="productBrand" value="${row.productBrand}">'${row.productBrand }'</p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>

@@ -20,7 +20,7 @@ public class ProductDAOImpl implements ProductDAO {
    
 
    @Override                     
-   public List<Map<String, String>> selectProductList(int cPage, int numPerPage) {
+   public List<Product> selectProductList(int cPage, int numPerPage) {
       // 데이터베이스에서 특정 갯수의 행만 가져오는 객체
       RowBounds rows = new RowBounds((cPage - 1)* numPerPage, numPerPage);
       
@@ -73,4 +73,12 @@ public class ProductDAOImpl implements ProductDAO {
 		return sqlSession.selectList("product.selectSearchList", sresult, rows);
 	}
 
+
+	@Override
+	public String selectImage(int productNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("product.selectImg", productNo);
+	}
+
+	
 }

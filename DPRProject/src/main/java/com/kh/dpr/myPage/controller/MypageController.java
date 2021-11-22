@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.myPage.model.service.MyPageService;
@@ -55,26 +56,53 @@ public class MypageController {
 		}
 		
 		// productno 일치하는 product
-		List<String> prodNameList = new ArrayList<String>();
+		List<Product> prodList = new ArrayList<Product>();
 		
+		List<String> productImgList = new ArrayList<String>();
 		
 		for(int i = 0; i < orderDetailList.size(); i++) {
 			
 			// productNo
 			int productNo = orderDetailList.get(i).getProductNo();
 			
-			String prodName = myPageService.selectProdName(productNo);
+			Product prod = myPageService.selectProd(productNo);
 			
-			prodNameList.add(prodName);
+			prodList.add(prod);
+			
+			// 대표 이미지 불러오기
+			String productImg = myPageService.selectImg(productNo);
+			
+			productImgList.add(productImg);
 		}
 		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("orderDetailList", orderDetailList);
 		model.addAttribute("sellerList", sellerList);
-		model.addAttribute("prodNameList", prodNameList);
+		model.addAttribute("prodList", prodList);
+		model.addAttribute("productImgList", productImgList);
 		
 		return "myPage/myPage";
 	}
 	
+	@RequestMapping("/myPage/complete.do")
+	public String complete(@RequestParam int detailNo, Model model) {
+		
+		int result = myPageService.updateComplete(detailNo);
+		
+		String loc = "/myPage/myPage.do";
+		String msg = "";
+		if(result > 0) {
+			
+			msg = "구매 확정 하였습니다.";
+		} else {
+			
+			msg = "구매 확정에 실패했습니다.";
+		}
+	
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "common/msg";
+	}
 	
 }

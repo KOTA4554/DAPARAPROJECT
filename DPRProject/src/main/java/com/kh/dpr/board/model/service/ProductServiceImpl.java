@@ -18,7 +18,7 @@ public class ProductServiceImpl implements ProductService {
    ProductDAO productDAO;
 
    @Override
-   public List<Map<String, String>> selectProductList(int cPage, int numPerPage) {
+   public List<Product> selectProductList(int cPage, int numPerPage) {
       
       return productDAO.selectProductList(cPage, numPerPage);
    }
@@ -63,6 +63,13 @@ public class ProductServiceImpl implements ProductService {
 	public List<Map<String, String>> selectSearchList(int cPage, int numPerPage, String sresult) {
 		
 		return productDAO.selectSearchList(cPage,numPerPage,sresult);
+	}
+
+
+	@Override
+	public String selectImage(int productNo) {
+		// TODO Auto-generated method stub
+		return productDAO.selectImage(productNo);
 	}
 	
 	

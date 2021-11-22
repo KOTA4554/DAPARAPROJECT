@@ -6,12 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<%-- <%
-	Product[] product = (Product[])request.getAttribute("product");
-	int[] productAmount = (int[])request.getAttribute("productAmount");
-	int deliCharge = (int)request.getAttribute("deliCharge");
-	String[] sellerCompany = (String[])request.getAttribute("sellerCompany");
-%> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,40 +163,40 @@
 						<th>배송비</th>
 					</tr>
 					
-					<%-- <%for(int i = 0; int i < product.length; i++){ %> --%>
-					<tr>
-						<td rowspan="3" id="productImage">
-							<img src="${pageContext.request.contextPath}/resources/img/${productImg}.jpg" width="120" height="120" alt="상품이미지">
-						</td><!-- ${ getProductImage } -->
-						<td style="padding-left: 5px; width:500px;">
-							<input type="text" name="productNo" value="${product.productNo}" hidden/>
-							<!-- ${ getProductNo } -->
-							<input type="text" name="sellerCompany" id ="sellerCompany" value="${sellerCompany}" size="50" readonly/>
-							<!-- ${ getSellerCompany } -->
-						</td>
-						<td rowspan="3" align="center">
-							<input type="text" name="detailAmount" value="${detailAmount}" size="3" readonly/>
-							<!-- ${ productAmount } -->
-						</td>
-						<td rowspan="3" align="center">
-							<input type="text" name="detailPrice" value="${detailPrice}" size="15" readonly/>
-							<!-- ${ detailPrice } -->
-						</td>
-						<td rowspan="3" align="center">무료</td>
-					</tr>
-					<tr>
-						<td style="padding-left: 5px; width:500px;">
-							<input type="text" name="productName" value="${product.productName}" size="50"  readonly/>
-							<!-- ${ getProductName } -->
-						</td>
-					</tr>
-					<tr>
-						<td style="padding-left: 5px; width:500px;">
-							옵션 : <input type="text" name="detailSize" value="${detailSize}" size="50"  readonly/>
-							<!-- ${ detailSize } -->
-						</td>
-					</tr>
-					<%-- <%}%> --%>
+					<c:forEach var="product" items="${productList}" varStatus = "status">
+						<tr>
+							<td rowspan="3" id="productImage">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${productImgList[status.index]}" width="120" height="120" alt="상품이미지">
+							</td><!-- ${ getProductImage } -->
+							<td style="padding-left: 5px; width:500px;">
+								<input type="text" name="productNo" value="${product.productNo}" hidden/>
+								<!-- ${ getProductNo } -->
+								<input type="text" name="productBrand" id ="productBrand" value="${product.productBrand}" size="50" readonly/>
+								<!-- ${ getSellerCompany } -->
+							</td>
+							<td rowspan="3" align="center">
+								<input type="text" name="detailAmount" value="${detailAmountList[status.index]}" size="3" readonly/>
+								<!-- ${ productAmount } -->
+							</td>
+							<td rowspan="3" align="center">
+								<input type="text" name="detailPrice" value="${detailPriceList[status.index]}" size="15" readonly/>
+								<!-- ${ detailPrice } -->
+							</td>
+							<td rowspan="3" align="center">무료</td>
+						</tr>
+						<tr>
+							<td style="padding-left: 5px; width:500px;">
+								<input type="text" name="productName" value="${product.productName}" size="50"  readonly/>
+								<!-- ${ getProductName } -->
+							</td>
+						</tr>
+						<tr>
+							<td style="padding-left: 5px; width:500px;">
+								옵션 : <input type="text" name="detailSize" value="${detailSizeList[status.index]}" size="50"  readonly/>
+								<!-- ${ detailSize } -->
+							</td>
+						</tr>
+					</c:forEach>
 				</table>
 
 				<table id="billTable">
@@ -214,11 +208,11 @@
 						<th>최종 결제 금액</th>
 					</tr>
 					<tr>
-						<td><label id="orderPrice">${detailPrice}</label> 원</td> <!-- ${ detailPrice } -->
+						<td><label id="orderPrice">${totalPrice}</label> 원</td> <!-- ${ detailPrice } -->
 						<td><i class="fas fa-plus"></i></td>
 						<td><label id="delCharge">0</label> 원</td>
 						<td><i class="fas fa-equals"></i></td>
-						<td><label id="totalPrice">${detailPrice + 0}</label> <span>원</span></td> <!-- ${ orderPrice + delCharge } -->
+						<td><label id="totalPrice">${totalPrice + 0}</label> <span>원</span></td> <!-- ${ orderPrice + delCharge } -->
 					</tr>
 				</table>
 			</div>
@@ -635,7 +629,7 @@ E-mail : inirm@inicis.com
 			}
 
 			// 결제API (신용카드 선택)
- 			/*if($('#creditCard').is(":checked")){
+ 			if($('#creditCard').is(":checked")){
 				
 				var IMP = window.IMP; // 생략가능
 				IMP.init( 'imp59581083' );
@@ -644,7 +638,7 @@ E-mail : inirm@inicis.com
 					pg : 'html5_inicis',
 					pay_method : 'card', // card : 신용카드 , vbank : 가상계좌
 					merchant_uid : 'merchant_' + new Date().getTime(),
-					name : '${product.productName}', // productName
+					name : '${totalName}', // productName
 					amount : 100, //$('#totalPrice').val(),
 					buyer_email : '${member.userEmail}', // ${ getUserEmail }.val(),
 					buyer_name : '${member.userName}', 				// ${ getUserName }.val(),
@@ -706,10 +700,10 @@ E-mail : inirm@inicis.com
 					}
 	
 				}); 
-			}*/
+			}
 			
- 			$('#orderForm').attr("action", "${pageContext.request.contextPath}/order/orderByCreditCard.do");
-			$('#orderForm').submit();
+ 			//$('#orderForm').attr("action", "${pageContext.request.contextPath}/order/orderByCreditCard.do");
+			//$('#orderForm').submit();
 		}
 
 	</script>	

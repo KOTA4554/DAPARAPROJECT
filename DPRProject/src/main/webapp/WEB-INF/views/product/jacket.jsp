@@ -29,13 +29,13 @@
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+             <img  src="${pageContext.request.contextPath}/resources/productUpload/${row.productNewImage}" alt="logo" class = "" width=230 height=240>
             </div>
             <input type="hidden" name="productNo" value="${row.productNo }">
             
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -64,12 +64,12 @@
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${row.productNewImage}" alt="logo" class = "" width=230 height=240>
             </div>
              <input type="hidden" name="productNo" value="${row.productNo }">
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
                 <p name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>
@@ -99,12 +99,12 @@
     
         <div class ="first">
             <div class = "productimg">
-            <img  src=".." alt="logo" class = "">
+            <img  src="${pageContext.request.contextPath}/resources/productUpload/${row.productNewImage}" alt="logo" class = "" width=230 height=240>
             </div>
              <input type="hidden" name="productNo" value="${row.productNo }">
             <div class="productinfo"></div>
                 <div class="productcategory">
-                <p>카테고리</p>
+                <p name="productBrand" id="productBrand" value="${row.productBrand }">'${row.productBrand}' </p>
             </div>
             <div class="productname">
                 <p  name="productName" id="productName" value="${row.productName}" required>'${row.productName}'</p>

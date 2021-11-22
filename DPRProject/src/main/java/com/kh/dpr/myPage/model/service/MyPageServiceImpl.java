@@ -37,9 +37,21 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public String selectProdName(int productNo) {
+	public Product selectProd(int productNo) {
 		
-		return myPageDAO.selectProdName(productNo);
+		return myPageDAO.selectProd(productNo);
+	}
+
+	@Override
+	public String selectImg(int productNo) {
+		
+		return myPageDAO.selectImg(productNo);
+	}
+
+	@Override
+	public int updateComplete(int detailNo) {
+		
+		return myPageDAO.updateComplete(detailNo);
 	}
 
 }

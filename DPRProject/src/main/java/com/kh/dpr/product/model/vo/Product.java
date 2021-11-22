@@ -37,7 +37,13 @@ public class Product implements Serializable {
     private Date productEnddate;
     private String productContent;
     private int productCount;
-  
+    private String productBrand;
+    private String productOldImage;
+	  private String productNewImage;
+    private String mainImage;
+    private int optionCount;
+    private String categoryName;
+
 
 
 }

@@ -16,6 +16,10 @@ public interface MyPageDAO {
 	
 	Seller selectSeller(int detailNo);
 	
-	String selectProdName(int productNo);
+	Product selectProd(int productNo);
+	
+	String selectImg(int productNo);
+
+	int updateComplete(int detailNo);
 	
 }

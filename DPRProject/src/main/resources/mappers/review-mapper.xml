@@ -11,14 +11,6 @@
 						   WHERE DETAILNO = #{ detailNo })
 	</select>
 	
-	<select id="selectCompany" parameterType="int" resultType="string">
-		SELECT SELLERCOMPANY
-		FROM SELLER
-		WHERE SELLERID = (SELECT SELLERID
-        	              FROM PRODUCT_DETAIL
-                		  WHERE PRODUCTNO = #{ productNo })
-	</select>
-	
 	<select id="selectSizeName" parameterType="int" resultType="string">
 		SELECT DETAILSIZE FROM ORDERDETAIL WHERE DETAILNO = #{ detailNo }
 	</select>
@@ -27,5 +19,9 @@
 		INSERT INTO REVIEW VALUES(SEQ_REVIEW.NEXTVAL, #{ userId }, #{ detailNo }, #{ reviewContent }, #{ reviewScore }, 
 								  SYSDATE, 'Y', #{ reviewOldImage }, #{ reviewNewImage })
 	</insert>
+	
+	<select id="selectImg" parameterType="int" resultType="string">
+		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
+	</select>
 	
 </mapper>

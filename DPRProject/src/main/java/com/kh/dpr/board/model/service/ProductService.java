@@ -8,7 +8,7 @@ import com.kh.dpr.product.model.vo.Product;
 public interface ProductService {
 
 
-   List<Map<String, String>> selectProductList(int cPage, int numPerPage);
+   List<Product> selectProductList(int cPage, int numPerPage);
 
    int selectProductTotalContents();
 
@@ -23,6 +23,8 @@ public interface ProductService {
 	List<Map<String, String>> selectJacketList(int cPage, int numPerPage);
 
 	List<Map<String, String>> selectSearchList(int cPage, int numPerPage, String sresult);
+
+	String selectImage(int productNo);
 
 	
 	
