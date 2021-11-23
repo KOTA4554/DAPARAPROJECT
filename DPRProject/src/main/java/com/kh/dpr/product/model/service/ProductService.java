@@ -78,7 +78,8 @@ public class ProductService {
 
 	public List<ProductImage> selectImageList(int productNo) {
 		return productDAO.selectImageList(productNo);
-
+	}
+	
 	public List<Review> selectReivewList(String sellerId) {
 		
 		return productDAO.selectReviewList(sellerId);
