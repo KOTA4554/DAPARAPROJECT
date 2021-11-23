@@ -160,6 +160,10 @@ i:nth-child(4) {
 	text-align : left;
 }
 
+#productBrand {
+	font-weight : bold;
+}
+
 /*-----order footer-----*/
 /*----------------------*/
 
