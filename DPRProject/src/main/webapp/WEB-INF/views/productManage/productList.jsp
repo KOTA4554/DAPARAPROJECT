@@ -115,7 +115,7 @@ li {
 </head>
 <body>
 <c:import url="../common/header.jsp"/>	
-	
+	<form action="${pageContext.request.contextPath}/seller/searchProd.do" method="get">
 <div class="mainSectionForm">
 	<table border="0">
 		<tr>
@@ -158,7 +158,7 @@ li {
 	        <th>판매상태</th>
 	        <td>
 	            <select name="saleState" id="searchProdState">
-	            	<option value="0">선택</option>
+	            	<option value="999">선택</option>
 	                <option value="1">판매대기</option>
 	                <option value="2">판매중</option>
 	                <option value="3">판매종료</option>
@@ -175,8 +175,9 @@ li {
 	    </tr>
 	</table>
 	<div class="searchBtnSection">
-		<button id="searchBtn" onclick="searchProduct();">검색</button>
+		<button id="searchBtn">검색</button>
 	</div>
+	</form>
 	<table id="prodListTable" border="0">
 		<tr>
 			<th colspan="9" class="sectionTitles">상품 리스트
@@ -194,6 +195,7 @@ li {
 	        <td>카테고리</td>
 	    </tr>
 	    <c:forEach items="${list}" var="prod">
+		    <a href="">
 	    <tr class="prodListRows" id="${prod.productNo}">
 	    	<td class="prodRowPno">${prod.productNo}</td>
 			<td class="prodRowImg" align="center" style="margin:0px; padding: 2px;">
@@ -207,6 +209,7 @@ li {
 			<td class="prodRowOptionCnt">${prod.optionCount}</td>
 			<td class="prodRowCateNm">${prod.categoryName}</td>
 		</tr>
+			</a>
 		</c:forEach>
 	</table>
 	<div class="pageBarSection">
@@ -215,9 +218,6 @@ li {
 </div>
 
 <script>
-	function searchProduct(){
-		location.href="${pageContext.request.contextPath}/seller/searchProd.do";
-	}
 
 	//datepicker 사용
 	$(function() {
