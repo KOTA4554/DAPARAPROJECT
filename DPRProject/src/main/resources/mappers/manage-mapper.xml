@@ -71,6 +71,8 @@
 						                   WHERE DETAILNO = (select DETAILNO
 									                                    FROM REVIEW
 									                                    WHERE REVIEWNO = #{reviewNo}))
+	</select>
+									                                    
 
 	<select id="searchProductList" parameterType="map" resultType="Product">
 		SELECT DETAIL.*, CG.CATEGORYNAME || ' > ' || CG2.CATEGORYNAME2 "CATEGORYNAME",

@@ -246,7 +246,7 @@ public class ProductController {
 		
 		
 		return "productManage/modifyProduct";
-
+	}
 
 	@RequestMapping("/seller/reviewList.do")
 	public String reviewList(HttpServletRequest request, Model model) {

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.review.model.vo.Review;
 
 @Repository
 public class ProductDAO {
