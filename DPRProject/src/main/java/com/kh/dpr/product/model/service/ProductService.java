@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
@@ -62,6 +63,16 @@ public class ProductService {
 	public List<Map<String, String>> searchProductList(Map map, int prodPage, int numPerPage) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<Review> selectReivewList(String sellerId) {
+		
+		return productDAO.selectReviewList(sellerId);
+	}
+
+	public Product selectRproduct(int reviewNo) {
+
+		return productDAO.selectRproduct(reviewNo);
 	}
 
 

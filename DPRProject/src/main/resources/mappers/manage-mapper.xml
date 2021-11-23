@@ -50,4 +50,26 @@
 		SELECT COUNT(*) FROM PRODUCT_DETAIL WHERE SELLERID = #{sellerId}
 	</select>
 	
+	<!--get  reviewList , yongjoo -->
+	<select id="selectReviewList" parameterType="string" resultType="Review">
+		SELECT *
+		FROM REVIEW
+		WHERE DETAILNO IN (SELECT DETAILNO
+        						       FROM ORDERDETAIL
+                  					   WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                     									   FROM PRODUCT_DETAIL
+                                     									   WHERE SELLERID = #{sellerId})) 
+		ORDER BY REVIEWNO DESC
+	</select>
+	
+	<select id="selectRproduct" parameterType="int" resultType="Product">
+		SELECT *
+		FROM PRODUCT_DETAIL
+		WHERE PRODUCTNO = (SELECT PRODUCTNO
+						                   FROM ORDERDETAIL
+						                   WHERE DETAILNO = (select DETAILNO
+									                                    FROM REVIEW
+									                                    WHERE REVIEWNO = #{reviewNo}))
+	</select>
+	
 </mapper>

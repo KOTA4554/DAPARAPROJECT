@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.review.model.vo.Review;
 
 @Repository
 public class ProductDAO {
@@ -51,6 +52,16 @@ public class ProductDAO {
 
 	public int selectTotalProduct(String sellerId) {
 		return sqlSession.selectOne("manageSQL.selectTotalProduct", sellerId);
+	}
+
+	public List<Review> selectReviewList(String sellerId) {
+		
+		return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
+	}
+
+	public Product selectRproduct(int reviewNo) {
+		
+		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
 	}
 	
 	
