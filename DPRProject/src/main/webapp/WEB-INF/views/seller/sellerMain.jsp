@@ -188,7 +188,7 @@
                 'rgba(255, 99, 132, 1)'
             ],
             borderWidth: 2,
-            tension: 0.2
+            tension: 0.25
         }]
     },
         options: {}

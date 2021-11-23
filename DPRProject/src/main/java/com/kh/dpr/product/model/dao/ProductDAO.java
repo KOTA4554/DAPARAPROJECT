@@ -43,13 +43,6 @@ public class ProductDAO {
 		return sqlSession.insert("manageSQL.insertOption", opt);
 	}
 
-	public List<Map<String, String>> selectProductList(String sellerId, int prodPage, int numPerPage) {
-		
-		RowBounds rows = new RowBounds((prodPage-1)*numPerPage, numPerPage);
-		
-		return sqlSession.selectList("manageSQL.selectProductList", sellerId, rows);
-	}
-
 	public int selectTotalProduct(String sellerId) {
 		return sqlSession.selectOne("manageSQL.selectTotalProduct", sellerId);
 	}
@@ -62,6 +55,15 @@ public class ProductDAO {
 	public Product selectRproduct(int reviewNo) {
 		
 		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
+
+	public List<Map<String, String>> searchProductList(Map map, int cPage, int numPerPage) {
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		return sqlSession.selectList("manageSQL.searchProductList", map, rows);
+	}
+
+	public int selectSearchedProduct(Map<String, Object> map) {
+		return sqlSession.selectOne("manageSQL.selectSearchedProduct", map);
+
 	}
 	
 	
