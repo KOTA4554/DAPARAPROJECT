@@ -68,7 +68,7 @@ public class ProductController {
 	public String insertProduct(Product product, Model model, HttpServletRequest req,
 								@RequestParam(value="mainImg", required=false) MultipartFile mainImg,
 								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
-								@RequestParam(value="contentImg", required=false) MultipartFile[] contentImgs) {
+								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
 		
 		System.out.println("product : " + product);
 		System.out.println("mainImg : " + mainImg);
@@ -99,8 +99,8 @@ public class ProductController {
 		// 컨텐츠이미지 저장 
 		for(MultipartFile contentImg : contentImgs) {
 			if(contentImg.isEmpty() == false) { 
-				ProductImage optionImage = saveImage(contentImg, 2, productNo, savePath);
-				imgList.add(optionImage); 
+				ProductImage contentImage = saveImage(contentImg, 2, productNo, savePath);
+				imgList.add(contentImage); 
 			} 
 		}
 		

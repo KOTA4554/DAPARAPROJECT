@@ -268,7 +268,7 @@ textarea {
 					
 			            <div id="additionalImgSection">
 				            <c:forEach items="${image}" var="img">
-				            <c:if test="${img.imageCategoryNo} == 1">
+				            <c:if test="${img.imageCategoryNo == 1}">
 				            <div class="productAdditionalImg">
 				            	<img src="${pageContext.request.contextPath}/resources/productUpload/${img.productNewImage}" alt="상품추가" class="optionalImg" width="245" height="175"/>
 					            <input type="file" class="fileSelector" name="optionalImg" id="optionalProductImg2"  onchange="loadImg(this)"/>
@@ -288,7 +288,7 @@ textarea {
         		<span class="imageSectionTitles">컨텐츠 이미지 등록</span>
         		<div id="contentImgSection">
         			<c:forEach items="${image}" var="img">
-				    <c:if test="${img.imageCategoryNo} == 2">
+				    <c:if test="${img.imageCategoryNo == 3}">
 	        		<div class="productContentImg">
 	        			<img src="${pageContext.request.contextPath}/resources/productUpload/${img.productNewImage}" alt="상품추가" class="contentImg" width="395" height="295"/>
 		        		<input type="file" class="fileSelector" name="contentImgs" id="contentProductImg1"  onchange="loadImg(this)"/>
@@ -331,6 +331,7 @@ textarea {
 	            			 + '<input type="file" class="fileSelector" name="optionalImg" id="optionalProductImg3" onchange="loadImg(this)"/>'
             				 + '</div>'
 		}
+		
 		optImg.html(optImg.html() + addOptImgSection);
 		
 		var conImgCnt = 2 - $('.productContentImg').length;
