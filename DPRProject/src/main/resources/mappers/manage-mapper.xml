@@ -22,7 +22,7 @@
 	</insert>
 	
 	<insert id="insertTempProduct">
-		INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, NULL, 'Y', NULL,
+		INSERT INTO PRODUCT_DETAIL VALUES( SEQ_PRODUCT.NEXTVAL, NULL, #{sellerId}, NULL, NULL, NULL, 'N', NULL,
 										   NULL, NULL, NULL, NULL, NULL)
 	</insert>
 	
@@ -152,6 +152,24 @@
 			</when>
 		</choose>	
 		ORDER BY PRODUCTNO DESC
+	</select>
+	
+	<select id="selectOneProduct" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT_DETAIL DETAIL 
+		LEFT JOIN CATEGORY2 CG2 ON DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2
+		LEFT JOIN "CATEGORY" CG ON CG2.CATEGORYNO = CG.CATEGORYNO
+		WHERE DETAIL.PRODUCTNO = #{productNo}
+	</select>
+	
+	<select id="selectOptionList" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT_OPTION 
+		LEFT JOIN PRODUCT_DETAIL USING (PRODUCTNO)
+		LEFT JOIN "SIZE" USING (SIZEID)
+		WHERE PRODUCTNO = #{productNo}
+	</select>
+	
+	<select id="selectImageList" parameterType="int" resultType="ProductImage">
+		SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
 	</select>
 	
 </mapper>

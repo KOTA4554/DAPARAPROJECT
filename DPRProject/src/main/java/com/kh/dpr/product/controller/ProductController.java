@@ -227,4 +227,23 @@ public class ProductController {
 		return "productManage/productList";
 	}
 	
+	@RequestMapping("seller/modifyProduct.do")
+	public String modifyProduct(@RequestParam int productNo, Model model) {
+		
+		Product detail = productService.selectOneProduct(productNo);
+		List<Product> option = productService.selectOptionList(productNo);
+		List<ProductImage> image = productService.selectImageList(productNo);
+		System.out.println("detail : " + detail);
+		System.out.println("option : " + option);
+		System.out.println("image : " + image);
+		
+		model.addAttribute("detail", detail);
+		model.addAttribute("option", option);
+		model.addAttribute("image", image);
+		
+		
+		
+		return "productManage/modifyProduct";
+	}
+	
 }

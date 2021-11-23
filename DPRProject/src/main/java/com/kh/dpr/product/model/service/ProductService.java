@@ -67,5 +67,17 @@ public class ProductService {
 		return productDAO.selectSearchedProduct(map);
 	}
 
+	public Product selectOneProduct(int productNo) {
+		return productDAO.selectOneProduct(productNo);
+	}
+
+	public List<Product> selectOptionList(int productNo) {
+		return productDAO.selectOptionList(productNo);
+	}
+
+	public List<ProductImage> selectImageList(int productNo) {
+		return productDAO.selectImageList(productNo);
+	}
+
 
 }

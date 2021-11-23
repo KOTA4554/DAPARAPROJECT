@@ -61,6 +61,18 @@ public class ProductDAO {
 	public int selectSearchedProduct(Map<String, Object> map) {
 		return sqlSession.selectOne("manageSQL.selectSearchedProduct", map);
 	}
+
+	public Product selectOneProduct(int productNo) {
+		return sqlSession.selectOne("manageSQL.selectOneProduct", productNo);
+	}
+
+	public List<Product> selectOptionList(int productNo) {
+		return sqlSession.selectList("manageSQL.selectOptionList", productNo);
+	}
+
+	public List<ProductImage> selectImageList(int productNo) {
+		return sqlSession.selectList("manageSQL.selectImageList", productNo);
+	}
 	
 	
 }

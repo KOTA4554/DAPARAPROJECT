@@ -195,21 +195,19 @@ li {
 	        <td>카테고리</td>
 	    </tr>
 	    <c:forEach items="${list}" var="prod">
-		    <a href="">
 	    <tr class="prodListRows" id="${prod.productNo}">
 	    	<td class="prodRowPno">${prod.productNo}</td>
 			<td class="prodRowImg" align="center" style="margin:0px; padding: 2px;">
 				<img alt="첨부파일" src="${pageContext.request.contextPath}/resources/productUpload/${prod.mainImage}" width=65px height=50px>
 			</td>
 			<td class="prodRowBrand">${prod.productBrand}</td>
-			<td class="prodRowName">${prod.productName}</td>
+			<td class="prodRowName"><a href="${pageContext.request.contextPath}/seller/modifyProduct.do?productNo=${prod.productNo}">${prod.productName}</a></td>
 			<td class="prodRowPrice"><fmt:formatNumber value="${prod.productPrice}" pattern="#,###" />원</td>
 			<td class="prodRowStart">${prod.productStartdate}</td>
 			<td class="prodRowEnd">${prod.productEnddate}</td>
 			<td class="prodRowOptionCnt">${prod.optionCount}</td>
 			<td class="prodRowCateNm">${prod.categoryName}</td>
 		</tr>
-			</a>
 		</c:forEach>
 	</table>
 	<div class="pageBarSection">
