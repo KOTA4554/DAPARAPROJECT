@@ -70,7 +70,7 @@ public class ProductController {
 	public String insertProduct(Product product, Model model, HttpServletRequest req,
 								@RequestParam(value="mainImg", required=false) MultipartFile mainImg,
 								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
-								@RequestParam(value="contentImg", required=false) MultipartFile[] contentImgs) {
+								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
 		
 		System.out.println("product : " + product);
 		System.out.println("mainImg : " + mainImg);
@@ -101,8 +101,8 @@ public class ProductController {
 		// 컨텐츠이미지 저장 
 		for(MultipartFile contentImg : contentImgs) {
 			if(contentImg.isEmpty() == false) { 
-				ProductImage optionImage = saveImage(contentImg, 2, productNo, savePath);
-				imgList.add(optionImage); 
+				ProductImage contentImage = saveImage(contentImg, 2, productNo, savePath);
+				imgList.add(contentImage); 
 			} 
 		}
 		
@@ -229,6 +229,24 @@ public class ProductController {
 		return "productManage/productList";
 	}
 	
+	@RequestMapping("seller/modifyProduct.do")
+	public String modifyProduct(@RequestParam int productNo, Model model) {
+		
+		Product detail = productService.selectOneProduct(productNo);
+		List<Product> option = productService.selectOptionList(productNo);
+		List<ProductImage> image = productService.selectImageList(productNo);
+		System.out.println("detail : " + detail);
+		System.out.println("option : " + option);
+		System.out.println("image : " + image);
+		
+		model.addAttribute("detail", detail);
+		model.addAttribute("option", option);
+		model.addAttribute("image", image);
+		
+		
+		
+		return "productManage/modifyProduct";
+
 
 	@RequestMapping("/seller/reviewList.do")
 	public String reviewList(HttpServletRequest request, Model model) {
@@ -262,6 +280,7 @@ public class ProductController {
 		model.addAttribute("rpList", rpList);
 		
 		return "productManage/reviewList";
+
 	}
 	
 }

@@ -1,3 +1,4 @@
+
 package com.kh.dpr.product.model.dao;
 
 import java.util.List;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
-import com.kh.dpr.review.model.vo.Review;
 
 @Repository
 public class ProductDAO {
@@ -43,18 +43,16 @@ public class ProductDAO {
 		return sqlSession.insert("manageSQL.insertOption", opt);
 	}
 
+	public List<Map<String, String>> selectProductList(String sellerId, int cPage, int numPerPage) {
+		
+		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
+		
+		return sqlSession.selectList("manageSQL.selectProductList", sellerId, rows);
+	}
+
 	public int selectTotalProduct(String sellerId) {
 		return sqlSession.selectOne("manageSQL.selectTotalProduct", sellerId);
 	}
-
-	public List<Review> selectReviewList(String sellerId) {
-		
-		return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
-	}
-
-	public Product selectRproduct(int reviewNo) {
-		
-		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
 
 	public List<Map<String, String>> searchProductList(Map map, int cPage, int numPerPage) {
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
@@ -63,8 +61,29 @@ public class ProductDAO {
 
 	public int selectSearchedProduct(Map<String, Object> map) {
 		return sqlSession.selectOne("manageSQL.selectSearchedProduct", map);
+	}
 
+	public Product selectOneProduct(int productNo) {
+		return sqlSession.selectOne("manageSQL.selectOneProduct", productNo);
+	}
+
+	public List<Product> selectOptionList(int productNo) {
+		return sqlSession.selectList("manageSQL.selectOptionList", productNo);
+	}
+
+	public List<ProductImage> selectImageList(int productNo) {
+		return sqlSession.selectList("manageSQL.selectImageList", productNo);
 	}
 	
+  public List<Review> selectReviewList(String sellerId) {
+		
+		return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
+	}
+
+	public Product selectRproduct(int reviewNo) {
+		
+		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
+  }
 	
 }
+

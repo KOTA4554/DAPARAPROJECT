@@ -39,10 +39,12 @@ public class Product implements Serializable {
     private int productCount;
     private String productBrand;
     private String productOldImage;
-	  private String productNewImage;
+	private String productNewImage;
     private String mainImage;
     private int optionCount;
     private String categoryName;
+    private int categoryNo; // 대분류 카테고리 번호
+    private String sizeName; // 사이즈 텍스트 명
 
 
 
