@@ -51,17 +51,20 @@ public class ProductService {
 		return productDAO.insertOption(opt);
 	}
 
-	public List<Map<String, String>> selectProductList(String sellerId, int prodPage, int numPerPage) {
-		return productDAO.selectProductList(sellerId, prodPage, numPerPage);
+	public List<Map<String, String>> selectProductList(String sellerId, int cPage, int numPerPage) {
+		return productDAO.selectProductList(sellerId, cPage, numPerPage);
 	}
 
 	public int selectTotalProduct(String sellerId) {
 		return productDAO.selectTotalProduct(sellerId);
 	}
 
-	public List<Map<String, String>> searchProductList(Map map, int prodPage, int numPerPage) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, String>> searchProductList(Map map, int cPage, int numPerPage) {
+		return productDAO.searchProductList(map, cPage, numPerPage);
+	}
+
+	public int selectSearchedProduct(Map<String, Object> map) {
+		return productDAO.selectSearchedProduct(map);
 	}
 
 

@@ -2,9 +2,9 @@ package com.kh.dpr.product.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,17 +146,17 @@ public class ProductController {
 	}
 	
 	@RequestMapping("seller/productList.do")
-	public String productList(@RequestParam(value="prodPage", required=false, defaultValue="1") int prodPage,
+	public String productList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 							  Seller seller, Model model) {
 		
 		int numPerPage = 15;
 		String sellerId = seller.getSellerId();
 		
-		List<Map<String, String>> list = productService.selectProductList(sellerId, prodPage, numPerPage);
+		List<Map<String, String>> list = productService.selectProductList(sellerId, cPage, numPerPage);
 		
 		int totalProduct = productService.selectTotalProduct(sellerId);
 		
-		String pageBar = Utils.getPageBar(totalProduct, prodPage, numPerPage, "productList.do");
+		String pageBar = Utils.getPageBar(totalProduct, cPage, numPerPage, "productList.do");
 		
 		model.addAttribute("list", list);
 		model.addAttribute("totalProduct", totalProduct);
@@ -167,39 +167,62 @@ public class ProductController {
 	}
 	
 	@RequestMapping("seller/searchProd.do")
-	public String searchProductList(@RequestParam(value="prodPage", required=false, defaultValue="1") int prodPage,
+	public String searchProductList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 									@RequestParam(value="searchNm", required=false) String searchNm,
-									@RequestParam(value="searchCate1", required=false, defaultValue="999") int searchCate1,
-									@RequestParam(value="searchCate2", required=false, defaultValue="999") int searchCate2,
-									@RequestParam(value="startDate", required=false) Date startDate,
-									@RequestParam(value="endDate", required=false) Date endDate,
-									@RequestParam(value="saleState", required=false, defaultValue="0") int saleState,
-									@RequestParam(value="searchBrand", required=false, defaultValue="") String searchBrand,
-									@RequestParam(value="searchPno", required=false, defaultValue="0") int searchPno,
+									@RequestParam(value="searchCate1", required=false) int searchCate1,
+									@RequestParam(value="searchCate2", required=false) int searchCate2,
+									@RequestParam(value="startDate", required=false) String startDate,
+									@RequestParam(value="endDate", required=false) String endDate,
+									@RequestParam(value="saleState", required=false) int saleState,
+									@RequestParam(value="searchBrand", required=false) String searchBrand,
+									@RequestParam(value="searchPno", required=false, defaultValue="-1") int searchPno,
 									Seller seller, Model model) {
 		
 		int numPerPage = 15;
 		String sellerId = seller.getSellerId();
+		// Date.valueOf(문자열)  : 문자열 형식(2021-11-23 / 20211123)
+				
+		Map<String, Object> map= new HashMap<>();
 		
-		Map map= new HashMap();
+		System.out.println(startDate);
 		
+		if( startDate != null && !startDate.equals("")) {
+			Date startD = Date.valueOf(startDate);			
+			map.put("startDate", startD);
+		}
+		if( endDate != null && !endDate.equals("")) {
+			Date endD = Date.valueOf(endDate);
+			map.put("endDate", endD);
+			
+		}		
 		map.put("sellerId", sellerId);
 		map.put("searchNm", searchNm);
 		map.put("searchCate1", searchCate1);
 		map.put("searchCate2", searchCate2);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
 		map.put("saleState", saleState);
 		map.put("searchBrand", searchBrand);
 		map.put("searchPno", searchPno);
 		
-		System.out.println(map.get("sellerId"));
-		System.out.println(map.get("searchNm"));
-		System.out.println(map.get("searchCate1"));
-		System.out.println("페이지 : " + prodPage);
-		System.out.println("searchNm : " + searchNm);
+		System.out.println("sellerId : " + map.get("sellerId"));
+		System.out.println("searchNm : " + map.get("searchNm"));
+		System.out.println("cate1 : " + map.get("searchCate1"));
+		System.out.println("cate2 : " + map.get("searchCate2"));
+		System.out.println("startDate : " + map.get("startDate"));
+		System.out.println("endDate : " + map.get("endDate"));
+		System.out.println("brand : " + map.get("searchBrand"));
+		System.out.println("state : " + map.get("saleState"));
+		System.out.println("p : " + map.get("searchPno"));
+		System.out.println("페이지 : " + cPage);
 		
-		// List<Map<String, String>> list = productService.searchProductList(map, prodPage, numPerPage);
+		List<Map<String, String>> list = productService.searchProductList(map, cPage, numPerPage);
+		
+		int totalProduct = productService.selectSearchedProduct(map);
+		String pageBar = Utils.getPageBar(totalProduct, cPage, numPerPage, "searchProd.do");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "productManage/productList";
 	}
