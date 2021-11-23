@@ -1,3 +1,4 @@
+
 package com.kh.dpr.product.model.dao;
 
 import java.util.List;
@@ -74,5 +75,15 @@ public class ProductDAO {
 		return sqlSession.selectList("manageSQL.selectImageList", productNo);
 	}
 	
+  public List<Review> selectReviewList(String sellerId) {
+		
+		return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
+	}
+
+	public Product selectRproduct(int reviewNo) {
+		
+		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
+  }
 	
 }
+

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ import com.kh.dpr.common.Utils;
 import com.kh.dpr.product.model.service.ProductService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
@@ -244,6 +246,52 @@ public class ProductController {
 		
 		
 		return "productManage/modifyProduct";
+
+
+	@RequestMapping("/seller/reviewList.do")
+	public String reviewList(HttpServletRequest request, Model model) {
+
+		HttpSession session = request.getSession(false);
+		
+		Seller s = (Seller)session.getAttribute("seller");
+		
+		String sellerId = s.getSellerId();
+		
+		// 판매자가 올린 상품 리뷰 리스트
+		List<Review> reviewList = productService.selectReivewList(sellerId);
+		
+		// 해당 리뷰의 상품
+		List<Product> rpList = new ArrayList<Product>();
+
+		for(int i = 0; i < reviewList.size(); i++) {
+			
+			int reviewNo = reviewList.get(i).getReviewNo();
+			
+			Product rp = productService.selectRproduct(reviewNo);
+			
+			rpList.add(rp);
+			
+		}
+		
+		int totalProduct = reviewList.size();
+		
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		
+		return "productManage/reviewList";
+
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
