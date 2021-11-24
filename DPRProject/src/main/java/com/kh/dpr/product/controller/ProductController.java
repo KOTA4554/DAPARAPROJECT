@@ -27,6 +27,7 @@ import com.kh.dpr.product.model.service.ProductService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
 import com.kh.dpr.review.model.vo.Review;
+import com.kh.dpr.seller.model.vo.SearchCondition;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
@@ -282,6 +283,59 @@ public class ProductController {
 		return "productManage/reviewList";
 
 	}
+	
+	@RequestMapping("/seller/searchReviewProd.do")
+	public String searchReview( @RequestParam(value="productName", required=false) String productName,
+								@RequestParam(value="categoryNo", required=false) int categoryNo,
+								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
+								@RequestParam(value="productBrand", required=false) String productBrand,
+								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+								HttpServletRequest request,
+								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sellerId", sellerId);
+		map.put("productName", productName);
+		map.put("categoryNo", categoryNo);
+		map.put("categoryNo2", categoryNo2);
+		map.put("productBrand", productBrand);
+		map.put("productNo", productNo);
+		
+		System.out.println(map);
+		
+		// 조건에 맞는 리뷰 리스트
+		List<Review> reviewList = productService.selectSearchReview(map);
+		
+		System.out.println(reviewList);
+		
+		// 해당 리뷰의 상품
+		List<Product> rpList = new ArrayList<Product>();
+
+		for(int i = 0; i < reviewList.size(); i++) {
+			
+			int reviewNo = reviewList.get(i).getReviewNo();
+			
+			Product rp = productService.selectRproduct(reviewNo);
+			
+			rpList.add(rp);
+			
+		}
+		
+		int totalProduct = reviewList.size();
+		
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		
+		//return null;
+		return "productManage/reviewList";
+	}
+	
 	
 }
 

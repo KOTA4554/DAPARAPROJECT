@@ -10,6 +10,7 @@ import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
 import com.kh.dpr.review.model.vo.Review;
+import com.kh.dpr.seller.model.vo.SearchCondition;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
@@ -89,6 +90,11 @@ public class ProductService {
 
 		return productDAO.selectRproduct(reviewNo);
 
+	}
+
+	public List<Review> selectSearchReview(Map<String, Object> map) {
+		
+		return productDAO.selectSearchReview(map);
 	}
 
 

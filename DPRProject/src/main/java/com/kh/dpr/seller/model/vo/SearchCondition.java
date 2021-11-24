@@ -16,20 +16,11 @@ public class SearchCondition {
 	
 	String productName;
 	String productBrand;
+	String sellerId;
 	int productNo;
 	int categoryNo;
 	int categoryNo2;
 	int claimCode;
-	
-	
-	public SearchCondition(String productName, String productBrand, int productNo, int categoryNo, int categoryNo2) {
-		super();
-		this.productName = productName;
-		this.productBrand = productBrand;
-		this.productNo = productNo;
-		this.categoryNo = categoryNo;
-		this.categoryNo2 = categoryNo2;
-	}
 	
 	
 
