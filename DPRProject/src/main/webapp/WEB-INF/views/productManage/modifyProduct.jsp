@@ -95,7 +95,7 @@ table input[type="text"], select, input[type="number"] {
 }
 .productMainImg, .productAdditionalImg, .productContentImg {
 	border: 1px solid lightgray;
-	display: flex;
+	/* display: flex; */
 	align-items: center;
     justify-content: center;
     color: lightgray;
@@ -155,7 +155,7 @@ textarea {
 <c:import url="../common/header.jsp"/>
 
 <div class="mainSectionForm">
-<form action="${pageContext.request.contextPath}/seller/productInsert.do" method="post" enctype="multipart/form-data">
+<form action="${pageContext.request.contextPath}/seller/modifyProdEnd.do" method="post" enctype="multipart/form-data">
     <input type="hidden" name="sellerId" value="${seller.sellerId}"/>
     <input type="hidden" id="productNo" name="productNo" value="${detail.productNo}"/>
     <table border="0" id="mainTable">
@@ -198,7 +198,7 @@ textarea {
         		 value="${detail.productBrand}" required></td>
         	<th>판매 가격</th>
         	<td><input type="number" name="productPrice" id="productPrice" placeholder="판매 가격을 입력하세요."
-        		 value="${detail.productPrice}" disabled></td>
+        		 value="${detail.productPrice}" readonly></td>
         </tr>
         <tr>
         	<th>상품설명</th>
@@ -209,7 +209,7 @@ textarea {
             <td colspan="3">
                 <div class="datePickerDiv">
                 	<input type="text" class="datepicker" name="productStartdate" id="startDate" placeholder="판매시작일"
-                	 value="${detail.productStartdate}" disabled>
+                	 value="${detail.productStartdate}" readonly>
                 	<input type="text" value="00:00:00" class="defaultTime" disabled>
                 	<span style="display: inline-block; margin: 0px 50px;"> ~ </span> 
                 	<input type="text" class="datepicker" name="productEnddate" id="endDate" placeholder="판매종료일"
@@ -242,13 +242,18 @@ textarea {
                     <c:forEach items="${option}" var="opt">
                     <tr class="product-opt">
                         <td class="optionCheckbox" ><input type="checkbox" name="" id="" disabled></td>
-                        <td class="optionNo"><span class="productNo">${opt.optionNo}</span></td>
+                        <td class="optionNo">
+                        	<span class="productNo">${opt.optionNo}</span>
+                        	<input type="hidden" name="optionNo" class="optNo" value="${opt.optionNo}" />
+                        	<input type="hidden" name="optionStatus" class="optStatus" value="${opt.optionStatus}" />
+                        </td>
                         <td><input class="optionBrand" type="text" name="optionBrand" id="optionBrand" value="${opt.productBrand}" readonly /></td>
                         <td><input type="text" class="optionProductName" name="optionName" id="optionName" value="${opt.productName }" readonly/></td>
                         <td>
 	                        <input type="text" class="optionSize" name="sizeName" id="sizeName" value="${opt.sizeName}" disabled>
 	                    </td>
                         <td><input class="optionAmount" type="number" name="productAmount" id="productAmount" min="0" value="${opt.productAmount}"/></td>
+                        </del>
                     </tr>
                     </c:forEach>
                 </table> 
@@ -288,7 +293,7 @@ textarea {
         		<span class="imageSectionTitles">컨텐츠 이미지 등록</span>
         		<div id="contentImgSection">
         			<c:forEach items="${image}" var="img">
-				    <c:if test="${img.imageCategoryNo == 3}">
+				    <c:if test="${img.imageCategoryNo == 2}">
 	        		<div class="productContentImg">
 	        			<img src="${pageContext.request.contextPath}/resources/productUpload/${img.productNewImage}" alt="상품추가" class="contentImg" width="395" height="295"/>
 		        		<input type="file" class="fileSelector" name="contentImgs" id="contentProductImg1"  onchange="loadImg(this)"/>
@@ -311,7 +316,7 @@ textarea {
     </table>
     <div id="submitBtnArea">
 	    <input type="submit" id="submitBtn" value="submitBtn" hidden/>
-	    <button class="primary-btn order-submit" type="button" id="confirmBtn" onclick="insertProduct();">등록</button>
+	    <button class="primary-btn order-submit" type="button" id="confirmBtn" onclick="insertProduct();">수정</button>
     </div>
 </form>
 </div>
@@ -376,7 +381,6 @@ textarea {
 	}
 	
 	function insertProduct(){
-		
 		if(validate() == true){
 			saveOption();
 		} 
@@ -395,8 +399,10 @@ textarea {
 		$('.product-opt').each(function(){
 			var sizeId = Number($(this).find('.optionSize').val());
 			var productAmount = Number($(this).find('.optionAmount').val());
+			var optionNo = Number($(this).find('.optNo').val());
 			
 			var obj = {
+					optionNo : optionNo,
 					productNo : productNo,
 					productName : productName,
 					productBrand : productBrand,
@@ -409,14 +415,14 @@ textarea {
 		console.log(optionList);
 		
 		$.ajax({
-			url: "${pageContext.request.contextPath}/seller/optionInsert.do",
+			url: "${pageContext.request.contextPath}/seller/modifyOptEnd.do",
 			type: "post",
 			data: JSON.stringify(optionList),
 			contentType: "application/json; charset=UTF-8",
 			success: function(data){
 				console.log("전달 성공");
 				result = true;
-				$('#submitBtn').trigger("click");
+				$('#submitBtn').trigger("click"); 
 			},
 			error: function(error){
 				result = false;
@@ -520,7 +526,7 @@ textarea {
 	// datepicker 사용
     $(function() {
        //input을 datepicker로 선언
-        $('#startDate, #endDate').datepicker({
+        $('#endDate').datepicker({
             dateFormat: 'yy-mm-dd'
             ,showOtherMonths: true
             ,showMonthAfterYear:true

@@ -5,9 +5,9 @@
 
 	<update id="insertProduct" parameterType="Product">
 		UPDATE PRODUCT_DETAIL SET CATEGORYNO2 = #{categoryNo2}, SELLERID = #{sellerId}, PRODUCTNAME = #{productName},
-												PRODUCTSTATUS = 'Y', PRODUCTINFO = #{productInfo},
-												PRODUCTSTARTDATE = #{productStartdate}, PRODUCTENDDATE = #{productEnddate},
-												PRODUCTCONTENT = #{productContent}, PRODUCTCOUNT = 0, PRODUCTPRICE = #{productPrice}, PRODUCTBRAND = #{productBrand}
+								  PRODUCTSTATUS = 'Y', PRODUCTINFO = #{productInfo}, PRODUCTSTARTDATE = #{productStartdate}, 
+								  PRODUCTENDDATE = #{productEnddate}, PRODUCTCONTENT = #{productContent}, 
+								  PRODUCTPRICE = #{productPrice}, PRODUCTBRAND = #{productBrand}
 		WHERE PRODUCTNO = #{productNo}
 	</update>
 	
@@ -196,5 +196,18 @@
 	<select id="selectImageList" parameterType="int" resultType="ProductImage">
 		SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
 	</select>
+	
+	<update id="updateOption" parameterType="Product">
+		UPDATE PRODUCT_OPTION SET PRODUCTAMOUNT = #{productAmount} WHERE OPTIONNO = #{optionNo}
+	</update>
+	
+	<select id="selectImage" parameterType="map" resultType="ProductImage">
+		SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = #{category}
+	</select>
+	
+	<delete id="deleteImage" parameterType="map">
+		DELETE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = #{category} 
+	</delete>
+	
 	
 </mapper>

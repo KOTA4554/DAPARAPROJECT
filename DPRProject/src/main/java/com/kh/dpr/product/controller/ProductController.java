@@ -72,11 +72,6 @@ public class ProductController {
 								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
 								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
 		
-		System.out.println("product : " + product);
-		System.out.println("mainImg : " + mainImg);
-		// --- 옵션 정보 받아와서 DB에 등록 -- //
-		
-		
 		int productNo = product.getProductNo();
 		System.out.println("product No : " + productNo);
 		
@@ -100,6 +95,7 @@ public class ProductController {
 		 
 		// 컨텐츠이미지 저장 
 		for(MultipartFile contentImg : contentImgs) {
+			System.out.println("컨텐츠이미지");
 			if(contentImg.isEmpty() == false) { 
 				ProductImage contentImage = saveImage(contentImg, 2, productNo, savePath);
 				imgList.add(contentImage); 
@@ -111,8 +107,9 @@ public class ProductController {
 			System.out.println("게시글 등록 성공");
 		}
 		
-		return "seller/sellerMain";
+		return "productManage/productList";
 	}
+	
 	
 	public ProductImage saveImage(MultipartFile images, int categroy, int productNo, String savePath) {
 		
@@ -146,6 +143,7 @@ public class ProductController {
 		
 		return pNo + sdf.format(new Date(System.currentTimeMillis())) + "_" + rnd + "." + ext;
 	}
+	
 	
 	@RequestMapping("seller/productList.do")
 	public String productList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -204,17 +202,6 @@ public class ProductController {
 		map.put("saleState", saleState);
 		map.put("searchBrand", searchBrand);
 		map.put("searchPno", searchPno);
-		
-		System.out.println("sellerId : " + map.get("sellerId"));
-		System.out.println("searchNm : " + map.get("searchNm"));
-		System.out.println("cate1 : " + map.get("searchCate1"));
-		System.out.println("cate2 : " + map.get("searchCate2"));
-		System.out.println("startDate : " + map.get("startDate"));
-		System.out.println("endDate : " + map.get("endDate"));
-		System.out.println("brand : " + map.get("searchBrand"));
-		System.out.println("state : " + map.get("saleState"));
-		System.out.println("p : " + map.get("searchPno"));
-		System.out.println("페이지 : " + cPage);
 		
 		List<Map<String, String>> list = productService.searchProductList(map, cPage, numPerPage);
 		
@@ -281,6 +268,163 @@ public class ProductController {
 		
 		return "productManage/reviewList";
 
+	}
+	@RequestMapping("/seller/modifyOptEnd.do")
+	@ResponseBody
+	public void modifyOptEnd(@RequestBody List<Product> option) {
+		System.out.println("받아 온 옵션 길이 : " + option.size());
+		
+		for(Product opt : option) {
+			System.out.println("OptionNo" + opt.getOptionNo() + "불러오기 성공");			
+			// System.out.println(opt);
+			if(opt.getOptionNo() == 0) {
+				System.out.println(opt.getOptionNo() + "옵션 추가");
+//				 int result = productService.insertOption(opt);
+			} else {
+				System.out.println(opt.getOptionNo() + "옵션 수정");
+//				int result2 = productService.updateOption(opt);
+			}
+		}
+		System.out.println("------------------------------------------");
+		
+		
+//		return "productManage/productList";
+	}
+	
+	@RequestMapping("/seller/modifyProdEnd.do")
+	public String modifyProdEnd(Product product, Model model, HttpServletRequest req,
+								@RequestParam(value="mainImg", required=false) MultipartFile mainImg,
+								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
+								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
+		
+		int productNo = product.getProductNo();
+		System.out.println("product No : " + productNo + "게시글 수정");
+		System.out.println(product);
+
+		// 2. 첨부파일 수정하기
+		String savePath = req.getServletContext().getRealPath("/resources/productUpload");
+		
+		Map<String, Integer> setting = new HashMap();
+		
+		setting.put("productNo", productNo);
+		setting.put("category", 0);
+		
+		List<ProductImage> mainImgList = productService.selectImage(setting); // 기존 이미지 객체 로드
+		System.out.println("main : " + setting.get("category"));
+		
+		setting.put("category", 1);
+		List<ProductImage> optionImgList = productService.selectImage(setting);
+		System.out.println("option : " + setting.get("category"));
+		
+		setting.put("category", 2);
+		List<ProductImage> contentImgList = productService.selectImage(setting);
+		System.out.println("content : " + setting.get("category"));
+		
+		
+		int idx = 0;
+		
+		if(mainImg.isEmpty() == false) {
+			ProductImage temp = null;
+			
+			File oldFile = new File(savePath + "/" + mainImgList.get(idx).getProductNewImage());
+			System.out.println("변경 전 파일 삭제 : " + oldFile.delete());
+			
+			temp = mainImgList.get(idx); // 새 파일로 ProductImage 객체 생성
+			
+			String originName = mainImg.getOriginalFilename();
+			String changeName = fileRename(productNo, originName);
+			
+			try {
+				mainImg.transferTo(new File(savePath + "/" + changeName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			temp.setImageCategoryNo(0);
+			temp.setProductOldImage(originName);
+			temp.setProductNewImage(changeName);
+			
+			mainImgList.set(idx, temp);
+		}
+		
+		int optIdx = 0;
+		
+		for(MultipartFile optionImg : optionalImgs) {
+			ProductImage temp = null;
+			
+			if(optionImg.isEmpty() == false) {	
+				if(optionImgList.size() > optIdx) {
+					File oldFile = new File(savePath + "/" + optionImgList.get(optIdx).getProductNewImage());
+					System.out.println("변경 전 파일 삭제 : " + oldFile.delete());
+					temp = optionImgList.get(optIdx);
+				} else {
+					temp = new ProductImage();
+					temp.setProductNo(productNo);
+					temp.setImageCategoryNo(1);
+					optionImgList.add(temp);
+				}
+				
+				String originName = optionImg.getOriginalFilename();
+				String changeName = fileRename(productNo, originName);
+				
+				try {
+					optionImg.transferTo(new File(savePath + "/" + changeName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				temp.setImageCategoryNo(1);
+				temp.setProductOldImage(originName);
+				temp.setProductNewImage(changeName);
+				
+				optionImgList.set(optIdx, temp);				
+			}
+			optIdx++;
+		}
+		
+		int conIdx = 0;
+		
+		for(MultipartFile contentImg : contentImgs) {
+			ProductImage temp = null;
+			
+			if(contentImg.isEmpty() == false) {	
+				if(contentImgList.size() > conIdx) {
+					File oldFile = new File(savePath + "/" + contentImgList.get(conIdx).getProductNewImage());
+					System.out.println("변경 전 파일 삭제 : " + oldFile.delete());
+					temp = contentImgList.get(conIdx);
+				} else {
+					temp = new ProductImage();
+					temp.setImageCategoryNo(2);
+					temp.setProductNo(productNo);
+					contentImgList.add(temp);
+				}
+				
+				String originName = contentImg.getOriginalFilename();
+				String changeName = fileRename(productNo, originName);
+				
+				try {
+					contentImg.transferTo(new File(savePath + "/" + changeName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				temp.setImageCategoryNo(2);
+				temp.setProductOldImage(originName);
+				temp.setProductNewImage(changeName);
+				
+				contentImgList.set(conIdx, temp);				
+			}
+			conIdx++;
+		}
+		
+		int result = productService.updateProduct(product, mainImgList, optionImgList, contentImgList);
+		return "seller/sellerMain";
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.kh.dpr.product.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,6 @@ import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
 import com.kh.dpr.review.model.vo.Review;
-import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
 public class ProductService {
@@ -80,15 +80,71 @@ public class ProductService {
 		return productDAO.selectImageList(productNo);
 	}
 	
-	public List<Review> selectReivewList(String sellerId) {
-		
+	public List<Review> selectReivewList(String sellerId) {		
 		return productDAO.selectReviewList(sellerId);
 	}
 
 	public Product selectRproduct(int reviewNo) {
-
 		return productDAO.selectRproduct(reviewNo);
 
+	}
+
+	public int updateOption(Product opt) {
+		return productDAO.updateOption(opt);
+	}
+
+	public List<ProductImage> selectImage(Map<String, Integer> setting) {
+		return productDAO.selectImage(setting);
+	}
+
+	public int updateProduct(Product product, List<ProductImage> mainImgList, List<ProductImage> optionImgList,
+			List<ProductImage> contentImgList) {
+		
+		int totalResult = 0;
+		
+		// 1. 게시글 업데이트
+		totalResult = productDAO.insertProduct(product);
+		
+		Map<String, Integer> setting = new HashMap();
+		setting.put("productNo", product.getProductNo());
+
+		setting.put("category", 0);
+		List<ProductImage> originMain = selectImage(setting);
+		if(originMain.size() > 0) {
+			totalResult = productDAO.deleteImage(setting);
+		}
+		if(mainImgList.size() > 0) {
+			for(ProductImage img : mainImgList) {
+				img.setImageCategoryNo(0);
+				totalResult = productDAO.insertImage(img);
+			}
+		}
+		
+		setting.put("category", 1);
+		List<ProductImage> originOpt = selectImage(setting);
+		if(originOpt.size() > 0) {
+			totalResult = productDAO.deleteImage(setting);
+		}
+		if(optionImgList.size() > 0) {
+			for(ProductImage img : optionImgList) {
+				img.setImageCategoryNo(1);
+				totalResult = productDAO.insertImage(img);
+			}
+		}
+		
+		setting.put("category", 2);
+		List<ProductImage> originCon = selectImage(setting);
+		if(originCon.size() > 0) {
+			totalResult = productDAO.deleteImage(setting);
+		}
+		if(contentImgList.size() > 0) {
+			for(ProductImage img : contentImgList) {
+				img.setImageCategoryNo(2);
+				totalResult = productDAO.insertImage(img);
+			}
+		}
+
+		return totalResult;
 	}
 
 
