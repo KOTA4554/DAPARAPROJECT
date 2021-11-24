@@ -29,7 +29,18 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public int orderDetailInsert(OrderDetail orderDetail) {
 		
-		return orderDAO.orderDetailInsert(orderDetail);
+		int result1 = orderDAO.orderDetailInsert(orderDetail);
+		
+		int result2 = 0;
+		
+		if(result1 > 0) {
+			// 주문상세 생성 완료 시 재고 - 수량
+			result2 = orderDAO.minusStock(orderDetail);
+		} else {
+			result2 = 0;
+		}
+		
+		return result2;
 	}
 
 	@Override
