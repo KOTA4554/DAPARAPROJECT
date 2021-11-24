@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.SearchCondition;
 import com.kh.dpr.seller.model.vo.Seller;
@@ -95,6 +96,21 @@ public class ProductService {
 	public List<Review> selectSearchReview(Map<String, Object> map) {
 		
 		return productDAO.selectSearchReview(map);
+	}
+
+	public List<QnA> selectQnaList(String sellerId) {
+		
+		return productDAO.selectQnaList(sellerId);
+	}
+
+	public Product selectQproduct(int qnaNo) {
+		
+		return productDAO.selectQproduct(qnaNo);
+	}
+
+	public List<QnA> selectSearchQna(Map<String, Object> map) {
+		
+		return productDAO.selectSearchQna(map);
 	}
 
 

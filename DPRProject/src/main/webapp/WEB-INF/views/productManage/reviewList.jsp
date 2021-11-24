@@ -177,18 +177,18 @@ li {
 	
 	<table id="prodListTable" border="0">
 		<tr>
-			<th colspan="9" class="sectionTitles">상품 리스트
-			<div class="explainTitles">현재 조회 상품 수 : 총 ${totalProduct}개</div></th>
+			<th colspan="9" class="sectionTitles">리뷰 리스트
+			<div class="explainTitles">현재 조회 리뷰 수 : 총 ${totalProduct}개</div></th>
 		</tr>
 	    <tr id="prodListTitle">
-	        <td>리뷰번호</td>
-	        <td>상품번호</td>
-	        <td>주문상세번호</td>
-	        <td>브랜드</td>
-	        <td>상품명</td>
-	        <td>평점</td>
-	        <td>USERID</td>
-	        <td>리뷰 날짜</td>
+	       <td style="width: 60px;">리뷰번호</td>
+	        <td style="width: 60px;">상품번호</td>
+	        <td style="width: 100px;">주문상세번호</td>
+	        <td style="width: 100px;">브랜드</td>
+	        <td style="width: 200px;">상품명</td>
+	        <td style="width: 60px;">평점</td>
+	        <td style="width: 85px;">USERID</td>
+	        <td style="width: 85px;">리뷰 날짜</td>
 
 	    </tr>
 	    <c:forEach items="${reviewList}" var="review" varStatus="status">
