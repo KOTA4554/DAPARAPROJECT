@@ -204,7 +204,9 @@
 		WHERE DETAILNO IN (SELECT DETAILNO
 						   FROM ORDERDETAIL
         				   WHERE PRODUCTNO IN (SELECT PRODUCTNO
-                           					   FROM PRODUCT_DETAIL
+                           					   FROM PRODUCT_DETAIL DETAIL
+											   LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+											   LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
                            					   WHERE SELLERID = #{sellerId}
                            					   <if test="productName != null || productName != ''">
                            					   		AND PRODUCTNAME LIKE '%' || #{productName} || '%'
@@ -216,10 +218,10 @@
                            					   		AND PRODUCTNO = #{productNo}
                            					   </if>
                            					   <if test="categoryNo != null and categoryNo != 999">
-													AND CATEGORYNO = #{categoryNo}
+													AND CG.CATEGORYNO = #{categoryNo}
 											   </if>
 											   <if test="categoryNo2 != null and categoryNo2 != 999">
-													AND CATEGORYNO2 = #{categoryNo2}
+													AND CG2.CATEGORYNO2 = #{categoryNo2}
 											   </if>
                            					   )) 
 		ORDER BY REVIEWNO DESC
@@ -247,7 +249,9 @@
 		SELECT *
 		FROM QNA
 		WHERE PRODUCTNO IN (SELECT PRODUCTNO
-                           	FROM PRODUCT_DETAIL
+                           	FROM PRODUCT_DETAIL DETAIL
+							LEFT JOIN CATEGORY2 CG2 ON (DETAIL.CATEGORYNO2 = CG2.CATEGORYNO2)
+							LEFT JOIN "CATEGORY" CG ON (CG2.CATEGORYNO = CG.CATEGORYNO)
                            	WHERE SELLERID = #{sellerId}
                            	<if test="productName != null || productName != ''">
                       			AND PRODUCTNAME LIKE '%' || #{productName} || '%'
@@ -259,10 +263,10 @@
                       			AND PRODUCTNO = #{productNo}
                       		</if>
                       		<if test="categoryNo != null and categoryNo != 999">
-								AND CATEGORYNO = #{categoryNo}
+								AND CG.CATEGORYNO = #{categoryNo}
 						   </if>
 						   <if test="categoryNo2 != null and categoryNo2 != 999">
-								AND CATEGORYNO2 = #{categoryNo2}
+								AND CG2.CATEGORYNO2 = #{categoryNo2}
 						   </if>
                       		) 
 		ORDER BY QNO DESC
