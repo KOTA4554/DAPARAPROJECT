@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>판매자 리뷰관리</title>
+<title>판매자 QnA관리</title>
 
 <style>
 .mainSectionForm {
@@ -106,14 +106,13 @@ li {
 	text-align:center;
 	width: 85px;
 }
-.reviewRowRno { width: 60px; text-align: center; }
-.reviewRowPno {	width: 60px; text-align: center;  }
-.reviewRowDno { width: 100px; text-align: center;  }
-.reviewRowBrand { width: 100px; text-align: center; }
-.reviewRowName { width: 200px; text-align: center; }
-.reviewRowScore { width: 60px; text-align: center;}
-.reviewRowId { width: 85px; text-align: center; }
-.reviewRowDate { width: 85px; text-align: center; }
+.qnaRowQno { width: 60px; text-align: center; }
+.qnaRowPno {	width: 60px; text-align: center;  }
+.qnaRowBrand { width: 100px; text-align: center; }
+.qnaRowName { width: 100px; text-align: center; }
+.qnaRowTitle { width: 200px; text-align: center;  }
+.qnaRowId { width: 85px; text-align: center; }
+.qnaRowDate { width: 85px; text-align: center; }
 
 </style>
 
@@ -122,7 +121,7 @@ li {
 <c:import url="../common/header.jsp"/>	
 	
 <div class="mainSectionForm">
-	<form action="${pageContext.request.contextPath}/seller/searchReviewProd.do" method="post">
+	<form action="${pageContext.request.contextPath}/seller/searchQnaProd.do" method="post">
 		<table border="0">
 			<tr>
 				<th colspan="4" class="sectionTitles">검색 조건 설정</th>
@@ -177,30 +176,28 @@ li {
 	
 	<table id="prodListTable" border="0">
 		<tr>
-			<th colspan="9" class="sectionTitles">리뷰 리스트
-			<div class="explainTitles">현재 조회 리뷰 수 : 총 ${totalProduct}개</div></th>
+			<th colspan="9" class="sectionTitles">문의 리스트
+			<div class="explainTitles">현재 조회 문의 수 : 총 ${totalQna}개</div></th>
 		</tr>
 	    <tr id="prodListTitle">
-	       <td style="width: 60px;">리뷰번호</td>
+	        <td style="width: 60px;">문의번호</td>
 	        <td style="width: 60px;">상품번호</td>
-	        <td style="width: 100px;">주문상세번호</td>
 	        <td style="width: 100px;">브랜드</td>
-	        <td style="width: 200px;">상품명</td>
-	        <td style="width: 60px;">평점</td>
+	        <td style="width: 100px;">상품명</td>
+	        <td style="width: 200px;">문의글 제목</td>
 	        <td style="width: 85px;">USERID</td>
-	        <td style="width: 85px;">리뷰 날짜</td>
+	        <td style="width: 85px;">문의 날짜</td>
 
 	    </tr>
-	    <c:forEach items="${reviewList}" var="review" varStatus="status">
-		    <tr class="prodListRows" id="${review.reviewNo}">
-		    	<td class="reviewRowRno">${review.reviewNo}</td>
-				<td class="reviewRowPno">${rpList[status.index].productNo}</td>
-				<td class="reviewRowDno">${review.detailNo}</td>
-				<td class="reviewRowBrand">${rpList[status.index].productBrand}</td>
-				<td class="reviewRowName">${rpList[status.index].productName}</td>
-				<td class="reviewRowScore">${review.reviewScore}</td>
-				<td class="reviewRowId">${review.userId}</td>
-				<td class="reviewRowDate">${review.reviewDate}</td>
+	    <c:forEach items="${qnaList}" var="qna" varStatus="status">
+		    <tr class="prodListRows" id="${qna.qNo}">
+		    	<td class="qnaRowQno">${qna.qNo}</td>
+				<td class="qnaRowPno">${qpList[status.index].productNo}</td>
+				<td class="qnaRowBrand">${qpList[status.index].productBrand}</td>
+				<td class="qnaRowName">${qpList[status.index].productName}</td>
+				<td class="qnaRowTitle">${qna.qTitle}</td>
+				<td class="qnaRowId">${qna.userId}</td>
+				<td class="qnaRowDate">${qna.qDate}</td>
 	
 			</tr>
 		</c:forEach>
@@ -217,5 +214,4 @@ li {
 
 <c:import url="../common/footer.jsp"/>
 </body>
-
 </html>

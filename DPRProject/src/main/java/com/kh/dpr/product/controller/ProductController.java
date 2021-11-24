@@ -26,6 +26,7 @@ import com.kh.dpr.common.Utils;
 import com.kh.dpr.product.model.service.ProductService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -283,6 +284,146 @@ public class ProductController {
 
 	}
 	
+
+	@RequestMapping("/seller/searchReviewProd.do")
+	public String searchReview( @RequestParam(value="productName", required=false) String productName,
+								@RequestParam(value="categoryNo", required=false) int categoryNo,
+								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
+								@RequestParam(value="productBrand", required=false) String productBrand,
+								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+								HttpServletRequest request,
+								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sellerId", sellerId);
+		map.put("productName", productName);
+		map.put("categoryNo", categoryNo);
+		map.put("categoryNo2", categoryNo2);
+		map.put("productBrand", productBrand);
+		map.put("productNo", productNo);
+		
+		System.out.println(map);
+		
+		// 조건에 맞는 리뷰 리스트
+		List<Review> reviewList = productService.selectSearchReview(map);
+		
+		System.out.println(reviewList);
+		
+		// 해당 리뷰의 상품
+		List<Product> rpList = new ArrayList<Product>();
+
+		for(int i = 0; i < reviewList.size(); i++) {
+			
+			int reviewNo = reviewList.get(i).getReviewNo();
+			
+			Product rp = productService.selectRproduct(reviewNo);
+			
+			rpList.add(rp);
+			
+		}
+		
+		int totalProduct = reviewList.size();
+		
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		
+		//return null;
+		return "productManage/reviewList";
+	}
+	
+	@RequestMapping("/seller/qnaList.do")
+	public String qnaList(HttpServletRequest request, Model model) {
+
+		HttpSession session = request.getSession(false);
+		
+		Seller s = (Seller)session.getAttribute("seller");
+		
+		String sellerId = s.getSellerId();
+		
+		// 판매자가 올린 상품 문의 리스트
+		List<QnA> qnaList = productService.selectQnaList(sellerId);
+		
+		// 해당 문의의 상품
+		List<Product> qpList = new ArrayList<Product>();
+
+		for(int i = 0; i < qnaList.size(); i++) {
+			
+			int qnaNo = qnaList.get(i).getQNo();
+			
+			Product qp = productService.selectQproduct(qnaNo);
+			
+			qpList.add(qp);
+			
+		}
+		
+		int totalQna = qnaList.size();
+		
+		model.addAttribute("totalQna", totalQna);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qpList", qpList);
+		
+		return "productManage/qnaList";
+
+	}
+	
+	@RequestMapping("/seller/searchQnaProd.do")
+	public String searchQna( @RequestParam(value="productName", required=false) String productName,
+								@RequestParam(value="categoryNo", required=false) int categoryNo,
+								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
+								@RequestParam(value="productBrand", required=false) String productBrand,
+								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+								HttpServletRequest request,
+								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sellerId", sellerId);
+		map.put("productName", productName);
+		map.put("categoryNo", categoryNo);
+		map.put("categoryNo2", categoryNo2);
+		map.put("productBrand", productBrand);
+		map.put("productNo", productNo);
+		
+		System.out.println(map);
+		
+		// 조건에 맞는 리뷰 리스트
+		List<QnA> qnaList = productService.selectSearchQna(map);
+		
+		System.out.println(qnaList);
+		
+		// 해당 리뷰의 상품
+		List<Product> qpList = new ArrayList<Product>();
+
+		for(int i = 0; i < qnaList.size(); i++) {
+			
+			int qNo = qnaList.get(i).getQNo();
+			
+			Product qp = productService.selectRproduct(qNo);
+			
+			qpList.add(qp);
+			
+		}
+		
+		int totalQna = qnaList.size();
+		
+		model.addAttribute("totalQna", totalQna);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qpList", qpList);
+		
+		//return null;
+		return "productManage/qnaList";
+	}
+
 }
 
 
