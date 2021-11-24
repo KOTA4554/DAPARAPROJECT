@@ -246,8 +246,12 @@
                   </li>
                   <li><a href="#">클레임관리</a>
                      <ul>
-                        <li><a href="">문의 관리</a></li>
-                        <li><a href="${pageContext.request.contextPath}/seller/reviewList.do"">리뷰 관리</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/seller/claimList.do">취환불 관리</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/seller/qnaList.do">문의 관리</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/seller/reviewList.do">리뷰 관리</a></li>
                      </ul>
                   </li>
                   <li><a href="#">정산조회</a>

@@ -53,12 +53,6 @@ public class CartServiceImpl implements CartService {
 		return CartDAO.changeAmountM(c);
 		
 	}
-
-	@Override
-	public String loadImage(int productNo) {
-		
-		return CartDAO.loadImage(productNo);
-	}
 	
 
 }

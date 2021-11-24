@@ -68,7 +68,7 @@ table input[type="text"], select, input[type="number"] {
 .cateSelector {
 	width: 130px;
 }
-#searchProdState, #searchProdNo {
+#searchProdState {
 	width: 100%;
 }
 #prodListTable td {
@@ -103,8 +103,8 @@ li {
 	width: 85px;
 }
 .prodRowImg { width: 90px; }
-.prodRowBrand {	width: 160px; }
-.prodRowName { width: 275px; }
+.prodRowBrand {	width: 85px; text-align: center; }
+.prodRowName { width: 350px; text-align: center;}
 .prodRowPrice { width: 100px; text-align: center; }
 .prodRowStart, .prodRowEnd { width: 100px; text-align:center; }
 .prodRowOptionCnt { width: 70px; text-align:center; }
@@ -115,7 +115,7 @@ li {
 </head>
 <body>
 <c:import url="../common/header.jsp"/>	
-	<form action="${pageContext.request.contextPath}/seller/searchProd.do" method="get">
+	
 <div class="mainSectionForm">
 	<table border="0">
 		<tr>
@@ -151,14 +151,12 @@ li {
 		        </td>
 	    </tr>
 	    <tr>
-	        <th>판매기간</th>
-	        <td><input type="text" class="datepicker" name="startDate" id="startDate" placeholder="판매 시작일">
-	        	<span style="display: inline-block; margin: 0px 25px;"> ~ </span> 
-	        	<input type="text" class="datepicker" name="endDate" id="endDate" placeholder="판매 종료일"></td>
+	        <th>브랜드</th>
+	        <td><input type="text" name="searchBrand" id="searchProdBrand"></td>
 	        <th>판매상태</th>
 	        <td>
 	            <select name="saleState" id="searchProdState">
-	            	<option value="999">선택</option>
+	            	<option value="0">선택</option>
 	                <option value="1">판매대기</option>
 	                <option value="2">판매중</option>
 	                <option value="3">판매종료</option>
@@ -166,18 +164,15 @@ li {
 	        </td>
 	    </tr>
 	    <tr>
-	        <th>브랜드</th>
-	        <td><input type="text" name="searchBrand" id="searchProdBrand"></td>
 	        <th>상품번호</th>
 	        <td>
-	        	<input type="text" name="searchPno" id="searchProdNo" />
+	        	<input type="text" name="searchPno" id="searchProdNo" size="30"/>
 	        </td>
 	    </tr>
 	</table>
 	<div class="searchBtnSection">
-		<button id="searchBtn">검색</button>
+		<button id="searchBtn" onclick="searchProduct();">검색</button>
 	</div>
-	</form>
 	<table id="prodListTable" border="0">
 		<tr>
 			<th colspan="9" class="sectionTitles">상품 리스트
@@ -185,29 +180,48 @@ li {
 		</tr>
 	    <tr id="prodListTitle">
 	        <td>상품번호</td>
-	        <td>메인이미지</td>
+	        <td>주문번호</td>
 	        <td>브랜드</td>
 	        <td>상품명</td>
-	        <td>판매 가격</td>
-	        <td>판매 시작일</td>
-	        <td>판매 종료일</td>
-	        <td>옵션 수</td>
-	        <td>카테고리</td>
+	        <td>클레임 내용</td>
+	        <td>클레임 상태</td>
+	        <td>클레임 날짜</td>
+	        <td>클레임 완료일</td>
+
 	    </tr>
-	    <c:forEach items="${list}" var="prod">
-	    <tr class="prodListRows" id="${prod.productNo}">
-	    	<td class="prodRowPno">${prod.productNo}</td>
-			<td class="prodRowImg" align="center" style="margin:0px; padding: 2px;">
-				<img alt="첨부파일" src="${pageContext.request.contextPath}/resources/productUpload/${prod.mainImage}" width=65px height=50px>
-			</td>
-			<td class="prodRowBrand">${prod.productBrand}</td>
-			<td class="prodRowName"><a href="${pageContext.request.contextPath}/seller/modifyProduct.do?productNo=${prod.productNo}">${prod.productName}</a></td>
-			<td class="prodRowPrice"><fmt:formatNumber value="${prod.productPrice}" pattern="#,###" />원</td>
-			<td class="prodRowStart">${prod.productStartdate}</td>
-			<td class="prodRowEnd">${prod.productEnddate}</td>
-			<td class="prodRowOptionCnt">${prod.optionCount}</td>
-			<td class="prodRowCateNm">${prod.categoryName}</td>
-		</tr>
+	   <c:forEach items="${claimList}" var="claim" varStatus="status">
+		   		<tr class="prodListRows" id="${claim.claimNo}">
+		    	<td class="prodRowPno">${cpList[status.index].productNo}</td>
+				<td class="prodRowBrand">${claim.detailNo}</td>
+				<td class="prodRowPrice">${cpList[status.index].productBrand}</td>
+				<td class="prodRowStart">${cpList[status.index].productName}</td>
+				<td class="prodRowName">${claim.claimContent}</td>
+				<c:if test="${0 eq claim.claimCode}">
+				<td class="prodRowEnd">교환</td>
+				</c:if>
+				<c:if test="${1 eq claim.claimCode}">
+				<td class="prodRowEnd">취소</td>
+				</c:if>
+				<c:if test="${2 eq claim.claimCode}">
+				<td class="prodRowEnd">환불</td>
+				</c:if>
+				<c:if test="${3 eq claim.claimCode}">
+				<td class="prodRowEnd">교환 완료</td>
+				</c:if>
+				<c:if test="${4 eq claim.claimCode}">
+				<td class="prodRowEnd">취소 완료</td>
+				</c:if>
+				<c:if test="${5 eq claim.claimCode}">
+				<td class="prodRowEnd">환불 완료</td>
+				</c:if>
+				<td class="prodRowEnd">${claim.claimDate}</td>
+				<c:if test="${!empty claim.completeClaim}">
+				<td class="prodRowEnd">${claim.completeClaim}</td>
+				</c:if>
+				<c:if test="${empty claim.completeClaim}">
+				<td class="prodRowEnd" onclick="a1(${claim.claimNo});">처리대기 중</td>
+				</c:if>
+			</tr>
 		</c:forEach>
 	</table>
 	<div class="pageBarSection">
@@ -216,6 +230,13 @@ li {
 </div>
 
 <script>
+	function searchProduct(){
+		location.href="${pageContext.request.contextPath}/seller/searchReviewProd.do";
+	}
+	
+	function a1(claimNo){
+		location.href="${pageContext.request.contextPath}/claim/claimcomplete.do?claimNo="+claimNo+"";
+	}
 
 	//datepicker 사용
 	$(function() {

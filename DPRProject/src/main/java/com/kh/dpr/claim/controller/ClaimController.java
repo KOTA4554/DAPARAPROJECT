@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.dpr.claim.model.service.ClaimService;
 import com.kh.dpr.claim.model.vo.Claim;
@@ -132,6 +133,63 @@ public class ClaimController {
 		
 		return "common/msg";
 		
+		
+	}
+	
+	@RequestMapping("/seller/claimList.do")
+	public String cliamList(HttpServletRequest request, Model model) {
+		
+	
+	HttpSession session = request.getSession(false);
+	
+	Seller s = (Seller)session.getAttribute("seller");
+	
+	String sellerId = s.getSellerId();
+	
+	List<Claim> ClaimList = ClaimService.selectClaimList(sellerId);
+	
+	List<Product> cpList = new ArrayList<Product>();
+	
+	for(int i = 0; i < ClaimList.size(); i++) {
+		
+		int claimNo = ClaimList.get(i).getClaimNo();
+		
+		Product cp = ClaimService.selectCproduct(claimNo);
+		
+		cpList.add(cp);
+		}
+	System.out.println(ClaimList);
+	System.out.println(cpList);
+	int totalProduct = ClaimList.size();
+	
+	model.addAttribute("totalProduct",totalProduct);
+	model.addAttribute("claimList", ClaimList);
+	model.addAttribute("cpList",cpList);
+
+	return "productManage/claimList";
+	}
+	
+	@RequestMapping("/claim/claimcomplete.do")
+	public String ClaimComplete(@RequestParam int claimNo, Model model) {
+		
+		int result = ClaimService.CompleteClaim(claimNo);
+		
+		String loc = "/seller/claimList.do";
+		String msg = "";
+		
+		
+		if(result > 0) {
+			msg = " 취소 등록 성공!";
+		} else {
+			msg = "클레임 등록 실패!";
+		}
+		
+		model.addAttribute("loc",loc);
+		model.addAttribute("msg",msg);
+		
+		
+		
+		return "common/msg";
 		
 	}
 }

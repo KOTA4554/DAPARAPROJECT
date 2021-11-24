@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dpr.prod.model.dao.ProdDAO;
 import com.kh.dpr.product.model.vo.Product;
-import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
@@ -36,23 +35,5 @@ public class ProdServiceImpl implements ProdService  {
 	public List<String> loadImage(int prodNo) {
 		
 		return ProdDAO.loadImage(prodNo);
-	}
-
-	@Override
-	public List<Review> review(int prodNo) {
-		
-		return ProdDAO.review(prodNo);
-	}
-
-	@Override
-	public List<Product> random() {
-		
-		return ProdDAO.random();
-	}
-
-	@Override
-	public String randomImage(int randomNo) {
-		
-		return ProdDAO.randomImage(randomNo);
 	}
 }

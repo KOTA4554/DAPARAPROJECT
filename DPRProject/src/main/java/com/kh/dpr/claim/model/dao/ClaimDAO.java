@@ -1,5 +1,7 @@
 package com.kh.dpr.claim.model.dao;
 
+import java.util.List;
+
 import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
@@ -21,4 +23,10 @@ public interface ClaimDAO {
 	int insertClaim1(Claim claim);
 
 	int insertClaim2(Claim claim);
+
+	List<Claim> selectClaimList(String sellerId);
+
+	Product selectCproduct(int claimNo);
+
+	int CompleteClaim(int claimNo);
 }

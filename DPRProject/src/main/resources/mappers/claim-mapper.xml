@@ -43,4 +43,37 @@
 	<insert id="insertClaim2" parameterType="Claim">
 		INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 2, #{claimContent}, SYSDATE, null)
 	</insert>
+	
+	<select id="selectClaimList" parameterType="string" resultType="Claim">
+	 	SELECT *
+		FROM CLAIMINFO
+		WHERE DETAILNO IN (SELECT DETAILNO
+        						       FROM ORDERDETAIL
+                  					   WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                                                                   FROM PRODUCT_DETAIL
+                                                                                   WHERE SELLERID = #{sellerId}))
+		ORDER BY CLAIMNO DESC
+	</select>
+	
+	<select id="selectCproduct" parameterType="int" resultType="Product">
+		SELECT *
+		FROM PRODUCT_DETAIL
+		WHERE PRODUCTNO = (SELECT PRODUCTNO
+						                   FROM ORDERDETAIL
+						                   WHERE DETAILNO = (select DETAILNO
+									                                    FROM CLAIMINFO
+									                                    WHERE CLAIMNO = #{claimNo}))
+	</select>
+	<update id="completeClaim" parameterType="int">
+		UPDATE CLAIMINFO 
+		SET     CLAIMCODE = CASE 
+            WHEN CLAIMCODE = 0 THEN 3
+            WHEN CLAIMCODE = 1 THEN 4
+            WHEN CLAIMCODE = 2 THEN 5
+            ELSE CLAIMCODE END,
+            COMPLETECLAIM = CASE
+            WHEN COMPLETECLAIM = NULL THEN SYSDATE
+            ELSE SYSDATE END
+            WHERE CLAIMNO = #{claimNo}
+	</update>
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 
 @Repository
@@ -85,6 +86,28 @@ public class ProductDAO {
 		
 		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
   }
+
+
+	public List<Review> selectSearchReview(Map<String, Object> map) {
+		
+		return sqlSession.selectList("manageSQL.selectSearchReview", map);
+	}
+
+	public List<QnA> selectQnaList(String sellerId) {
+		
+		return sqlSession.selectList("manageSQL.selectQnaList", sellerId);
+	}
+
+	public Product selectQproduct(int qnaNo) {
+		
+		return sqlSession.selectOne("manageSQL.selectQproduct", qnaNo);
+	}
+
+	public List<QnA> selectSearchQna(Map<String, Object> map) {
+		
+		return sqlSession.selectList("manageSQL.selectSearchQna", map);
+	}
+
 	
 }
 
