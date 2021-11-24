@@ -184,7 +184,7 @@ public class ProductController {
 		String sellerId = seller.getSellerId();
 		// Date.valueOf(문자열)  : 문자열 형식(2021-11-23 / 20211123)
 				
-		Map<String, Object> map= new HashMap<>();
+		Map<String, Object> map= new HashMap<String, Object>();
 		
 		System.out.println(startDate);
 		

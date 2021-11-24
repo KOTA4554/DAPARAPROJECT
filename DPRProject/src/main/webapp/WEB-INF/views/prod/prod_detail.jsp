@@ -124,21 +124,12 @@
 					<!-- Product main img -->
 					<div class="col-md-5 col-md-push-2">
 						<div id="product-main-img">
+						<c:forEach var="item" items="${image}" varStatus="status">
 							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood3.jpg"alt="">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${item}">
 							</div>
+							</c:forEach>
 
-							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood4.jpg" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood3.jpg" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood4.jpg" alt="">
-							</div>
 						</div>
 					</div>
 					<!-- /Product main img -->
@@ -146,21 +137,12 @@
 					<!-- Product thumb imgs -->
 					<div class="col-md-2  col-md-pull-5">
 						<div id="product-imgs">
+							<c:forEach var="item" items="${image}" varStatus="status">
 							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood1.jpg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${item}" >
 							</div>
+                            </c:forEach>
 
-							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood4.jpg" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood3.jpg" alt="">
-							</div>
-
-							<div class="product-preview">
-								<img src="${pageContext.request.contextPath}/resources/img/hood4.jpg" alt="">
-							</div>
 						</div>
 					</div>
 					<!-- /Product thumb imgs -->
@@ -172,7 +154,7 @@
 							<h2 class="product-name">${prod.productName}</h2>
 							<div>
 								
-								<a class="review-link" href="#">10개의 리뷰가 있습니다! </a>
+								<a class="review-link" href="#">${rCount}개의 리뷰가 있습니다! </a>
 							</div>
 							<div>
 								<h3 class="product-price">${prod.productPrice}원 <del class="product-old-price"></del></h3>
@@ -277,7 +259,7 @@
 							<ul class="tab-nav">
 								<li class="active"><a data-toggle="tab" href="#tab1">상품 상세정보</a></li>
 								<li><a data-toggle="tab" href="#tab2">문의</a></li>
-								<li><a data-toggle="tab" href="#tab3">리뷰(10)</a></li>
+								<li><a data-toggle="tab" href="#tab3">리뷰(${rCount})</a></li>
 							</ul>
 							<!-- /product tab nav -->
 
@@ -369,24 +351,16 @@
 														</tr>
 													</thead>
 													<tbody align="center">
+													<c:forEach var="rev" items="${review}" varStatus="status">
 														<tr>
-															<td style="height: 150px;border-top:solid ; border-color: rgb(237, 237, 240);">장민수</td> 
-															<td style="height: 225px;border-top:solid ; border-color: rgb(237, 237, 240);">	<img src="${pageContext.request.contextPath}/resources/img/hood1.jpg" style="height:190px; width:180px"></td> 
-															<td style="border-top:solid ; border-color: rgb(237, 237, 240); text-align:left; padding-left:20px;">어디까지길어져어디까지길어디까지지길어져어디까지길어져어디까지길어져</td> 
-
-															<td style="border-top:solid ; border-color: rgb(237, 237, 240);">2021-11-12</td> 
-
-														</tr>
-													
-	<tr>
-															<td style="height: 150px;border-top:solid ; border-color: rgb(237, 237, 240);">장민수</td> 
-															<td style="height: 225px;border-top:solid ; border-color: rgb(237, 237, 240);">	<img src="${pageContext.request.contextPath}/resources/img/hood2.jpg" style="height:190px; width:180px" ></td> 
-															<td style="border-top:solid ; border-color: rgb(237, 237, 240); text-align:left; padding-left:20px;">어디까지길어져어디까지길어디까지지길어져어디까지길어져어디까지길어져</td> 
-
-															<td style="border-top:solid ; border-color: rgb(237, 237, 240);">2021-11-12</td> 
+															<td style="height: 150px;border-top:solid ; border-color: rgb(237, 237, 240);">${rev.userId}</td> 
+															<td style="height: 225px;border-top:solid ; border-color: rgb(237, 237, 240);">	<img src="${pageContext.request.contextPath}/resources/reviewImg/${rev.reviewNewImage}" style="height:190px; width:180px"></td> 
+															<td style="border-top:solid ; border-color: rgb(237, 237, 240); text-align:left; padding-left:20px;">${rev.reviewContent}</td> 
+															<td style="border-top:solid ; border-color: rgb(237, 237, 240);">${rev.reviewDate}</td> 
 
 														</tr>
-														
+														</c:forEach>	
+																											
 														<tr>
 														<td style="border-top:solid ; border-color: rgb(237, 237, 240);" ></td>
 														<td style="border-top:solid ; border-color: rgb(237, 237, 240);"></td>
@@ -437,13 +411,13 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
 							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/resources/img/dpr2.jpg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${rImg[0]}">
 							
 							</div>
 							<div class="product-body">
 								<p class="product-category">의류</p>
-								<h3 class="product-name"><a href="#">가을밤당신을따뜻하게해주는후드티</a></h3>
-								<h4 class="product-price">593,000원 </h4>
+								<h3 class="product-name"><a href="#">${random[0].productName}</a></h3>
+								<h4 class="product-price">${random[0].productPrice}원 </h4>
 							
 							
 							</div>
@@ -458,13 +432,13 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
 							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/resources/img/dpr3.jpg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${rImg[1]}">
 							
 							</div>
 							<div class="product-body">
 								<p class="product-category">의류</p>
-								<h3 class="product-name"><a href="#">할로윈파티용 망토</a></h3>
-								<h4 class="product-price">99,000원</h4>
+								<h3 class="product-name"><a href="#">${random[1].productName}</a></h3>
+								<h4 class="product-price">${random[1].productPrice}원</h4>
 							
 								
 							</div>
@@ -481,12 +455,12 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
 							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/resources/img/dpr4.jpg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${rImg[2]}">
 							</div>
 							<div class="product-body">
 								<p class="product-category">의류</p>
-								<h3 class="product-name"><a href="#">푸른 바다를 녹여낸듯한 블루진</a></h3>
-								<h4 class="product-price">885,990원</h4>
+								<h3 class="product-name"><a href="#">${random[2].productName}</a></h3>
+								<h4 class="product-price">${random[2].productPrice}원</h4>
 							
 							
 							</div>
@@ -501,12 +475,12 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
 							<div class="product-img">
-								<img src="${pageContext.request.contextPath}/resources/img/dpr5.jpg" alt="">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${rImg[3]}">
 							</div>
 							<div class="product-body">
 								<p class="product-category">의류</p>
-								<h3 class="product-name"><a href="#">붉은 단풍을 닮은 가디건</a></h3>
-								<h4 class="product-price">1,140,800원</h4>
+								<h3 class="product-name"><a href="#">${random[3].productName}</a></h3>
+								<h4 class="product-price">${random[3].productPrice}원</h4>
 							
 							</div>
 							<div class="add-to-cart">
