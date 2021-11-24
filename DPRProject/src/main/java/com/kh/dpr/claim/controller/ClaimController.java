@@ -1,7 +1,9 @@
 package com.kh.dpr.claim.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,6 +21,7 @@ import com.kh.dpr.member.model.vo.Member;
 import com.kh.dpr.order.model.vo.Order;
 import com.kh.dpr.order.model.vo.OrderDetail;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 
@@ -191,5 +194,60 @@ public class ClaimController {
 		
 		return "common/msg";
 		
+	}
+	
+	@RequestMapping("/seller/searchClaimList.do")
+	public String searchReview( @RequestParam(value="productName", required=false) String productName,
+								@RequestParam(value="categoryNo", required=false) int categoryNo,
+								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
+								@RequestParam(value="productBrand", required=false) String productBrand,
+								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+								@RequestParam(value="claimCode", required=false ) int claimCode,
+								HttpServletRequest request,
+								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sellerId", sellerId);
+		map.put("productName", productName);
+		map.put("categoryNo", categoryNo);
+		map.put("categoryNo2", categoryNo2);
+		map.put("productBrand", productBrand);
+		map.put("productNo", productNo);
+		map.put("claimCode", claimCode);
+		
+		System.out.println(map);
+		
+		// 조건에 맞는 리뷰 리스트
+		List<Claim> claimList = ClaimService.selectSearchClaim(map);
+		
+		
+		
+		// 해당 리뷰의 상품
+		List<Product> cpList = new ArrayList<Product>();
+
+		for(int i = 0; i < claimList.size(); i++) {
+			
+			int claimNo = claimList.get(i).getClaimNo();
+			
+			Product cp = ClaimService.selectCproduct(claimNo);
+			
+			cpList.add(cp);
+			
+		}
+		
+		
+		int totalProduct = claimList.size();
+		
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("claimList", claimList);
+		model.addAttribute("cpList", cpList);
+		
+		//return null;
+		return "productManage/claimList";
 	}
 }

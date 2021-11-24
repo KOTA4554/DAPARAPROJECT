@@ -1,6 +1,7 @@
 package com.kh.dpr.claim.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,12 @@ public class ClaimServiceImpl implements ClaimService {
 	public int CompleteClaim(int claimNo) {
 		// TODO Auto-generated method stub
 		return ClaimDAO.CompleteClaim(claimNo);
+	}
+
+	@Override
+	public List<Claim> selectSearchClaim(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return ClaimDAO.selectSearchClaim(map);
 	}
 
 	

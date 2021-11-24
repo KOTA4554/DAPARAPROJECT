@@ -1,6 +1,7 @@
 package com.kh.dpr.claim.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +79,12 @@ public class ClaimDAOImpl implements ClaimDAO {
 	public int CompleteClaim(int claimNo) {
 		// TODO Auto-generated method stub
 		return sqlSession.update("claimSQL.completeClaim", claimNo);
+	}
+
+	@Override
+	public List<Claim> selectSearchClaim(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("claimSQL.searchClaim",map);
 	}
 
 	
