@@ -1,6 +1,7 @@
 package com.kh.dpr.claim.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kh.dpr.claim.model.vo.Claim;
 import com.kh.dpr.order.model.vo.Order;
@@ -29,4 +30,6 @@ public interface ClaimDAO {
 	Product selectCproduct(int claimNo);
 
 	int CompleteClaim(int claimNo);
+
+	List<Claim> selectSearchClaim(Map<String, Object> map);
 }

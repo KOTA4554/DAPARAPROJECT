@@ -25,6 +25,6 @@ public class Claim {
 	    private String claimContent;
 	    private Date claimDate;
 	    private Date completeClaim;
-	   
+	    
 	
 }

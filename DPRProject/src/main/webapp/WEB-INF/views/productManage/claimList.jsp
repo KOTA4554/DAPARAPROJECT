@@ -117,17 +117,19 @@ li {
 <c:import url="../common/header.jsp"/>	
 	
 <div class="mainSectionForm">
+	<form action="${pageContext.request.contextPath}/seller/searchClaimList.do"method="post">
+
 	<table border="0">
 		<tr>
 			<th colspan="4" class="sectionTitles">검색 조건 설정</th>
 		</tr>
 	    <tr>
 	        <th>상품명</th>
-	        <td><input type="text" name="searchNm" id="searchProdName"></td>
+	        <td><input type="text" name="productName" id="searchProdName"></td>
 	        <th>카테고리</th>
 		        <td>
 		        <div id="categorySelects">
-	                    <select name="searchCate1" id="categoryNo" class="cateSelector">
+	                    <select name="categoryNo" id="categoryNo" class="cateSelector">
 	                        <option value="999">대분류</option>
 	                        <option value="0">의류</option>
 	                        <option value="1">슈즈</option>
@@ -135,7 +137,7 @@ li {
 	                        <option value="3">액세서리</option>
 	                        <option value="4">주얼리</option>
 	                    </select>
-	                    <select name="searchCate2" id="categoryNo2" class="cateSelector">
+	                    <select name="categoryNo2" id="categoryNo2" class="cateSelector">
 	                    	<option value="999">소분류</option>
 	                        <option value="1">탑</option>
 	                        <option value="2">니트웨어</option>
@@ -152,27 +154,32 @@ li {
 	    </tr>
 	    <tr>
 	        <th>브랜드</th>
-	        <td><input type="text" name="searchBrand" id="searchProdBrand"></td>
+	        <td><input type="text" name="productBrand" id="searchProdBrand"></td>
 	        <th>판매상태</th>
 	        <td>
-	            <select name="saleState" id="searchProdState">
-	            	<option value="0">선택</option>
-	                <option value="1">판매대기</option>
-	                <option value="2">판매중</option>
-	                <option value="3">판매종료</option>
+	            <select name="claimCode" id="searchProdState">
+	            	<option value="6"></option>
+	            	<option value="0">교환</option>
+	                <option value="1">환불</option>
+	                <option value="2">취소</option>
+	                <option value="3">교환완료</option> 
+	                <option value="4">환불완료</option>
+	            	<option value="5">취소완료</option>
 	            </select>
 	        </td>
 	    </tr>
 	    <tr>
 	        <th>상품번호</th>
 	        <td>
-	        	<input type="text" name="searchPno" id="searchProdNo" size="30"/>
+	        	<input type="text" name="productNo" id="searchProdNo" size="30"/>
 	        </td>
 	    </tr>
 	</table>
 	<div class="searchBtnSection">
-		<button id="searchBtn" onclick="searchProduct();">검색</button>
+		<button type="submit" id="searchBtn">검색</button>
 	</div>
+	
+	</form>
 	<table id="prodListTable" border="0">
 		<tr>
 			<th colspan="9" class="sectionTitles">상품 리스트
@@ -200,19 +207,19 @@ li {
 				<td class="prodRowEnd">교환</td>
 				</c:if>
 				<c:if test="${1 eq claim.claimCode}">
-				<td class="prodRowEnd">취소</td>
+				<td class="prodRowEnd">환불</td>
 				</c:if>
 				<c:if test="${2 eq claim.claimCode}">
-				<td class="prodRowEnd">환불</td>
+				<td class="prodRowEnd">취소</td>
 				</c:if>
 				<c:if test="${3 eq claim.claimCode}">
 				<td class="prodRowEnd">교환 완료</td>
 				</c:if>
 				<c:if test="${4 eq claim.claimCode}">
-				<td class="prodRowEnd">취소 완료</td>
+				<td class="prodRowEnd">환불 완료</td>
 				</c:if>
 				<c:if test="${5 eq claim.claimCode}">
-				<td class="prodRowEnd">환불 완료</td>
+				<td class="prodRowEnd">취소 완료</td>
 				</c:if>
 				<td class="prodRowEnd">${claim.claimDate}</td>
 				<c:if test="${!empty claim.completeClaim}">
