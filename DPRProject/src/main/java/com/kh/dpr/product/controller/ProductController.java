@@ -185,7 +185,7 @@ public class ProductController {
 		String sellerId = seller.getSellerId();
 		// Date.valueOf(문자열)  : 문자열 형식(2021-11-23 / 20211123)
 				
-		Map<String, Object> map= new HashMap<String, Object>();
+		Map<String, Object> map= new HashMap<>();
 		
 		System.out.println(startDate);
 		
@@ -284,6 +284,7 @@ public class ProductController {
 
 	}
 	
+
 	@RequestMapping("/seller/searchReviewProd.do")
 	public String searchReview( @RequestParam(value="productName", required=false) String productName,
 								@RequestParam(value="categoryNo", required=false) int categoryNo,
@@ -422,7 +423,7 @@ public class ProductController {
 		//return null;
 		return "productManage/qnaList";
 	}
-	
+
 }
 
 

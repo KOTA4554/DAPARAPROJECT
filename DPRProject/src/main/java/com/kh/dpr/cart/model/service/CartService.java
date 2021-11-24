@@ -17,7 +17,5 @@ public interface CartService {
 	
 	int changeAmountM(Cart c);
 	
-	String loadImage(int productNo);
-	
 	
 }

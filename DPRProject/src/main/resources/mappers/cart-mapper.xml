@@ -20,8 +20,4 @@ UPDATE CART SET CARTAMOUNT = CARTAMOUNT+1 WHERE USERID = #{userId} AND PRODUCTNO
 UPDATE CART SET CARTAMOUNT = CARTAMOUNT-1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
 </update>
 
-<select id="loadImage" parameterType="int" resultType="string">
-SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
-</select>
-
 </mapper>

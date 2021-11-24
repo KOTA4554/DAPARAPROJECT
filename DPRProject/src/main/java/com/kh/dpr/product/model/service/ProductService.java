@@ -11,7 +11,6 @@ import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
 import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
-import com.kh.dpr.seller.model.vo.SearchCondition;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
@@ -93,6 +92,7 @@ public class ProductService {
 
 	}
 
+
 	public List<Review> selectSearchReview(Map<String, Object> map) {
 		
 		return productDAO.selectSearchReview(map);
@@ -112,6 +112,7 @@ public class ProductService {
 		
 		return productDAO.selectSearchQna(map);
 	}
+
 
 
 }

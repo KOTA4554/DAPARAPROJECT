@@ -197,6 +197,7 @@
 		SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
 	</select>
 	
+
 	<!-- get searchRivew yongjoo -->
 	<select id="selectSearchReview" parameterType="map" resultType="Review">
 		SELECT *
@@ -269,5 +270,5 @@
 	</select>
 	
 	
-	
+
 </mapper>

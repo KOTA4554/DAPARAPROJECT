@@ -24,7 +24,7 @@ public class Claim {
 	    private int claimCode;
 	    private String claimContent;
 	    private Date claimDate;
-	    private Date CompleteClaim;
+	    private Date completeClaim;
 	   
 	
 }

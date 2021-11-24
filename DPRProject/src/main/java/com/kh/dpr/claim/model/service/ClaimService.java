@@ -34,6 +34,15 @@ public interface ClaimService  {
 	int insertClaim2(Claim claim);
 
 
+	List<Claim> selectClaimList(String sellerId);
+	
+
+	Product selectCproduct(int claimNo);
+
+
+	int CompleteClaim(int claimNo);
+
+
 
 
 }
