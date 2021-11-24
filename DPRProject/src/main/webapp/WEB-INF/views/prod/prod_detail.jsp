@@ -324,7 +324,9 @@
 										</table>
 										<br />
 										<br />
-										<form action="">
+										
+										<form >
+										
 										<table cellspacing="100" id="listArea" align="center"
 											style="width: max-content;">
 
@@ -342,9 +344,10 @@
 												</td>
 
 											</tr>
-
 										</table>
+										
 										</form>
+										
 									</div>
 								</div>
 							</div>
