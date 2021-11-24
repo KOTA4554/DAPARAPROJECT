@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="claimSQL">
+
+	<resultMap id="resultOrder" type="Order">
+		<result column="orderAddress"  property="orderAddress"  typeHandler="MyTypeHandler"/>
+	</resultMap>
+
+	<select id="selectOrder" parameterType="string" resultMap="resultOrder">
+		SELECT * FROM "ORDER" WHERE USERID = #{ userId } ORDER BY ORDERNO DESC
+	</select>
+	
+	<select id="selectOrderDetail" parameterType="string" resultType="OrderDetail">
+		SELECT * FROM ORDERDETAIL
+		WHERE ORDERNO IN (SELECT ORDERNO 
+                 		  FROM "ORDER"
+                 		  WHERE USERID = #{ userId })
+        ORDER BY DETAILNO DESC
+	</select>
+	
+	<select id="selectSeller" parameterType="int" resultType="Seller">
+		SELECT *
+		FROM SELLER
+		WHERE SELLERID = (SELECT SELLERID
+		                  FROM PRODUCT_DETAIL
+		                  WHERE PRODUCTNO = (SELECT PRODUCTNO
+		                                     FROM ORDERDETAIL
+		                                     WHERE DETAILNO = #{ detailNo }))
+	</select>
+	
+	<select id="selectProductName" parameterType="int" resultType="string">
+		SELECT PRODUCTNAME FROM PRODUCT_DETAIL WHERE PRODUCTNO = #{ productNo }
+	</select>
+	
+	<insert id="insertClaim" parameterType="Claim">
+		INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 0, #{claimContent}, SYSDATE, null)
+	</insert>
+	
+	<insert id="insertClaim1" parameterType="Claim">
+		INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 1, #{claimContent}, SYSDATE, null)
+	</insert>
+	<insert id="insertClaim2" parameterType="Claim">
+		INSERT INTO "CLAIMINFO" VALUES( SEQ_CLAIM.nextval, #{detailNo}, 2, #{claimContent}, SYSDATE, null)
+	</insert>
+	
+	<select id="selectClaimList" parameterType="string" resultType="Claim">
+	 	SELECT *
+		FROM CLAIMINFO
+		WHERE DETAILNO IN (SELECT DETAILNO
+        						       FROM ORDERDETAIL
+                  					   WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                                                                                   FROM PRODUCT_DETAIL
+                                                                                   WHERE SELLERID = #{sellerId}))
+		ORDER BY CLAIMNO DESC
+	</select>
+	
+	<select id="selectCproduct" parameterType="int" resultType="Product">
+		SELECT *
+		FROM PRODUCT_DETAIL
+		WHERE PRODUCTNO = (SELECT PRODUCTNO
+						                   FROM ORDERDETAIL
+						                   WHERE DETAILNO = (select DETAILNO
+									                                    FROM CLAIMINFO
+									                                    WHERE CLAIMNO = #{claimNo}))
+	</select>
+	<update id="completeClaim" parameterType="int">
+		UPDATE CLAIMINFO 
+		SET     CLAIMCODE = CASE 
+            WHEN CLAIMCODE = 0 THEN 3
+            WHEN CLAIMCODE = 1 THEN 4
+            WHEN CLAIMCODE = 2 THEN 5
+            ELSE CLAIMCODE END,
+            COMPLETECLAIM = CASE
+            WHEN COMPLETECLAIM = NULL THEN SYSDATE
+            ELSE SYSDATE END
+            WHERE CLAIMNO = #{claimNo}
+	</update>
+</mapper>

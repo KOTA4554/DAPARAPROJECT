@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+
+	<select id="selectProductList" parameterType="int" resultType="Product">
+		SELECT * FROM PRODUCT_DETAIL  ORDER BY PRODUCTNO DESC
+	</select>
+	
+	
+	<select id="selectProductTotalContents" resultType="int">
+		SELECT COUNT(*) FROM PRODUCT_DETAIL
+	</select>
+	
+	<select id="selectList" parameterType="int" resultType="Product">
+		SELECT P.*, I.PRODUCTNEWIMAGE
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		 ORDER BY P.PRODUCTNO DESC
+		
+	</select>
+	
+	<select id="selectListTop" parameterType="int" resultType="Product">
+     SELECT P.*, I.PRODUCTNEWIMAGE
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		  WHERE ROWNUM &lt; 5
+		 ORDER BY P.PRODUCTCOUNT DESC
+      
+   </select>
+   
+   <select id="selectTopList" parameterType="int" resultType="Product">
+		SELECT P.*, I.PRODUCTNEWIMAGE
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		  WHERE CATEGORYNO2 = 1
+		 ORDER BY P.PRODUCTNO DESC
+	</select>
+	 
+   <select id="selectKnitList" parameterType="int" resultType="Product">
+		SELECT P.*, I.PRODUCTNEWIMAGE
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		  WHERE CATEGORYNO2 = 2
+		 ORDER BY P.PRODUCTNO DESC
+	</select>
+	
+	<select id="selectJacketList" parameterType="int" resultType="Product">
+		SELECT P.*, I.PRODUCTNEWIMAGE
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		  WHERE CATEGORYNO2 = 3
+		 ORDER BY P.PRODUCTNO DESC
+	</select>
+	
+	<select id="selectSearchList" parameterType="string" resultType="Product">
+		SELECT P.*, I.PRODUCTNEWIMAGE
+		 FROM PRODUCT_DETAIL P RIGHT OUTER JOIN PRODUCTIMAGE I
+		 ON(P.PRODUCTNO = I.PRODUCTNO)
+		 WHERE  PRODUCTNAME like '%' ||  #{sresult} || '%'
+		 ORDER BY P.PRODUCTNO DESC
+	</select>
+	
+	<select id="selectImg" parameterType="int" resultType="string">
+       SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
+    </select>
+	
+   
+</mapper>
+
