@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
 import com.kh.dpr.review.model.vo.Review;
+import com.kh.dpr.seller.model.vo.SearchCondition;
 
 @Repository
 public class ProductDAO {
@@ -85,6 +86,11 @@ public class ProductDAO {
 		
 		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
   }
+
+	public List<Review> selectSearchReview(Map<String, Object> map) {
+		
+		return sqlSession.selectList("manageSQL.selectSearchReview", map);
+	}
 	
 }
 

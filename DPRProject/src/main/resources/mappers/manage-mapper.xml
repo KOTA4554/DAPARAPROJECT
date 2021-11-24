@@ -197,4 +197,32 @@
 		SELECT * FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo}
 	</select>
 	
+	<!-- get searchRivew yongjoo -->
+	<select id="selectSearchReview" parameterType="map" resultType="Review">
+		SELECT *
+		FROM REVIEW
+		WHERE DETAILNO IN (SELECT DETAILNO
+						   FROM ORDERDETAIL
+        				   WHERE PRODUCTNO IN (SELECT PRODUCTNO
+                           					   FROM PRODUCT_DETAIL
+                           					   WHERE SELLERID = #{sellerId}
+                           					   <if test="productName != null || productName != ''">
+                           					   		AND PRODUCTNAME LIKE '%' || #{productName} || '%'
+                           					   </if>
+                           					   <if test="productBrand != null || productBrand != ''">
+                           					   		AND PRODUCTBRAND LIKE '%' || #{productBrand} || '%'
+                           					   </if>
+                           					   <if test="productNo != null and productNo != -1">
+                           					   		AND PRODUCTNO = #{productNo}
+                           					   </if>
+                           					   <if test="categoryNo != null and categoryNo != 999">
+													AND CATEGORYNO = #{categoryNo}
+											   </if>
+											   <if test="categoryNo2 != null and categoryNo2 != 999">
+													AND CATEGORYNO2 = #{categoryNo2}
+											   </if>
+                           					   )) 
+		ORDER BY REVIEWNO DESC
+	</select>
+	
 </mapper>
