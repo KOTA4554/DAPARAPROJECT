@@ -213,7 +213,7 @@ padding-left: 20px;
 <c:forEach var="cart" items="${cart}" varStatus="status">
 <tr>
 <td id="CIP" style="height: 150px;"><input type="checkbox" name="Y"> </td>
-<td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="./img/hood1.jpg"> </td>
+<td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="${pageContext.request.contextPath}/resources/productUpload/${image[status.index]}"> </td>
 <td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >${cartProduct[status.index].productBrand}</label><br> <label id="prodname">${cartProduct[status.index].productName}</label>
 <br> <label id="size">사이즈 : ${cart.sizeName} <br></label> <button id="sizebtn">옵션변경</button> </td>
 <td id="CIP" >  <div class="input-number"> 
