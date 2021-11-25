@@ -56,6 +56,21 @@ public class CartController {
 	            cartImageList.add(img);
 	        }
 		
+	
+
+		int totalPrice = 0;
+		
+		
+		for(int i = 0; i < count; i++) {
+			int amount = c.get(i).getCartAmount();
+			int price = cartProductList.get(i).getProductPrice();
+			
+			totalPrice = totalPrice + (amount*price);
+			
+			
+			
+		}
+		
 		
 		
 		System.out.println(cartImageList);
@@ -65,6 +80,7 @@ public class CartController {
 		model.addAttribute("cart", c);
         model.addAttribute("count", count);
         model.addAttribute("cartProduct", cartProductList);
+        model.addAttribute("total", totalPrice);
 		
 	return "prod/cart";
 		

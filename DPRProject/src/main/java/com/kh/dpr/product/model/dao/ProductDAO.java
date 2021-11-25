@@ -45,10 +45,8 @@ public class ProductDAO {
 		return sqlSession.insert("manageSQL.insertOption", opt);
 	}
 
-	public List<Map<String, String>> selectProductList(String sellerId, int cPage, int numPerPage) {
-		
+	public List<Map<String, String>> selectProductList(String sellerId, int cPage, int numPerPage) {		
 		RowBounds rows = new RowBounds((cPage-1)*numPerPage, numPerPage);
-		
 		return sqlSession.selectList("manageSQL.selectProductList", sellerId, rows);
 	}
 
@@ -76,38 +74,48 @@ public class ProductDAO {
 	public List<ProductImage> selectImageList(int productNo) {
 		return sqlSession.selectList("manageSQL.selectImageList", productNo);
 	}
+
+	public int updateOption(Product opt) {
+		return sqlSession.update("manageSQL.updateOption", opt);
+	}
+
+	public List<ProductImage> selectImage(Map<String, Integer> setting) {
+		return sqlSession.selectList("manageSQL.selectImage", setting);
+	}
+
+	public int deleteImage(Map<String, Integer> setting) {
+		return sqlSession.delete("manageSQL.deleteImage", setting);
+	}
 	
-  public List<Review> selectReviewList(String sellerId) {
-		
-		return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
+	public List<Review> selectReviewList(String sellerId) {
+	      
+	    return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
 	}
 
 	public Product selectRproduct(int reviewNo) {
-		
+	      
 		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
-  }
+	}
 
 
 	public List<Review> selectSearchReview(Map<String, Object> map) {
-		
+	      
 		return sqlSession.selectList("manageSQL.selectSearchReview", map);
 	}
 
 	public List<QnA> selectQnaList(String sellerId) {
-		
+	      
 		return sqlSession.selectList("manageSQL.selectQnaList", sellerId);
 	}
 
 	public Product selectQproduct(int qnaNo) {
-		
+	      
 		return sqlSession.selectOne("manageSQL.selectQproduct", qnaNo);
 	}
 
 	public List<QnA> selectSearchQna(Map<String, Object> map) {
-		
+	      
 		return sqlSession.selectList("manageSQL.selectSearchQna", map);
 	}
-
-	
 }
 

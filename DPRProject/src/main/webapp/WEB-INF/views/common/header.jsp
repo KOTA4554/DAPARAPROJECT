@@ -153,20 +153,20 @@
                         </div>
                        <!-- /Wishlist -->
 
-								<!-- Cart -->
-								<div onclick="cart();" class="dropdown">
-									<a href="${pageContext.request.contextPath}/prod/cart.do">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Cart</span>									
-									</a>	
-																
-									</div>
-								</div>
-								<!-- /Cart -->
+                        <!-- Cart -->
+                        <div onclick="cart();" class="dropdown">
+                           <a href="${pageContext.request.contextPath}/prod/cart.do">
+                              <i class="fa fa-shopping-cart"></i>
+                              <span>Cart</span>                           
+                           </a>   
+                                                
+                           </div>
+                        </div>
+                        <!-- /Cart -->
 
-								<!-- Menu Toogle -->
-							
-								<!-- /Menu Toogle -->
+                        <!-- Menu Toogle -->
+                     
+                        <!-- /Menu Toogle -->
                      </div>
                   </div>
                   <!-- /ACCOUNT -->
@@ -242,6 +242,7 @@
                      <ul>
                         <li><a href="${pageContext.request.contextPath}/seller/addProduct.do">상품 등록</a></li>
                         <li><a href="${pageContext.request.contextPath}/seller/productList.do">상품 조회</a></li>
+                        <li><a href="${pageContext.request.contextPath}/seller/delivery.do">주문·배송 관리</a></li>
                      </ul>
                   </li>
                   <li><a href="#">클레임관리</a>
@@ -262,7 +263,7 @@
                   </li>
                   <li><a href="${pageContext.request.contextPath}/statistic/statisticPage.do">통계</a>
                   </li>
-
+              <li><a href="${pageContext.request.contextPath}/myPage/sellerInfo.do">회원정보 수정</a></li>
 
                </ul>
                <!-- /NAV -->
@@ -276,4 +277,3 @@
 
       </c:if>
       <!-- /NAVIGATION -->
-

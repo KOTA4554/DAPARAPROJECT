@@ -25,12 +25,4 @@
 	<select id="selectImg" parameterType="int" resultType="string">
 		SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
 	</select>
-	
-	<update id="minusStock" parameterType="OrderDetail">
-		UPDATE PRODUCT_OPTION SET PRODUCTAMOUNT = PRODUCTAMOUNT - #{detailAmount}
-		WHERE PRODUCTNO = #{productNo}
-		  AND SIZEID = (SELECT SIZEID
-		                FROM "SIZE"
-		                WHERE SIZENAME = #{detailSize})	
-	</update>
 </mapper>
