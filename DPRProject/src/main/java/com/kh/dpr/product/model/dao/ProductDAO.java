@@ -75,19 +75,6 @@ public class ProductDAO {
 		return sqlSession.selectList("manageSQL.selectImageList", productNo);
 	}
 
-	public int updateOption(Product opt) {
-		return sqlSession.update("manageSQL.updateOption", opt);
-	}
-
-	public List<ProductImage> selectImage(Map<String, Integer> setting) {
-		return sqlSession.selectList("manageSQL.selectImage", setting);
-	}
-
-	public int deleteImage(Map<String, Integer> setting) {
-		return sqlSession.delete("manageSQL.deleteImage", setting);
-	}
-	
-
 	public List<Review> selectReviewList(String sellerId) {
 	      
 	    return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
