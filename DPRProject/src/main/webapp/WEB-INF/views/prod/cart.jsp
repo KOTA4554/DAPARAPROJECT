@@ -240,6 +240,8 @@ $('.up').click(function(){
 	var amountNo = $(this).parent().find('#amount');
 	var dprice = $(this).parent().find('#pri').val();
 	var price = $(this).parent().parent().parent().find('.PRICE');
+    var total =  $("#email").val();
+    var totalp =  $("#email");
 
 	var params ={
 			
@@ -259,13 +261,14 @@ $('.up').click(function(){
 			 
 			 amount += 1;
 			 dprice *= amount;
+			 total = dprice + total;
 		
 			 
 			 console.log(amount)
 			 
 			 price.val(dprice);
 		     amountNo.val(amount);
-	
+	         totalp.val(total);
 			 
 			 } else {
 			console.log("실패")

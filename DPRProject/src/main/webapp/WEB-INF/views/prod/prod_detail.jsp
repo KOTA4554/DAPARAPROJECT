@@ -298,12 +298,12 @@
 											<c:forEach var="q" items="${qna}" varStatus="status">
 												<tr>
 													<td
-														style="height: 50px; border-top: solid; border-color: rgb(237, 237, 240);">${q.userId}</td>
+														style="height: 50px; border-top: solid; border-color: rgb(237, 237, 240);">userId</td>
 													<td
-														style="border-top: solid; border-color: rgb(237, 237, 240); padding-left: 50px; padding-right: 50px; text-align: left">${q.qContent}</td>
+														style="border-top: solid; border-color: rgb(237, 237, 240); padding-left: 50px; padding-right: 50px; text-align: left">내용</td>
 
 													<td
-														style="border-top: solid; border-color: rgb(237, 237, 240);">${q.qDate}</td>
+														style="border-top: solid; border-color: rgb(237, 237, 240);">날짜</td>
 
 												</tr>
                                              </c:forEach>
