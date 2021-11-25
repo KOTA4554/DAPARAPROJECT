@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 
 @Repository
@@ -73,14 +74,6 @@ public class ProductDAO {
 	public List<ProductImage> selectImageList(int productNo) {
 		return sqlSession.selectList("manageSQL.selectImageList", productNo);
 	}
-	
-  public List<Review> selectReviewList(String sellerId) {		
-		return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
-	}
-
-	public Product selectRproduct(int reviewNo) {		
-		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
-  }
 
 	public int updateOption(Product opt) {
 		return sqlSession.update("manageSQL.updateOption", opt);
@@ -93,6 +86,52 @@ public class ProductDAO {
 	public int deleteImage(Map<String, Integer> setting) {
 		return sqlSession.delete("manageSQL.deleteImage", setting);
 	}
+	
+
+	public List<Review> selectReviewList(String sellerId) {
+	      
+	    return sqlSession.selectList("manageSQL.selectReviewList", sellerId);
+	}
+
+	public Product selectRproduct(int reviewNo) {
+	      
+		return sqlSession.selectOne("manageSQL.selectRproduct", reviewNo);
+	}
+
+
+	public List<Review> selectSearchReview(Map<String, Object> map) {
+	      
+		return sqlSession.selectList("manageSQL.selectSearchReview", map);
+	}
+
+	public List<QnA> selectQnaList(String sellerId) {
+	      
+		return sqlSession.selectList("manageSQL.selectQnaList", sellerId);
+	}
+
+	public Product selectQproduct(int qnaNo) {
+	      
+		return sqlSession.selectOne("manageSQL.selectQproduct", qnaNo);
+	}
+
+	public List<QnA> selectSearchQna(Map<String, Object> map) {
+	      
+		return sqlSession.selectList("manageSQL.selectSearchQna", map);
+	}
+
+
+	public int updateOption(Product opt) {
+		return sqlSession.update("manageSQL.updateOption", opt);
+	}
+
+	public List<ProductImage> selectImage(Map<String, Integer> setting) {
+		return sqlSession.selectList("manageSQL.selectImage", setting);
+	}
+
+	public int deleteImage(Map<String, Integer> setting) {
+		return sqlSession.delete("manageSQL.deleteImage", setting);
+	}
+
 
 }
 

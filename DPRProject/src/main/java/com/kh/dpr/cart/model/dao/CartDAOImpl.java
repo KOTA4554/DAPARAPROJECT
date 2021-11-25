@@ -52,6 +52,13 @@ public class CartDAOImpl implements CartDAO {
 	return sqlSession.update("cart.changeAmountM",c);
 	
 	}
+
+
+	@Override
+	public String loadImage(int productNo) {
+		
+		return sqlSession.selectOne("cart.loadImage", productNo);
+	}
 	
 	
 }

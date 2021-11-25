@@ -153,20 +153,20 @@
                         </div>
                        <!-- /Wishlist -->
 
-								<!-- Cart -->
-								<div onclick="cart();" class="dropdown">
-									<a href="${pageContext.request.contextPath}/prod/cart.do">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Cart</span>									
-									</a>	
-																
-									</div>
-								</div>
-								<!-- /Cart -->
+                        <!-- Cart -->
+                        <div onclick="cart();" class="dropdown">
+                           <a href="${pageContext.request.contextPath}/prod/cart.do">
+                              <i class="fa fa-shopping-cart"></i>
+                              <span>Cart</span>                           
+                           </a>   
+                                                
+                           </div>
+                        </div>
+                        <!-- /Cart -->
 
-								<!-- Menu Toogle -->
-							
-								<!-- /Menu Toogle -->
+                        <!-- Menu Toogle -->
+                     
+                        <!-- /Menu Toogle -->
                      </div>
                   </div>
                   <!-- /ACCOUNT -->
@@ -247,8 +247,12 @@
                   </li>
                   <li><a href="#">클레임관리</a>
                      <ul>
-                        <li><a href="">문의 관리</a></li>
-                        <li><a href="${pageContext.request.contextPath}/seller/reviewList.do"">리뷰 관리</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/seller/claimList.do">취환불 관리</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/seller/qnaList.do">문의 관리</a></li>
+
+                        <li><a href="${pageContext.request.contextPath}/seller/reviewList.do">리뷰 관리</a></li>
                      </ul>
                   </li>
                   <li><a href="#">정산조회</a>
@@ -257,9 +261,9 @@
                         <li><a href="">정산 내역</a></li>
                      </ul>
                   </li>
-                  <li><a href="#">통계</a>
+                  <li><a href="${pageContext.request.contextPath}/statistic/statisticPage.do">통계</a>
                   </li>
-
+              <li><a href="${pageContext.request.contextPath}/myPage/sellerInfo.do">회원정보 수정</a></li>
 
                </ul>
                <!-- /NAV -->
@@ -273,4 +277,3 @@
 
       </c:if>
       <!-- /NAVIGATION -->
-

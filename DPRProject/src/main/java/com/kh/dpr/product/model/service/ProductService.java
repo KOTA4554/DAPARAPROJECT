@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 
 @Service
@@ -108,6 +109,7 @@ public class ProductService {
 		Map<String, Integer> setting = new HashMap();
 		setting.put("productNo", product.getProductNo());
 
+
 		setting.put("category", 0);
 		List<ProductImage> originMain = selectImage(setting);
 		if(originMain.size() > 0) {
@@ -148,4 +150,63 @@ public class ProductService {
 	}
 
 
+		setting.put("category", 0);
+		List<ProductImage> originMain = selectImage(setting);
+		if(originMain.size() > 0) {
+			totalResult = productDAO.deleteImage(setting);
+		}
+		if(mainImgList.size() > 0) {
+			for(ProductImage img : mainImgList) {
+				img.setImageCategoryNo(0);
+				totalResult = productDAO.insertImage(img);
+			}
+		}
+		
+		setting.put("category", 1);
+		List<ProductImage> originOpt = selectImage(setting);
+		if(originOpt.size() > 0) {
+			totalResult = productDAO.deleteImage(setting);
+		}
+		if(optionImgList.size() > 0) {
+			for(ProductImage img : optionImgList) {
+				img.setImageCategoryNo(1);
+				totalResult = productDAO.insertImage(img);
+			}
+		}
+		
+		setting.put("category", 2);
+		List<ProductImage> originCon = selectImage(setting);
+		if(originCon.size() > 0) {
+			totalResult = productDAO.deleteImage(setting);
+		}
+		if(contentImgList.size() > 0) {
+			for(ProductImage img : contentImgList) {
+				img.setImageCategoryNo(2);
+				totalResult = productDAO.insertImage(img);
+			}
+		}
+
+		return totalResult;
+	}
+
+
+	public List<Review> selectSearchReview(Map<String, Object> map) {
+	      
+		return productDAO.selectSearchReview(map);
+	}
+
+	public List<QnA> selectQnaList(String sellerId) {
+	      
+		return productDAO.selectQnaList(sellerId);
+	}
+
+	public Product selectQproduct(int qnaNo) {
+	      
+		return productDAO.selectQproduct(qnaNo);
+	}
+
+	public List<QnA> selectSearchQna(Map<String, Object> map) {
+	      
+		return productDAO.selectSearchQna(map);
+	}
 }
