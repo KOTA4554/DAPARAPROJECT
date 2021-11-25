@@ -18,76 +18,76 @@ import com.kh.dpr.seller.model.vo.Seller;
 @Service
 public class ClaimServiceImpl implements ClaimService {
 
-	@Autowired
-	ClaimDAO ClaimDAO;
-	
-	@Override
-	public Order selectOneOrder(String userId) {
-		
-		return  ClaimDAO.selectOrder(userId);
-	}
+   @Autowired
+   ClaimDAO ClaimDAO;
+   
+   @Override
+   public Order selectOneOrder(String userId) {
+      
+      return  ClaimDAO.selectOrder(userId);
+   }
 
-	@Override
-	public OrderDetail selectOneDetail(String userId) {
-		
-		return ClaimDAO.selectOrderDetail(userId);
-	}
+   @Override
+   public OrderDetail selectOneDetail(String userId) {
+      
+      return ClaimDAO.selectOrderDetail(userId);
+   }
 
-	@Override
-	public Seller selectSeller(int detailNo) {
-		
-		return ClaimDAO.selectSeller(detailNo);
-	}
+   @Override
+   public Seller selectSeller(int detailNo) {
+      
+      return ClaimDAO.selectSeller(detailNo);
+   }
 
-	@Override
-	public String selectProduct(int productNo) {
-	
-		return ClaimDAO.selectProduct(productNo);
-	}
+   @Override
+   public String selectProduct(int productNo) {
+   
+      return ClaimDAO.selectProduct(productNo);
+   }
 
-	
-	@Override
-	public int insertClaim(Claim claim) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.insertClaim(claim);
-	}
+   
+   @Override
+   public int insertClaim(Claim claim) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.insertClaim(claim);
+   }
 
-	@Override
-	public int insertClaim1(Claim claim) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.insertClaim1(claim);
-	}
+   @Override
+   public int insertClaim1(Claim claim) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.insertClaim1(claim);
+   }
 
-	@Override
-	public int insertClaim2(Claim claim) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.insertClaim2(claim);
-	}
+   @Override
+   public int insertClaim2(Claim claim) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.insertClaim2(claim);
+   }
 
-	@Override
-	public List<Claim> selectClaimList(String sellerId) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.selectClaimList(sellerId);
-	}
+   @Override
+   public List<Claim> selectClaimList(String sellerId) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.selectClaimList(sellerId);
+   }
 
-	@Override
-	public Product selectCproduct(int claimNo) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.selectCproduct(claimNo);
-	}
+   @Override
+   public Product selectCproduct(int claimNo) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.selectCproduct(claimNo);
+   }
 
-	@Override
-	public int CompleteClaim(int claimNo) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.CompleteClaim(claimNo);
-	}
+   @Override
+   public int CompleteClaim(int claimNo) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.CompleteClaim(claimNo);
+   }
 
-	@Override
-	public List<Claim> selectSearchClaim(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return ClaimDAO.selectSearchClaim(map);
-	}
+   @Override
+   public List<Claim> selectSearchClaim(Map<String, Object> map) {
+      // TODO Auto-generated method stub
+      return ClaimDAO.selectSearchClaim(map);
+   }
 
-	
+   
 
 }

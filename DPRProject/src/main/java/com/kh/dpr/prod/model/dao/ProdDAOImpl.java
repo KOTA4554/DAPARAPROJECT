@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 
@@ -44,5 +46,38 @@ public class ProdDAOImpl implements ProdDAO {
 	
 	}
 
+	@Override
+	public List<Review> review(int prodNo) {
+	
+		return sqlSession.selectList("prod.review", prodNo);
+	}
+
+	@Override
+	public List<Product> random() {
+		
+		return sqlSession.selectList("prod.random");
+	}
+
+	@Override
+	public String randomImage(int randomNo) {
+
+		return sqlSession.selectOne("prod.randomImage", randomNo);
+	}
+
+	@Override
+	public int qnaInsert(QnA q) {
+		
+	
+		
+		return sqlSession.insert("prod.qnaInsert", q);
+	}
+
+	@Override
+	public List<QnA> qna(int prodNo) {
+	
+		return sqlSession.selectList("prod.qna", prodNo);
+	}
+
+	
 	
 }

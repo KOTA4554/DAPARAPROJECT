@@ -14,38 +14,38 @@ import com.kh.dpr.seller.model.vo.Seller;
 
 public interface ClaimService  {
 
-	
-	 Order selectOneOrder(String userId); 
+   
+    Order selectOneOrder(String userId); 
 
 
-	 OrderDetail selectOneDetail(String userId); 
+    OrderDetail selectOneDetail(String userId); 
 
 
-	 Seller selectSeller(int detailNo); 
+    Seller selectSeller(int detailNo); 
 
 
-	 String selectProduct(int productNo);
+    String selectProduct(int productNo);
 
 
-	int insertClaim(Claim claim);
+   int insertClaim(Claim claim);
 
 
-	int insertClaim1(Claim claim);
+   int insertClaim1(Claim claim);
 
 
-	int insertClaim2(Claim claim);
+   int insertClaim2(Claim claim);
 
 
-	List<Claim> selectClaimList(String sellerId);
-	
+   List<Claim> selectClaimList(String sellerId);
+   
 
-	Product selectCproduct(int claimNo);
-
-
-	int CompleteClaim(int claimNo);
+   Product selectCproduct(int claimNo);
 
 
-	List<Claim> selectSearchClaim(Map<String, Object> map);
+   int CompleteClaim(int claimNo);
+
+
+   List<Claim> selectSearchClaim(Map<String, Object> map);
 
 
 

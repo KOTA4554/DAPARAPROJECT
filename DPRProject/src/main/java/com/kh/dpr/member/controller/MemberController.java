@@ -151,7 +151,7 @@ public class MemberController {
 		model.addAttribute("loc", loc);
 		model.addAttribute("msg", msg);
 		
-		return "commom/msg";
+		return "common/msg";
 	}
 	
 	@RequestMapping("/myPage/memberDelete.do")

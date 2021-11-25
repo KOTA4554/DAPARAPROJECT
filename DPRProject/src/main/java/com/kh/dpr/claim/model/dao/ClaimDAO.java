@@ -11,25 +11,25 @@ import com.kh.dpr.seller.model.vo.Seller;
 
 public interface ClaimDAO {
 
-	 Order selectOrder(String userId);
+    Order selectOrder(String userId);
 
-	 OrderDetail selectOrderDetail(String userId);
+    OrderDetail selectOrderDetail(String userId);
 
-	 Seller selectSeller(int detailNo); 
+    Seller selectSeller(int detailNo); 
 
-	 String selectProduct(int productNo);
+    String selectProduct(int productNo);
 
-	int insertClaim(Claim claim);
+   int insertClaim(Claim claim);
 
-	int insertClaim1(Claim claim);
+   int insertClaim1(Claim claim);
 
-	int insertClaim2(Claim claim);
+   int insertClaim2(Claim claim);
 
-	List<Claim> selectClaimList(String sellerId);
+   List<Claim> selectClaimList(String sellerId);
 
-	Product selectCproduct(int claimNo);
+   Product selectCproduct(int claimNo);
 
-	int CompleteClaim(int claimNo);
+   int CompleteClaim(int claimNo);
 
-	List<Claim> selectSearchClaim(Map<String, Object> map);
+   List<Claim> selectSearchClaim(Map<String, Object> map);
 }

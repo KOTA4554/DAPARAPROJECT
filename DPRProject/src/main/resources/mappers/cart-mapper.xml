@@ -10,7 +10,7 @@ INSERT INTO "CART" VALUES(#{userId},#{productNo},#{cartAmount},#{sizeName})
 
 <select id="cartList" parameterType="String" resultType="Cart">
 SELECT * FROM CART WHERE USERID = #{userId}
-</select>	
+</select>   
 
 <update id="changeAmountP" parameterType="Cart">
 UPDATE CART SET CARTAMOUNT = CARTAMOUNT+1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
@@ -19,5 +19,9 @@ UPDATE CART SET CARTAMOUNT = CARTAMOUNT+1 WHERE USERID = #{userId} AND PRODUCTNO
 <update id="changeAmountM" parameterType="Cart">
 UPDATE CART SET CARTAMOUNT = CARTAMOUNT-1 WHERE USERID = #{userId} AND PRODUCTNO = #{productNo}
 </update>
+
+<select id="loadImage" parameterType="int" resultType="string">
+SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{productNo} AND IMAGECATEGORYNO = 0 
+</select>
 
 </mapper>

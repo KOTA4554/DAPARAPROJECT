@@ -73,11 +73,6 @@ public class ProductController {
 								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
 								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
 		
-		System.out.println("product : " + product);
-		System.out.println("mainImg : " + mainImg);
-		// --- 옵션 정보 받아와서 DB에 등록 -- //
-		
-		
 		int productNo = product.getProductNo();
 		System.out.println("product No : " + productNo);
 		
@@ -101,6 +96,7 @@ public class ProductController {
 		 
 		// 컨텐츠이미지 저장 
 		for(MultipartFile contentImg : contentImgs) {
+			System.out.println("컨텐츠이미지");
 			if(contentImg.isEmpty() == false) { 
 				ProductImage contentImage = saveImage(contentImg, 2, productNo, savePath);
 				imgList.add(contentImage); 
@@ -112,8 +108,9 @@ public class ProductController {
 			System.out.println("게시글 등록 성공");
 		}
 		
-		return "seller/sellerMain";
+		return "productManage/productList";
 	}
+	
 	
 	public ProductImage saveImage(MultipartFile images, int categroy, int productNo, String savePath) {
 		
@@ -147,6 +144,7 @@ public class ProductController {
 		
 		return pNo + sdf.format(new Date(System.currentTimeMillis())) + "_" + rnd + "." + ext;
 	}
+	
 	
 	@RequestMapping("seller/productList.do")
 	public String productList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
@@ -206,17 +204,6 @@ public class ProductController {
 		map.put("searchBrand", searchBrand);
 		map.put("searchPno", searchPno);
 		
-		System.out.println("sellerId : " + map.get("sellerId"));
-		System.out.println("searchNm : " + map.get("searchNm"));
-		System.out.println("cate1 : " + map.get("searchCate1"));
-		System.out.println("cate2 : " + map.get("searchCate2"));
-		System.out.println("startDate : " + map.get("startDate"));
-		System.out.println("endDate : " + map.get("endDate"));
-		System.out.println("brand : " + map.get("searchBrand"));
-		System.out.println("state : " + map.get("saleState"));
-		System.out.println("p : " + map.get("searchPno"));
-		System.out.println("페이지 : " + cPage);
-		
 		List<Map<String, String>> list = productService.searchProductList(map, cPage, numPerPage);
 		
 		int totalProduct = productService.selectSearchedProduct(map);
@@ -249,181 +236,335 @@ public class ProductController {
 		return "productManage/modifyProduct";
 	}
 
+	@RequestMapping("/seller/modifyOptEnd.do")
+	@ResponseBody
+	public void modifyOptEnd(@RequestBody List<Product> option) {
+		System.out.println("받아 온 옵션 길이 : " + option.size());
+		
+		for(Product opt : option) {
+			System.out.println("OptionNo" + opt.getOptionNo() + "불러오기 성공");			
+			// System.out.println(opt);
+			if(opt.getOptionNo() == 0) {
+				System.out.println(opt.getOptionNo() + "옵션 추가");
+				int result = productService.insertOption(opt);
+			} else {
+				System.out.println(opt.getOptionNo() + "옵션 수정");
+				int result2 = productService.updateOption(opt);
+			}
+		}
+
+	}
+	
+	@RequestMapping("/seller/modifyProdEnd.do")
+	public String modifyProdEnd(Product product, Model model, HttpServletRequest req,
+								@RequestParam(value="mainImg", required=false) MultipartFile mainImg,
+								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
+								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
+		
+		int productNo = product.getProductNo();
+		System.out.println("product No : " + productNo + "게시글 수정");
+		System.out.println(product);
+
+		// 2. 첨부파일 수정하기
+		String savePath = req.getServletContext().getRealPath("/resources/productUpload");
+		
+		Map<String, Integer> setting = new HashMap();
+		
+		setting.put("productNo", productNo);
+		setting.put("category", 0);
+		
+		List<ProductImage> mainImgList = productService.selectImage(setting); // 기존 이미지 객체 로드
+		System.out.println("main : " + setting.get("category"));
+		
+		setting.put("category", 1);
+		List<ProductImage> optionImgList = productService.selectImage(setting);
+		System.out.println("option : " + setting.get("category"));
+		
+		setting.put("category", 2);
+		List<ProductImage> contentImgList = productService.selectImage(setting);
+		System.out.println("content : " + setting.get("category"));
+		
+		
+		int idx = 0;
+		
+		if(mainImg.isEmpty() == false) {
+			ProductImage temp = null;
+			
+			File oldFile = new File(savePath + "/" + mainImgList.get(idx).getProductNewImage());
+			System.out.println("변경 전 파일 삭제 : " + oldFile.delete());
+			
+			temp = mainImgList.get(idx); // 새 파일로 ProductImage 객체 생성
+			
+			String originName = mainImg.getOriginalFilename();
+			String changeName = fileRename(productNo, originName);
+			
+			try {
+				mainImg.transferTo(new File(savePath + "/" + changeName));
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			temp.setImageCategoryNo(0);
+			temp.setProductOldImage(originName);
+			temp.setProductNewImage(changeName);
+			
+			mainImgList.set(idx, temp);
+		}
+		
+		int optIdx = 0;
+		
+		for(MultipartFile optionImg : optionalImgs) {
+			ProductImage temp = null;
+			
+			if(optionImg.isEmpty() == false) {	
+				if(optionImgList.size() > optIdx) {
+					File oldFile = new File(savePath + "/" + optionImgList.get(optIdx).getProductNewImage());
+					System.out.println("변경 전 파일 삭제 : " + oldFile.delete());
+					temp = optionImgList.get(optIdx);
+				} else {
+					temp = new ProductImage();
+					temp.setProductNo(productNo);
+					temp.setImageCategoryNo(1);
+					optionImgList.add(temp);
+				}
+				
+				String originName = optionImg.getOriginalFilename();
+				String changeName = fileRename(productNo, originName);
+				
+				try {
+					optionImg.transferTo(new File(savePath + "/" + changeName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				temp.setImageCategoryNo(1);
+				temp.setProductOldImage(originName);
+				temp.setProductNewImage(changeName);
+				
+				optionImgList.set(optIdx, temp);				
+			}
+			optIdx++;
+		}
+		
+		int conIdx = 0;
+		
+		for(MultipartFile contentImg : contentImgs) {
+			ProductImage temp = null;
+			
+			if(contentImg.isEmpty() == false) {	
+				if(contentImgList.size() > conIdx) {
+					File oldFile = new File(savePath + "/" + contentImgList.get(conIdx).getProductNewImage());
+					System.out.println("변경 전 파일 삭제 : " + oldFile.delete());
+					temp = contentImgList.get(conIdx);
+				} else {
+					temp = new ProductImage();
+					temp.setImageCategoryNo(2);
+					temp.setProductNo(productNo);
+					contentImgList.add(temp);
+				}
+				
+				String originName = contentImg.getOriginalFilename();
+				String changeName = fileRename(productNo, originName);
+				
+				try {
+					contentImg.transferTo(new File(savePath + "/" + changeName));
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				temp.setImageCategoryNo(2);
+				temp.setProductOldImage(originName);
+				temp.setProductNewImage(changeName);
+				
+				contentImgList.set(conIdx, temp);				
+			}
+			conIdx++;
+		}
+		
+		int result = productService.updateProduct(product, mainImgList, optionImgList, contentImgList);
+		return "seller/sellerMain";
+	}
+	
 	@RequestMapping("/seller/reviewList.do")
-	public String reviewList(HttpServletRequest request, Model model) {
+	   public String reviewList(HttpServletRequest request, Model model) {
 
-		HttpSession session = request.getSession(false);
-		
-		Seller s = (Seller)session.getAttribute("seller");
-		
-		String sellerId = s.getSellerId();
-		
-		// 판매자가 올린 상품 리뷰 리스트
-		List<Review> reviewList = productService.selectReivewList(sellerId);
-		
-		// 해당 리뷰의 상품
-		List<Product> rpList = new ArrayList<Product>();
+	      HttpSession session = request.getSession(false);
+	      
+	      Seller s = (Seller)session.getAttribute("seller");
+	      
+	      String sellerId = s.getSellerId();
+	      
+	      // 판매자가 올린 상품 리뷰 리스트
+	      List<Review> reviewList = productService.selectReivewList(sellerId);
+	      
+	      // 해당 리뷰의 상품
+	      List<Product> rpList = new ArrayList<Product>();
 
-		for(int i = 0; i < reviewList.size(); i++) {
-			
-			int reviewNo = reviewList.get(i).getReviewNo();
-			
-			Product rp = productService.selectRproduct(reviewNo);
-			
-			rpList.add(rp);
-			
-		}
-		
-		int totalProduct = reviewList.size();
-		
-		model.addAttribute("totalProduct", totalProduct);
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("rpList", rpList);
-		
-		return "productManage/reviewList";
+	      for(int i = 0; i < reviewList.size(); i++) {
+	         
+	         int reviewNo = reviewList.get(i).getReviewNo();
+	         
+	         Product rp = productService.selectRproduct(reviewNo);
+	         
+	         rpList.add(rp);
+	         
+	      }
+	      
+	      int totalProduct = reviewList.size();
+	      
+	      model.addAttribute("totalProduct", totalProduct);
+	      model.addAttribute("reviewList", reviewList);
+	      model.addAttribute("rpList", rpList);
+	      
+	      return "productManage/reviewList";
 
-	}
-	
+	   }
+	   
 
-	@RequestMapping("/seller/searchReviewProd.do")
-	public String searchReview( @RequestParam(value="productName", required=false) String productName,
-								@RequestParam(value="categoryNo", required=false) int categoryNo,
-								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
-								@RequestParam(value="productBrand", required=false) String productBrand,
-								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
-								HttpServletRequest request,
-								Model model) {
-		
-		HttpSession session = request.getSession(false);
-		
-		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
-		
-		Map<String, Object> map= new HashMap<>();
-		
-		map.put("sellerId", sellerId);
-		map.put("productName", productName);
-		map.put("categoryNo", categoryNo);
-		map.put("categoryNo2", categoryNo2);
-		map.put("productBrand", productBrand);
-		map.put("productNo", productNo);
-		
-		System.out.println(map);
-		
-		// 조건에 맞는 리뷰 리스트
-		List<Review> reviewList = productService.selectSearchReview(map);
-		
-		System.out.println(reviewList);
-		
-		// 해당 리뷰의 상품
-		List<Product> rpList = new ArrayList<Product>();
+	   @RequestMapping("/seller/searchReviewProd.do")
+	   public String searchReview( @RequestParam(value="productName", required=false) String productName,
+	                        @RequestParam(value="categoryNo", required=false) int categoryNo,
+	                        @RequestParam(value="categoryNo2", required=false) int categoryNo2,
+	                        @RequestParam(value="productBrand", required=false) String productBrand,
+	                        @RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+	                        HttpServletRequest request,
+	                        Model model) {
+	      
+	      HttpSession session = request.getSession(false);
+	      
+	      String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+	      
+	      Map<String, Object> map= new HashMap<>();
+	      
+	      map.put("sellerId", sellerId);
+	      map.put("productName", productName);
+	      map.put("categoryNo", categoryNo);
+	      map.put("categoryNo2", categoryNo2);
+	      map.put("productBrand", productBrand);
+	      map.put("productNo", productNo);
+	      
+	      System.out.println(map);
+	      
+	      // 조건에 맞는 리뷰 리스트
+	      List<Review> reviewList = productService.selectSearchReview(map);
+	      
+	      System.out.println(reviewList);
+	      
+	      // 해당 리뷰의 상품
+	      List<Product> rpList = new ArrayList<Product>();
 
-		for(int i = 0; i < reviewList.size(); i++) {
-			
-			int reviewNo = reviewList.get(i).getReviewNo();
-			
-			Product rp = productService.selectRproduct(reviewNo);
-			
-			rpList.add(rp);
-			
-		}
-		
-		int totalProduct = reviewList.size();
-		
-		model.addAttribute("totalProduct", totalProduct);
-		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("rpList", rpList);
-		
-		//return null;
-		return "productManage/reviewList";
-	}
-	
-	@RequestMapping("/seller/qnaList.do")
-	public String qnaList(HttpServletRequest request, Model model) {
+	      for(int i = 0; i < reviewList.size(); i++) {
+	         
+	         int reviewNo = reviewList.get(i).getReviewNo();
+	         
+	         Product rp = productService.selectRproduct(reviewNo);
+	         
+	         rpList.add(rp);
+	         
+	      }
+	      
+	      int totalProduct = reviewList.size();
+	      
+	      model.addAttribute("totalProduct", totalProduct);
+	      model.addAttribute("reviewList", reviewList);
+	      model.addAttribute("rpList", rpList);
+	      
+	      //return null;
+	      return "productManage/reviewList";
+	   }
+	   
+	   @RequestMapping("/seller/qnaList.do")
+	   public String qnaList(HttpServletRequest request, Model model) {
 
-		HttpSession session = request.getSession(false);
-		
-		Seller s = (Seller)session.getAttribute("seller");
-		
-		String sellerId = s.getSellerId();
-		
-		// 판매자가 올린 상품 문의 리스트
-		List<QnA> qnaList = productService.selectQnaList(sellerId);
-		
-		// 해당 문의의 상품
-		List<Product> qpList = new ArrayList<Product>();
+	      HttpSession session = request.getSession(false);
+	      
+	      Seller s = (Seller)session.getAttribute("seller");
+	      
+	      String sellerId = s.getSellerId();
+	      
+	      // 판매자가 올린 상품 문의 리스트
+	      List<QnA> qnaList = productService.selectQnaList(sellerId);
+	      
+	      // 해당 문의의 상품
+	      List<Product> qpList = new ArrayList<Product>();
 
-		for(int i = 0; i < qnaList.size(); i++) {
-			
-			int qnaNo = qnaList.get(i).getQNo();
-			
-			Product qp = productService.selectQproduct(qnaNo);
-			
-			qpList.add(qp);
-			
-		}
-		
-		int totalQna = qnaList.size();
-		
-		model.addAttribute("totalQna", totalQna);
-		model.addAttribute("qnaList", qnaList);
-		model.addAttribute("qpList", qpList);
-		
-		return "productManage/qnaList";
+	      for(int i = 0; i < qnaList.size(); i++) {
+	         
+	         int qnaNo = qnaList.get(i).getQNo();
+	         
+	         Product qp = productService.selectQproduct(qnaNo);
+	         
+	         qpList.add(qp);
+	         
+	      }
+	      
+	      int totalQna = qnaList.size();
+	      
+	      model.addAttribute("totalQna", totalQna);
+	      model.addAttribute("qnaList", qnaList);
+	      model.addAttribute("qpList", qpList);
+	      
+	      return "productManage/qnaList";
 
-	}
-	
-	@RequestMapping("/seller/searchQnaProd.do")
-	public String searchQna( @RequestParam(value="productName", required=false) String productName,
-								@RequestParam(value="categoryNo", required=false) int categoryNo,
-								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
-								@RequestParam(value="productBrand", required=false) String productBrand,
-								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
-								HttpServletRequest request,
-								Model model) {
-		
-		HttpSession session = request.getSession(false);
-		
-		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
-		
-		Map<String, Object> map= new HashMap<>();
-		
-		map.put("sellerId", sellerId);
-		map.put("productName", productName);
-		map.put("categoryNo", categoryNo);
-		map.put("categoryNo2", categoryNo2);
-		map.put("productBrand", productBrand);
-		map.put("productNo", productNo);
-		
-		System.out.println(map);
-		
-		// 조건에 맞는 리뷰 리스트
-		List<QnA> qnaList = productService.selectSearchQna(map);
-		
-		System.out.println(qnaList);
-		
-		// 해당 리뷰의 상품
-		List<Product> qpList = new ArrayList<Product>();
+	   }
+	   
+	   @RequestMapping("/seller/searchQnaProd.do")
+	   public String searchQna( @RequestParam(value="productName", required=false) String productName,
+	                        @RequestParam(value="categoryNo", required=false) int categoryNo,
+	                        @RequestParam(value="categoryNo2", required=false) int categoryNo2,
+	                        @RequestParam(value="productBrand", required=false) String productBrand,
+	                        @RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+	                        HttpServletRequest request,
+	                        Model model) {
+	      
+	      HttpSession session = request.getSession(false);
+	      
+	      String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+	      
+	      Map<String, Object> map= new HashMap<>();
+	      
+	      map.put("sellerId", sellerId);
+	      map.put("productName", productName);
+	      map.put("categoryNo", categoryNo);
+	      map.put("categoryNo2", categoryNo2);
+	      map.put("productBrand", productBrand);
+	      map.put("productNo", productNo);
+	      
+	      System.out.println(map);
+	      
+	      // 조건에 맞는 리뷰 리스트
+	      List<QnA> qnaList = productService.selectSearchQna(map);
+	      
+	      System.out.println(qnaList);
+	      
+	      // 해당 리뷰의 상품
+	      List<Product> qpList = new ArrayList<Product>();
 
-		for(int i = 0; i < qnaList.size(); i++) {
-			
-			int qNo = qnaList.get(i).getQNo();
-			
-			Product qp = productService.selectRproduct(qNo);
-			
-			qpList.add(qp);
-			
-		}
-		
-		int totalQna = qnaList.size();
-		
-		model.addAttribute("totalQna", totalQna);
-		model.addAttribute("qnaList", qnaList);
-		model.addAttribute("qpList", qpList);
-		
-		//return null;
-		return "productManage/qnaList";
-	}
-
+	      for(int i = 0; i < qnaList.size(); i++) {
+	         
+	         int qNo = qnaList.get(i).getQNo();
+	         
+	         Product qp = productService.selectRproduct(qNo);
+	         
+	         qpList.add(qp);
+	         
+	      }
+	      
+	      int totalQna = qnaList.size();
+	      
+	      model.addAttribute("totalQna", totalQna);
+	      model.addAttribute("qnaList", qnaList);
+	      model.addAttribute("qpList", qpList);
+	      
+	      //return null;
+	      return "productManage/qnaList";
+	   }
 }
 
 
