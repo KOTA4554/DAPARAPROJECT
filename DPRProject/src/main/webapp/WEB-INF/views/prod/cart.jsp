@@ -213,12 +213,13 @@ padding-left: 20px;
 <c:forEach var="cart" items="${cart}" varStatus="status">
 <tr>
 <td id="CIP" style="height: 150px;"><input type="checkbox" name="Y"> </td>
-<td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="./img/hood1.jpg"> </td>
+<td id="CIP" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;" > <img id="TII" src="${pageContext.request.contextPath}/resources/productUpload/${image[status.index]}"> </td>
 <td id="CIP" style="width: 1000px; text-align: left; padding-right: 40px;" > <label id="brand" >${cartProduct[status.index].productBrand}</label><br> <label id="prodname">${cartProduct[status.index].productName}</label>
 <br> <label id="size">사이즈 : ${cart.sizeName} <br></label> <button id="sizebtn">옵션변경</button> </td>
 <td id="CIP" >  <div class="input-number"> 
   <input id="pdn" type="hidden" value="${cart.productNo}"/>
   <input id="pri" type="hidden" value ="${cartProduct[status.index].productPrice}" />
+  <input type="hidden" id="total" value = "${total}" />
     <input id="amount" type="number" readonly value="${cart.cartAmount}" style="outline:none;" >
     <span class="up">+</span>
   
@@ -239,8 +240,7 @@ $('.up').click(function(){
 	var amountNo = $(this).parent().find('#amount');
 	var dprice = $(this).parent().find('#pri').val();
 	var price = $(this).parent().parent().parent().find('.PRICE');
-	
-	
+
 	var params ={
 			
 			userId : "${member.userId}",
@@ -259,12 +259,13 @@ $('.up').click(function(){
 			 
 			 amount += 1;
 			 dprice *= amount;
-			 
+		
 			 
 			 console.log(amount)
 			 
 			 price.val(dprice);
 		     amountNo.val(amount);
+	
 			 
 			 } else {
 			console.log("실패")
@@ -285,6 +286,7 @@ $('.down').click(function(){
 	var amountNo = $(this).parent().find('#amount');
 	var dprice = $(this).parent().find('#pri').val();
 	var price = $(this).parent().parent().parent().find('.PRICE');
+
 	
     var params ={
 			
@@ -305,12 +307,13 @@ $('.down').click(function(){
 			 
 			 amount -= 1;
 			 dprice *= amount;
+		
 			 
 			 console.log(amount)
 			 
 			 price.val(dprice);
 		     amountNo.val(amount);
-			 
+		
 			 } else {
 			console.log("실패")
 			 }
@@ -355,11 +358,11 @@ $('.down').click(function(){
     </tr>
 
     <tr>
-        <td style="font-size: 25px; text-align: center;">399,000원</td>
+        <td style="font-size: 25px; text-align: center;"> <span id= totalprice >${total}</span> 원</td>
         <td style="font-size: 40px;">+</td>
         <td style="text-align: center; font-size: 25px;">0원</td>
         <td style="font-size: 40px;">=</td>
-        <td style="text-align: center; font-size: 25px; color: #D10024;">402,000원</td>
+        <td style="text-align: center; font-size: 25px; color: #D10024;"><span id=totalprice>${total}</span> 원</td>
     </tr>
 
 

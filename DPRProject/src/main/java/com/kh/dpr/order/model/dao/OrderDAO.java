@@ -15,5 +15,7 @@ public interface OrderDAO {
 	Product selectProduct(int prodcutNo);
 
 	String selectImg(int productNo);
+
+	int minusStock(OrderDetail orderDetail);
 	
 }

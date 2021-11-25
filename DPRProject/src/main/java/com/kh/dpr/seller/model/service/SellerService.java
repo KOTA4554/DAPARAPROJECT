@@ -1,3 +1,4 @@
+
 package com.kh.dpr.seller.model.service;
 
 import com.kh.dpr.seller.model.vo.Seller;
@@ -15,3 +16,18 @@ public interface SellerService {
 	public int deleteSeller(String sellerId);
 	
 }
+=======
+package com.kh.dpr.seller.model.service;
+
+import com.kh.dpr.seller.model.vo.Seller;
+
+public interface SellerService {
+
+	public int insertSeller(Seller seller);
+
+	public int checkSellerDuplicate(String sellerId);
+
+	public Seller selectOneSeller(String sellerId);
+	
+}
+

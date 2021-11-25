@@ -173,6 +173,9 @@
 		//ajax로 detailno랑 유저아이디로 이미 등록한 리뷰있는지 확인하기
 		function goReviewForm(detailNo){
 			
+			var userId = "${member.userId}";
+			
+			
 			location.href="${pageContext.request.contextPath}/review/reviewForm.do?detailNo=" + detailNo + "";
 			
 		}

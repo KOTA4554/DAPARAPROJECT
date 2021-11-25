@@ -17,4 +17,5 @@ public interface CartDAO {
 	
 	int changeAmountM(Cart c);
 	
+	String loadImage(int productNo);
 }

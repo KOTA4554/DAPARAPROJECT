@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.kh.dpr.product.model.dao.ProductDAO;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Service
@@ -51,18 +53,66 @@ public class ProductService {
 		return productDAO.insertOption(opt);
 	}
 
-	public List<Map<String, String>> selectProductList(String sellerId, int prodPage, int numPerPage) {
-		return productDAO.selectProductList(sellerId, prodPage, numPerPage);
+	public List<Map<String, String>> selectProductList(String sellerId, int cPage, int numPerPage) {
+		return productDAO.selectProductList(sellerId, cPage, numPerPage);
 	}
 
 	public int selectTotalProduct(String sellerId) {
 		return productDAO.selectTotalProduct(sellerId);
 	}
 
-	public List<Map<String, String>> searchProductList(Map map, int prodPage, int numPerPage) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Map<String, String>> searchProductList(Map map, int cPage, int numPerPage) {
+		return productDAO.searchProductList(map, cPage, numPerPage);
 	}
+
+	public int selectSearchedProduct(Map<String, Object> map) {
+		return productDAO.selectSearchedProduct(map);
+	}
+
+	public Product selectOneProduct(int productNo) {
+		return productDAO.selectOneProduct(productNo);
+	}
+
+	public List<Product> selectOptionList(int productNo) {
+		return productDAO.selectOptionList(productNo);
+	}
+
+	public List<ProductImage> selectImageList(int productNo) {
+		return productDAO.selectImageList(productNo);
+	}
+	
+	public List<Review> selectReivewList(String sellerId) {
+		
+		return productDAO.selectReviewList(sellerId);
+	}
+
+	public Product selectRproduct(int reviewNo) {
+
+		return productDAO.selectRproduct(reviewNo);
+
+	}
+
+
+	public List<Review> selectSearchReview(Map<String, Object> map) {
+		
+		return productDAO.selectSearchReview(map);
+	}
+
+	public List<QnA> selectQnaList(String sellerId) {
+		
+		return productDAO.selectQnaList(sellerId);
+	}
+
+	public Product selectQproduct(int qnaNo) {
+		
+		return productDAO.selectQproduct(qnaNo);
+	}
+
+	public List<QnA> selectSearchQna(Map<String, Object> map) {
+		
+		return productDAO.selectSearchQna(map);
+	}
+
 
 
 }

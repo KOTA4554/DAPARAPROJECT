@@ -34,7 +34,7 @@ public class CartController {
         Member member = (Member)session.getAttribute("member");
 
         String userId = member.getUserId();
-		System.out.println("/cart.do가 실행되었음");
+
 		
 		//카트정보조회
 		List<Cart> c = CartService.cartList(userId);
@@ -42,26 +42,45 @@ public class CartController {
 		int count =  c.size();
 		//조회된 카트 배열 각각에 해당하는 product_detail정보
 		List<Product> cartProductList = new ArrayList<Product>(); 
-		
+		List<String> cartImageList = new ArrayList<String>();
+				
 		
 		for(int i = 0; i < count; i++) {
 
 	            int productNo = c.get(i).getProductNo();
 
 	            Product prod = CartService.selectProd(productNo);
-
-	            cartProductList.add(prod);
+                String img = CartService.loadImage(productNo);
 	            
+	            cartProductList.add(prod);
+	            cartImageList.add(img);
 	        }
 		
+	
+
+		int totalPrice = 0;
+		
+		
+		for(int i = 0; i < count; i++) {
+			int amount = c.get(i).getCartAmount();
+			int price = cartProductList.get(i).getProductPrice();
+			
+			totalPrice = totalPrice + (amount*price);
+			
+			
+			
+		}
 		
 		
 		
+		System.out.println(cartImageList);
 		
 		
+		model.addAttribute("image", cartImageList);
 		model.addAttribute("cart", c);
         model.addAttribute("count", count);
         model.addAttribute("cartProduct", cartProductList);
+        model.addAttribute("total", totalPrice);
 		
 	return "prod/cart";
 		
@@ -70,12 +89,8 @@ public class CartController {
 	
 	@RequestMapping("/addcart.do")
 	public void addCart(@RequestParam String userId, int productNo, int cartAmount, String sizeName, HttpServletResponse response) throws IOException {
-	
-		System.out.println("장바구니 추가 접근 확인" + productNo);
-		
+			
 		Cart c = new Cart(userId,productNo,cartAmount,sizeName);
-		
-		System.out.println("장바구니 추가 접근 확인" + c);
 		
 		int result = CartService.addCart(c);
 				
@@ -129,4 +144,3 @@ public class CartController {
 	
 	
 	
-

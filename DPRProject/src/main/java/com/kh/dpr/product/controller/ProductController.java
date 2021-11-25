@@ -2,14 +2,15 @@ package com.kh.dpr.product.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ import com.kh.dpr.common.Utils;
 import com.kh.dpr.product.model.service.ProductService;
 import com.kh.dpr.product.model.vo.Product;
 import com.kh.dpr.product.model.vo.ProductImage;
+import com.kh.dpr.qna.model.vo.QnA;
+import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
 @Controller
@@ -68,7 +71,7 @@ public class ProductController {
 	public String insertProduct(Product product, Model model, HttpServletRequest req,
 								@RequestParam(value="mainImg", required=false) MultipartFile mainImg,
 								@RequestParam(value="optionalImg", required=false) MultipartFile[] optionalImgs,
-								@RequestParam(value="contentImg", required=false) MultipartFile[] contentImgs) {
+								@RequestParam(value="contentImgs", required=false) MultipartFile[] contentImgs) {
 		
 		System.out.println("product : " + product);
 		System.out.println("mainImg : " + mainImg);
@@ -99,8 +102,8 @@ public class ProductController {
 		// 컨텐츠이미지 저장 
 		for(MultipartFile contentImg : contentImgs) {
 			if(contentImg.isEmpty() == false) { 
-				ProductImage optionImage = saveImage(contentImg, 2, productNo, savePath);
-				imgList.add(optionImage); 
+				ProductImage contentImage = saveImage(contentImg, 2, productNo, savePath);
+				imgList.add(contentImage); 
 			} 
 		}
 		
@@ -146,17 +149,17 @@ public class ProductController {
 	}
 	
 	@RequestMapping("seller/productList.do")
-	public String productList(@RequestParam(value="prodPage", required=false, defaultValue="1") int prodPage,
+	public String productList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 							  Seller seller, Model model) {
 		
 		int numPerPage = 15;
 		String sellerId = seller.getSellerId();
 		
-		List<Map<String, String>> list = productService.selectProductList(sellerId, prodPage, numPerPage);
+		List<Map<String, String>> list = productService.selectProductList(sellerId, cPage, numPerPage);
 		
 		int totalProduct = productService.selectTotalProduct(sellerId);
 		
-		String pageBar = Utils.getPageBar(totalProduct, prodPage, numPerPage, "productList.do");
+		String pageBar = Utils.getPageBar(totalProduct, cPage, numPerPage, "productList.do");
 		
 		model.addAttribute("list", list);
 		model.addAttribute("totalProduct", totalProduct);
@@ -167,41 +170,269 @@ public class ProductController {
 	}
 	
 	@RequestMapping("seller/searchProd.do")
-	public String searchProductList(@RequestParam(value="prodPage", required=false, defaultValue="1") int prodPage,
+	public String searchProductList(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
 									@RequestParam(value="searchNm", required=false) String searchNm,
-									@RequestParam(value="searchCate1", required=false, defaultValue="999") int searchCate1,
-									@RequestParam(value="searchCate2", required=false, defaultValue="999") int searchCate2,
-									@RequestParam(value="startDate", required=false) Date startDate,
-									@RequestParam(value="endDate", required=false) Date endDate,
-									@RequestParam(value="saleState", required=false, defaultValue="0") int saleState,
-									@RequestParam(value="searchBrand", required=false, defaultValue="") String searchBrand,
-									@RequestParam(value="searchPno", required=false, defaultValue="0") int searchPno,
+									@RequestParam(value="searchCate1", required=false) int searchCate1,
+									@RequestParam(value="searchCate2", required=false) int searchCate2,
+									@RequestParam(value="startDate", required=false) String startDate,
+									@RequestParam(value="endDate", required=false) String endDate,
+									@RequestParam(value="saleState", required=false) int saleState,
+									@RequestParam(value="searchBrand", required=false) String searchBrand,
+									@RequestParam(value="searchPno", required=false, defaultValue="-1") int searchPno,
 									Seller seller, Model model) {
 		
 		int numPerPage = 15;
 		String sellerId = seller.getSellerId();
+		// Date.valueOf(문자열)  : 문자열 형식(2021-11-23 / 20211123)
+				
+		Map<String, Object> map= new HashMap<>();
 		
-		Map map= new HashMap();
+		System.out.println(startDate);
 		
+		if( startDate != null && !startDate.equals("")) {
+			Date startD = Date.valueOf(startDate);			
+			map.put("startDate", startD);
+		}
+		if( endDate != null && !endDate.equals("")) {
+			Date endD = Date.valueOf(endDate);
+			map.put("endDate", endD);
+			
+		}		
 		map.put("sellerId", sellerId);
 		map.put("searchNm", searchNm);
 		map.put("searchCate1", searchCate1);
 		map.put("searchCate2", searchCate2);
-		map.put("startDate", startDate);
-		map.put("endDate", endDate);
 		map.put("saleState", saleState);
 		map.put("searchBrand", searchBrand);
 		map.put("searchPno", searchPno);
 		
-		System.out.println(map.get("sellerId"));
-		System.out.println(map.get("searchNm"));
-		System.out.println(map.get("searchCate1"));
-		System.out.println("페이지 : " + prodPage);
-		System.out.println("searchNm : " + searchNm);
+		System.out.println("sellerId : " + map.get("sellerId"));
+		System.out.println("searchNm : " + map.get("searchNm"));
+		System.out.println("cate1 : " + map.get("searchCate1"));
+		System.out.println("cate2 : " + map.get("searchCate2"));
+		System.out.println("startDate : " + map.get("startDate"));
+		System.out.println("endDate : " + map.get("endDate"));
+		System.out.println("brand : " + map.get("searchBrand"));
+		System.out.println("state : " + map.get("saleState"));
+		System.out.println("p : " + map.get("searchPno"));
+		System.out.println("페이지 : " + cPage);
 		
-		// List<Map<String, String>> list = productService.searchProductList(map, prodPage, numPerPage);
+		List<Map<String, String>> list = productService.searchProductList(map, cPage, numPerPage);
+		
+		int totalProduct = productService.selectSearchedProduct(map);
+		String pageBar = Utils.getPageBar(totalProduct, cPage, numPerPage, "searchProd.do");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
 		
 		return "productManage/productList";
 	}
 	
+	@RequestMapping("seller/modifyProduct.do")
+	public String modifyProduct(@RequestParam int productNo, Model model) {
+		
+		Product detail = productService.selectOneProduct(productNo);
+		List<Product> option = productService.selectOptionList(productNo);
+		List<ProductImage> image = productService.selectImageList(productNo);
+		System.out.println("detail : " + detail);
+		System.out.println("option : " + option);
+		System.out.println("image : " + image);
+		
+		model.addAttribute("detail", detail);
+		model.addAttribute("option", option);
+		model.addAttribute("image", image);
+		
+		
+		
+		return "productManage/modifyProduct";
+	}
+
+	@RequestMapping("/seller/reviewList.do")
+	public String reviewList(HttpServletRequest request, Model model) {
+
+		HttpSession session = request.getSession(false);
+		
+		Seller s = (Seller)session.getAttribute("seller");
+		
+		String sellerId = s.getSellerId();
+		
+		// 판매자가 올린 상품 리뷰 리스트
+		List<Review> reviewList = productService.selectReivewList(sellerId);
+		
+		// 해당 리뷰의 상품
+		List<Product> rpList = new ArrayList<Product>();
+
+		for(int i = 0; i < reviewList.size(); i++) {
+			
+			int reviewNo = reviewList.get(i).getReviewNo();
+			
+			Product rp = productService.selectRproduct(reviewNo);
+			
+			rpList.add(rp);
+			
+		}
+		
+		int totalProduct = reviewList.size();
+		
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		
+		return "productManage/reviewList";
+
+	}
+	
+
+	@RequestMapping("/seller/searchReviewProd.do")
+	public String searchReview( @RequestParam(value="productName", required=false) String productName,
+								@RequestParam(value="categoryNo", required=false) int categoryNo,
+								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
+								@RequestParam(value="productBrand", required=false) String productBrand,
+								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+								HttpServletRequest request,
+								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sellerId", sellerId);
+		map.put("productName", productName);
+		map.put("categoryNo", categoryNo);
+		map.put("categoryNo2", categoryNo2);
+		map.put("productBrand", productBrand);
+		map.put("productNo", productNo);
+		
+		System.out.println(map);
+		
+		// 조건에 맞는 리뷰 리스트
+		List<Review> reviewList = productService.selectSearchReview(map);
+		
+		System.out.println(reviewList);
+		
+		// 해당 리뷰의 상품
+		List<Product> rpList = new ArrayList<Product>();
+
+		for(int i = 0; i < reviewList.size(); i++) {
+			
+			int reviewNo = reviewList.get(i).getReviewNo();
+			
+			Product rp = productService.selectRproduct(reviewNo);
+			
+			rpList.add(rp);
+			
+		}
+		
+		int totalProduct = reviewList.size();
+		
+		model.addAttribute("totalProduct", totalProduct);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("rpList", rpList);
+		
+		//return null;
+		return "productManage/reviewList";
+	}
+	
+	@RequestMapping("/seller/qnaList.do")
+	public String qnaList(HttpServletRequest request, Model model) {
+
+		HttpSession session = request.getSession(false);
+		
+		Seller s = (Seller)session.getAttribute("seller");
+		
+		String sellerId = s.getSellerId();
+		
+		// 판매자가 올린 상품 문의 리스트
+		List<QnA> qnaList = productService.selectQnaList(sellerId);
+		
+		// 해당 문의의 상품
+		List<Product> qpList = new ArrayList<Product>();
+
+		for(int i = 0; i < qnaList.size(); i++) {
+			
+			int qnaNo = qnaList.get(i).getQNo();
+			
+			Product qp = productService.selectQproduct(qnaNo);
+			
+			qpList.add(qp);
+			
+		}
+		
+		int totalQna = qnaList.size();
+		
+		model.addAttribute("totalQna", totalQna);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qpList", qpList);
+		
+		return "productManage/qnaList";
+
+	}
+	
+	@RequestMapping("/seller/searchQnaProd.do")
+	public String searchQna( @RequestParam(value="productName", required=false) String productName,
+								@RequestParam(value="categoryNo", required=false) int categoryNo,
+								@RequestParam(value="categoryNo2", required=false) int categoryNo2,
+								@RequestParam(value="productBrand", required=false) String productBrand,
+								@RequestParam(value="productNo", required=false, defaultValue="-1") int productNo,
+								HttpServletRequest request,
+								Model model) {
+		
+		HttpSession session = request.getSession(false);
+		
+		String sellerId = ((Seller)session.getAttribute("seller")).getSellerId();
+		
+		Map<String, Object> map= new HashMap<>();
+		
+		map.put("sellerId", sellerId);
+		map.put("productName", productName);
+		map.put("categoryNo", categoryNo);
+		map.put("categoryNo2", categoryNo2);
+		map.put("productBrand", productBrand);
+		map.put("productNo", productNo);
+		
+		System.out.println(map);
+		
+		// 조건에 맞는 리뷰 리스트
+		List<QnA> qnaList = productService.selectSearchQna(map);
+		
+		System.out.println(qnaList);
+		
+		// 해당 리뷰의 상품
+		List<Product> qpList = new ArrayList<Product>();
+
+		for(int i = 0; i < qnaList.size(); i++) {
+			
+			int qNo = qnaList.get(i).getQNo();
+			
+			Product qp = productService.selectRproduct(qNo);
+			
+			qpList.add(qp);
+			
+		}
+		
+		int totalQna = qnaList.size();
+		
+		model.addAttribute("totalQna", totalQna);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("qpList", qpList);
+		
+		//return null;
+		return "productManage/qnaList";
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
