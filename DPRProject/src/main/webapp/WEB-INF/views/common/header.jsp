@@ -242,6 +242,7 @@
                      <ul>
                         <li><a href="${pageContext.request.contextPath}/seller/addProduct.do">상품 등록</a></li>
                         <li><a href="${pageContext.request.contextPath}/seller/productList.do">상품 조회</a></li>
+                        <li><a href="${pageContext.request.contextPath}/seller/delivery.do">주문·배송 관리</a></li>
                      </ul>
                   </li>
                   <li><a href="#">클레임관리</a>

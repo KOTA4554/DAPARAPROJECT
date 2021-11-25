@@ -279,16 +279,13 @@ public class ProductController {
 			// System.out.println(opt);
 			if(opt.getOptionNo() == 0) {
 				System.out.println(opt.getOptionNo() + "옵션 추가");
-//				 int result = productService.insertOption(opt);
+				int result = productService.insertOption(opt);
 			} else {
 				System.out.println(opt.getOptionNo() + "옵션 수정");
-//				int result2 = productService.updateOption(opt);
+				int result2 = productService.updateOption(opt);
 			}
 		}
-		System.out.println("------------------------------------------");
-		
-		
-//		return "productManage/productList";
+
 	}
 	
 	@RequestMapping("/seller/modifyProdEnd.do")

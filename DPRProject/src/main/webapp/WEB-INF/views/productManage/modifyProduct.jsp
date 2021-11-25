@@ -361,7 +361,6 @@ textarea {
 		var title = $('#productTitle').val(), info = $('#productInfo').val();
 		var startDate = $('#startDate').val(), endDate = $('#endDate').val();
 		var cate = $('#categoryNo').val(), cate2 = $('#categoryNo2').val();
-		var mainImg = $('#mainProductImg').val();
 		 
 		if(cate == "" || cate2 == ""){
 			alert("카테고리를 선택해주세요.");
@@ -371,9 +370,6 @@ textarea {
 			validate = false;
 		} else if(startDate > endDate || startDate == "" || endDate == ""){
 			alert("판매기간을 확인해주세요.");
-			validate = false;
-		} else if(!mainImg){
-			alert("메인 이미지를 추가해주세요.");
 			validate = false;
 		} 
 	

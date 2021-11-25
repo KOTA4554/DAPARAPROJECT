@@ -1,9 +1,15 @@
 package com.kh.dpr.seller.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -12,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.dpr.common.Utils;
+import com.kh.dpr.order.model.vo.Delivery;
 import com.kh.dpr.seller.model.service.SellerService;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -120,4 +129,101 @@ public class SellerController {
 				
 		return "redirect:/";
 	}
+	
+	@RequestMapping("seller/delivery.do")
+	public String delivery(@RequestParam(value="cPage", required=false, defaultValue="1") int cPage,
+			 			   Seller seller, Model model) {
+		
+		int numPerPage = 50;
+		String sellerId = seller.getSellerId();
+		
+		List<Delivery> list = sellerService.selectDelList(sellerId, cPage, numPerPage);
+		
+		int totalOrder = sellerService.selectTotalOrder(sellerId);
+		String pageBar = Utils.getPageBar(totalOrder, cPage, numPerPage, "productList.do");
+		
+		model.addAttribute("list", list);
+		model.addAttribute("totalOrder", totalOrder);
+		model.addAttribute("numPerPage", numPerPage);
+		model.addAttribute("pageBar", pageBar);
+		
+		return "seller/delivery";
+	}
+	
+	
+	@RequestMapping("seller/downloadExcel.do")
+	public void downloadExcel(Delivery delivery, HttpServletResponse response) throws IOException {
+		
+		System.out.println(delivery);
+		List<Delivery> list = delivery.getDeliveryList();
+		System.out.println(list);
+
+		Workbook wb = new XSSFWorkbook();
+		Sheet sheet = wb.createSheet("첫번째 시트");
+		Row row = null;
+        Cell cell = null;
+        int rowNum = 0;
+        
+        String[] header = {"주문번호", "주문상세번호", "택배사", "운송장번호", "상품번호", "상품명",
+                           "결제일", "아이디", "수령인", "연락처", "배송주소", "배송요청사항"};
+        
+        System.out.println(list);
+        
+        row = sheet.createRow(rowNum++);
+        for(int i=0; i < header.length; i++) {
+        	cell = row.createCell(i);
+        	cell.setCellValue(header[i]);
+        }
+                       
+        for(Delivery del : list) {
+        	int cellNum = 0;
+        	
+        	row = sheet.createRow(rowNum++);
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getOrderNo());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getDetailNo());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getDeliveryCode());
+        	
+        	cell = row.createCell(cellNum++);
+        	
+        	String delNo = (del.getDeliveryNo() == 0) ? "" : String.valueOf(del.getDeliveryNo());
+        	cell.setCellValue(delNo);
+        	
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getProductNo());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getProductName());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getPayDate());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getUserId());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getOrderReceiver());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getOrderPhone());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getOrderAddress());
+        	cell = row.createCell(cellNum++);
+        	cell.setCellValue(del.getOrderRequest());
+        }
+        
+        // 컨텐츠 타입과 파일명 지정
+        response.setContentType("ms-vnd/excel");
+        response.setHeader("Content-type", "ms-vnd/excel");
+        response.setHeader("Content-Disposition", "attachment; filename=\"example.xlsx\";");
+
+        // Excel File Output
+        wb.write(response.getOutputStream());
+        wb.close();
+    }
+	
+	@RequestMapping("seller/uploadExcel.do")
+	public void uploadExcel(@RequestParam(value="fileSelector", required=false) MultipartFile excelFile) {
+		
+		System.out.println(excelFile);
+		
+	}
+
 }

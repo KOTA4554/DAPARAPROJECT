@@ -16,9 +16,9 @@
  		<typeAlias alias="Order" type="com.kh.dpr.order.model.vo.Order"/>
  		<typeAlias alias="OrderDetail" type="com.kh.dpr.order.model.vo.OrderDetail"/>
  		<typeAlias alias="MyTypeHandler" type="com.kh.dpr.common.MyTypeHandler"/>
-<typeAlias alias="Review" type="com.kh.dpr.review.model.vo.Review"/>
+		<typeAlias alias="Review" type="com.kh.dpr.review.model.vo.Review"/>
  		<typeAlias alias="Claim" type="com.kh.dpr.claim.model.vo.Claim"/>
-
+		<typeAlias alias="Delivery" type="com.kh.dpr.order.model.vo.Delivery"/>
     	<typeAlias alias="Cart" type="com.kh.dpr.cart.model.vo.Cart"/>
    		<typeAlias alias="Seller" type="com.kh.dpr.seller.model.vo.Seller"/>
     	<typeAlias alias="ProductImage" type="com.kh.dpr.product.model.vo.ProductImage"/>

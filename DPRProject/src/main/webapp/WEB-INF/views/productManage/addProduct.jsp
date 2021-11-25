@@ -362,7 +362,7 @@ textarea {
 					productName : productName,
 					productBrand : productBrand,
 					sizeId : sizeId,
-					productAmount : productAmount,
+					productAmount : productAmount
 				};
 			optionList.push(obj);
 		});
