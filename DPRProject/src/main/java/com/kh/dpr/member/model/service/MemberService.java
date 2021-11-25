@@ -15,5 +15,7 @@ public interface MemberService {
 	
 	int checkIdDuplicate(String userId);
 
+	String getReturnAccessToken(String code);
+	
 }
 

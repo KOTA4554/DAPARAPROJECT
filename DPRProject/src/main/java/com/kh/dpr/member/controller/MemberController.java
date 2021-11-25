@@ -1,6 +1,7 @@
 package com.kh.dpr.member.controller;
 
 import java.io.IOException;
+import java.net.http.HttpHeaders;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.client.RestTemplate;
 
 import com.kh.dpr.exception.MemberException;
 import com.kh.dpr.member.model.service.MemberService;
@@ -120,20 +123,12 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value="/member/kakao_login.ajax")
-    public String kakaoLogin() {
-        StringBuffer loginUrl = new StringBuffer();
-        loginUrl.append("https://kauth.kakao.com/oauth/authorize?client_id=");
-        loginUrl.append("[내 애플리케이션]의 앱 KEY (REST API)"); 
-        loginUrl.append("&redirect_uri=");
-        loginUrl.append("[내 애플리케이션]의 redirect URL"); 
-        loginUrl.append("&response_type=code");
-        
-        return "redirect:"+loginUrl.toString();
-	}
-	
 	@RequestMapping("/myPage/myInfo.do")
-	public String myInfo(Member member, Model model) {
+	public String myInfo(String userId, Model model) {
+		Member result = memberService.selectOneMember(userId);
+		
+		model.addAttribute("member", result);
+		
 		return "myPage/myInfo";
 	}
 	
@@ -144,6 +139,8 @@ public class MemberController {
 		
 		if(result > 0) {
 			msg = "회원 정보 수정 완료!";
+			model.addAttribute("member", member);
+			System.out.println(member);
 		} else {
 			msg = "회원 정보 수정 실패!";
 		}
@@ -151,7 +148,7 @@ public class MemberController {
 		model.addAttribute("loc", loc);
 		model.addAttribute("msg", msg);
 		
-		return "commom/msg";
+		return "redirect:/";
 	}
 	
 	@RequestMapping("/myPage/memberDelete.do")
@@ -167,9 +164,18 @@ public class MemberController {
 		}
 		
 		model.addAttribute("loc", loc);
-		model.addAttribute(",sg", msg);
+		model.addAttribute("msg", msg);
 		
 		return "common/msg";
+	}
+	
+	@RequestMapping("/dpr")
+	public String kakaoLogin(@RequestParam(value = "code", required = false)String code, Model model) throws Exception{
+		System.out.println(code);
+		
+		String access_token = getAccessToken(code);
+		
+		return "member/memberLogin";
 	}
 }
 

@@ -10,4 +10,8 @@ public interface SellerService {
 
 	public Seller selectOneSeller(String sellerId);
 	
+	public int updateSeller(Seller seller);
+	
+	public int deleteSeller(String sellerId);
+	
 }

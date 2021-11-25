@@ -64,7 +64,7 @@ div#userId-container span.error, span.invalid {
 					<div class="billing-details">
 						<div class="form-group" id="userId-container">
 							<input class="form-control" type="text" name="userId"
-								placeholder="아이디 (4글자이랑)" id="userId" value="${member.userId}" readonly required> 
+								placeholder="아이디 (5글자이상)" id="userId" value="${member.userId}" readonly required> 
 						</div>
 						<div class="form-group">
 							<input class="input" type="text" name="userName"
@@ -82,11 +82,11 @@ div#userId-container span.error, span.invalid {
 							</label>
 						</div>
 						<div class="form-group">
-							<input class="input" type="text" name="zipCode" id="zipCode" placeholder="우편번호" disabled>
+							<input class="input" type="text" name="zipCode" id="zipCode" placeholder="우편번호"  value='${member.userAddress.split("/")[0]}' disabled>
 							<button type="button" onclick="searchAddress();">주소 검색</button>
-							<input class="input" type="text" name="searchAddr" id="searchAddr" placeholder="검색을 통해 주소를 입력하세요." disabled required>
-							<input class="input" type="text" name="detailAddr" id="detailAddr" placeholder="상세 주소를 입력하세요.">
-							<input class="input" type="text" name="userAddress" id="userAddress" disabled>
+							<input class="input" type="text" name="searchAddr" id="searchAddr" placeholder="검색을 통해 주소를 입력하세요." value='${member.userAddress.split("/")[1]}' disabled required>
+							<input class="input" type="text" name="detailAddr" id="detailAddr" placeholder="상세 주소를 입력하세요." value='${member.userAddress.split("/")[2]}'>
+							<input class="input" type="text" name="userAddress" id="userAddress"  hidden value="${member.userAddress}">
 						</div>
 						<div class="form-group">
 							<input class="input" type="tel" name="userPhone" 
@@ -96,9 +96,8 @@ div#userId-container span.error, span.invalid {
 							<input type="text" name="userEmail" placeholder="이메일을 입력해주세요" value="${member.userEmail}"class="input">
 						</div>
 					</div>
-					<input type="submit" class="btn success" value="수정" />
-					<input type="reset" class="btn cancel" value="취소"/>
-				
+						<input type="submit" class="primary-btn change-submit" value="수정">
+						<input type="reset" class="primary-btn delete" onclick="location.href='${pageContext.request.contextPath}/myPage/memberDelete.do'" value="탈퇴"/>
 				</form>
 			</div> <!-- /row -->
 			</div> <!-- membercontainer -->

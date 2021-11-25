@@ -13,9 +13,16 @@
 	</select>
 	
 	<select id="selectOneSeller" parameterType="string" resultType="Seller">
-		SELECT * FROM SELLER WHERE SELLERID = #{sellerId} 
+		SELECT * FROM SELLER WHERE SELLERID = #{sellerId} AND SELLERSTATUS = 'Y'
 	</select>
 	
+	<update id="updateSeller" parameterType="Seller">
+		UPDATE SELLER SET SELLERNO = #{sellerNo}, SELLERCOMPANY = #{sellerCompany}, SELLERNAME = #{sellerName}, SELLERADDRESS = #{sellerAddress}, SELLERPHONE = #{sellerPhone} WHERE SELLERID = #{sellerId} 
+	</update>
+	
+	<delete id="deleteSeller" parameterType="string">
+		UPDATE SELLER SET SELLERSTATUS = 'N', SELLERDROPDATE = SYSDATE WHERE SELLERID = #{sellerId}
+	</delete>
 	
 	<!-- <select id="loginMember" parameterType="Member" resultType="Member">
 		SELECT * FROM MEMBER

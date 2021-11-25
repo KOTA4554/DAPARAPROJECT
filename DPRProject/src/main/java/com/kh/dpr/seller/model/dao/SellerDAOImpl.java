@@ -24,6 +24,16 @@ public class SellerDAOImpl implements SellerDAO {
 
 	@Override
 	public Seller selectOneSeller(String sellerId) {
-		return sqlSession.selectOne("sellerSQL.selectOneSeller", sellerId);
+		return sqlSession.selectOne("sellerSQL.selectOneSeller", sellerId);	
+	}
+	
+	@Override
+	public int updateSeller(Seller seller) {
+		return sqlSession.update("sellerSQL.updateSeller", seller);
+	}
+
+	@Override
+	public int deleteSeller(String sellerId) {
+		return sqlSession.delete("sellerSQL.deleteSeller", sellerId);
 	}
 }

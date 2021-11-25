@@ -120,4 +120,63 @@ public class SellerController {
 				
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/myPage/sellerInfo.do")
+	public String sellerInfo(String sellerId, Model model) {
+		
+		Seller result = sellerService.selectOneSeller(sellerId);
+		
+		model.addAttribute("seller", result);
+		
+		return "myPage/sellerInfo";
+	}
+	
+	@RequestMapping("/myPage/updateSeller.do")
+	public String updateSeller(Seller seller, Model model) {
+		
+		int result = sellerService.updateSeller(seller);
+		
+		if(result > 0) {
+			msg = "회원 정보 수정 완료!";
+			model.addAttribute("seller", seller);
+			System.out.println(seller);
+		} else {
+			msg = "회원 정보 수정 실패!";
+		}
+		
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/myPage/sellerDelete.do")
+	public String sellerDelete(Seller seller, SessionStatus status, Model model) {
+		
+		int result = sellerService.deleteSeller(seller.getSellerId());
+		
+		if(result > 0) {
+			msg = "회원 탈퇴 완료!";
+			status.setComplete();
+		} else {
+			msg = "회원 탈퇴 실패!";
+		}
+		
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "common/msg";
+		
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+

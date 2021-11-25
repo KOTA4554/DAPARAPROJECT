@@ -26,5 +26,15 @@ public class SellerServiceImpl implements SellerService {
 	public Seller selectOneSeller(String sellerId) {
 		return sellerDAO.selectOneSeller(sellerId);
 	}
+	
+	@Override
+	public int updateSeller(Seller seller) {
+		return sellerDAO.updateSeller(seller);
+	}
+
+	@Override
+	public int deleteSeller(String sellerId) {
+		return sellerDAO.deleteSeller(sellerId);
+	}
 
 }

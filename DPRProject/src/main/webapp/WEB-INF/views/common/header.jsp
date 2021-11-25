@@ -258,7 +258,7 @@
                   </li>
                   <li><a href="#">통계</a>
                   </li>
-
+				  <li><a href="${pageContext.request.contextPath}/myPage/sellerInfo.do">회원정보 수정</a></li>
 
                </ul>
                <!-- /NAV -->
