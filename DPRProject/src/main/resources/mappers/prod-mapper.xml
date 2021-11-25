@@ -31,4 +31,13 @@
    SELECT PRODUCTNEWIMAGE FROM PRODUCTIMAGE WHERE PRODUCTNO = #{randomNo} AND IMAGECATEGORYNO = 0 
    </select>
    
+   <insert id="qnaInsert" parameterType="QnA" >
+   INSERT INTO QNA VALUES(SEQ_QNA.NEXTVAL, #{userId}, #{productNo}, #{qTitle}, #{qContent}, SYSDATE, 'Y')
+   </insert>
+   
+   <select id="qna" parameterType="int" resultType="QnA">
+   SELECT * FROM QNA WHERE PRODUCTNO = #{prodNo} AND QSTATUS = 'Y'
+   </select>
+   
+
 </mapper>

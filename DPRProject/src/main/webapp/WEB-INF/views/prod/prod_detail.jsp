@@ -295,37 +295,25 @@
 												</tr>
 											</thead>
 											<tbody align="center">
+											<c:forEach var="q" items="${qna}" varStatus="status">
 												<tr>
 													<td
-														style="height: 50px; border-top: solid; border-color: rgb(237, 237, 240);">장민수</td>
+														style="height: 50px; border-top: solid; border-color: rgb(237, 237, 240);">${q.userId}</td>
 													<td
-														style="border-top: solid; border-color: rgb(237, 237, 240); padding-left: 50px; padding-right: 50px; text-align: left">거짓말을..
-														미쳤네요.. 사실과 다릅니다. 어제도 한진 배송 받았습니다. 남양주 배송 잘 되고 있거든요.. 만일
-														그렇다면 미리 연락을 주셨어야죠!!! 고객을 기만하고있네요..</td>
+														style="border-top: solid; border-color: rgb(237, 237, 240); padding-left: 50px; padding-right: 50px; text-align: left">${q.qContent}</td>
 
 													<td
-														style="border-top: solid; border-color: rgb(237, 237, 240);">2021-11-12</td>
+														style="border-top: solid; border-color: rgb(237, 237, 240);">${q.qDate}</td>
 
 												</tr>
-
-
-												<tr>
-													<td
-														style="height: 50px; border-top: solid; border-color: rgb(237, 237, 240);">장민수</td>
-													<td
-														style="border-top: solid; border-color: rgb(237, 237, 240); padding-left: 50px; padding-right: 50px; text-align: left">어디까지길어져어디까지길어디까지지길어져어디까지길어져어디까지길어져</td>
-
-													<td
-														style="border-top: solid; border-color: rgb(237, 237, 240);">2021-11-12</td>
-
-												</tr>
+                                             </c:forEach>
 
 											</tbody>
 										</table>
 										<br />
 										<br />
 										
-										<form >
+										<form name="qnaFrom" action="qnaInsert.do" method="post" >
 										
 										<table cellspacing="100" id="listArea" align="center"
 											style="width: max-content;">
@@ -333,14 +321,18 @@
 											<tr>
 												<td width="80px"
 													style="text-align: center; font-weight: 700;">작성자</td>
-												<td width="980px" style="text-align: center"><input
-													type="text"
-													style="width: 950px; height: 50px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8;" />
+												<form action="">
+												
+												<td width="980px" style="text-align: center">
+												<input name="qTitle" type="text" />
+												<input name="qContent" type="text" style="width: 950px; height: 50px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8;" />
+												<input type="hidden" name="userId" value="${member.userId}";    />
+												<input type="hidden" name="productNo" value="${prod.productNo}";    />												
 												</td>
 												<td width="80px"
 													style="text-align: center; font-size: 15px;">
-													<button
-														style="height: 50px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8;">문의하기</button>
+													</form>
+													<button type ="submit";	style="height: 50px; border-width: 1px; border-radius: 5px; border-color: #b8b8b8;">문의하기</button>
 												</td>
 
 											</tr>
@@ -448,14 +440,13 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="product">
 							<div class="product-img">
-								<img
-									src="${pageContext.request.contextPath}/resources/productUpload/${rImg[status.index]}">
+								<img src="${pageContext.request.contextPath}/resources/productUpload/${rImg[status.index]}">
 
 							</div>
 							<div class="product-body">
 								<p class="product-category">의류</p>
 								<h3 class="product-name">
-									<a href="#">${random.productName}</a>
+									<a>${random.productName}</a>
 								</h3>
 								<h4 class="product-price">${random.productPrice}원</h4>
 
