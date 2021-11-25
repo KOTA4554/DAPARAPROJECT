@@ -2,6 +2,7 @@ package com.kh.dpr.prod.controller;
 
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.dpr.prod.model.service.ProdService;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -37,6 +39,7 @@ public class ProdController {
 		int rCount = review.size();
 		List<Product> random = ProdService.random();
 		List<String> rImage = new ArrayList<String>();
+		List<QnA> qna = ProdService.qna(prodNo);
 
 		for (int i = 0; i < random.size() ; i ++) {
 			
@@ -47,11 +50,10 @@ public class ProdController {
 			rImage.add(randomImage);
 		}
 	
+		System.out.println(qna);
 	
-		System.out.println(rImage);
 			
-			
-		
+		model.addAttribute("qna", qna);
 	    model.addAttribute("rImg", rImage);	
 		model.addAttribute("random", random);
 		model.addAttribute("prod", prod);
@@ -64,5 +66,33 @@ public class ProdController {
 		return "prod/prod_detail";
 	}
 	
-
-}
+	
+	@RequestMapping("/qnaInsert.do")
+	public String qna(@RequestParam String userId, String qTitle, String qContent, int productNo, Model model) {
+	
+		QnA q = new QnA(userId, qTitle, qContent, productNo);
+		
+	
+		int result = ProdService.qnaInsert(q);
+		
+		String loc = "/prod_detail.do?prodNo="+productNo;
+		String msg = "";
+		if(result > 0) {
+			
+			msg = "문의가 등록되었습니다.";
+		} else {
+			
+			msg = "문의 등록에 실패하였습니다.";
+		}
+	
+		model.addAttribute("loc", loc);
+		model.addAttribute("msg", msg);
+		
+		return "common/msg";
+	}
+	
+	
+	
+	}
+	
+	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.dpr.prod.model.dao.ProdDAO;
 import com.kh.dpr.product.model.vo.Product;
+import com.kh.dpr.qna.model.vo.QnA;
 import com.kh.dpr.review.model.vo.Review;
 import com.kh.dpr.seller.model.vo.Seller;
 
@@ -54,5 +55,17 @@ public class ProdServiceImpl implements ProdService  {
 	public String randomImage(int randomNo) {
 		
 		return ProdDAO.randomImage(randomNo);
+	}
+
+	@Override
+	public int qnaInsert(QnA q) {
+		
+		return ProdDAO.qnaInsert(q);
+	}
+
+	@Override
+	public List<QnA> qna(int prodNo) {
+		
+		return ProdDAO.qna(prodNo);
 	}
 }
