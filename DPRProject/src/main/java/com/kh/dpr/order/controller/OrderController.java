@@ -22,7 +22,6 @@ public class OrderController {
 	
 	@RequestMapping("/order/order.do")
 	public String order(@RequestParam(value="productNo") int[] productNo,
-						//@RequestParam(value="productImg") String[] productImg,
 						@RequestParam(value="cartAmount") int[] cartAmount,
 						@RequestParam(value="sizeName") String[] sizeName,
 						Model model) {

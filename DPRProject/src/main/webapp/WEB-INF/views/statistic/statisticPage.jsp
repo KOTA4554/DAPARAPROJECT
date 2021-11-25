@@ -9,6 +9,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
+
 <style>
 .mainSectionForm {
     width: 1100px;
@@ -21,7 +24,7 @@
 	display:flex;
     justify-content: center;
 }
-.mainSectionForm > table {
+.mainSectionForm table {
  	width: 100%;
 }
 .sectionTitles {
@@ -49,6 +52,7 @@ table input[type="text"], select, input[type="number"] {
 }
 .searchBtnSection {
 	border-top: 1px solid lightgray;
+	height: 60px;
 	margin: 20px 0px;
 }
 #searchBtn {
@@ -115,104 +119,90 @@ li {
 </head>
 <body>
 <c:import url="../common/header.jsp"/>	
-	<form action="${pageContext.request.contextPath}/seller/searchProd.do" method="get">
 <div class="mainSectionForm">
-	<table border="0">
-		<tr>
-			<th colspan="4" class="sectionTitles">검색 조건 설정</th>
-		</tr>
-	    <tr>
-	        <th>상품명</th>
-	        <td><input type="text" name="searchNm" id="searchProdName"></td>
-	        <th>카테고리</th>
+	<form action="${pageContext.request.contextPath}/seller/searchProd.do" method="get">
+		<table border="0">
+			<tr>
+				<th colspan="4" class="sectionTitles">검색 조건 설정</th>
+			</tr>
+		    <tr>
+		        <th>상품명</th>
+		        <td><input type="text" name="searchNm" id="searchProdName"></td>
+		        <th>카테고리</th>
+			        <td>
+			        <div id="categorySelects">
+		                    <select name="searchCate1" id="categoryNo" class="cateSelector">
+		                        <option value="999">대분류</option>
+		                        <option value="0">의류</option>
+		                        <option value="1">슈즈</option>
+		                        <option value="2">가방</option>
+		                        <option value="3">액세서리</option>
+		                        <option value="4">주얼리</option>
+		                    </select>
+		                    <select name="searchCate2" id="categoryNo2" class="cateSelector">
+		                    	<option value="999">소분류</option>
+		                        <option value="1">탑</option>
+		                        <option value="2">니트웨어</option>
+		                        <option value="3">셔츠/자켓</option>
+		                        <option value="4">셔츠</option>
+		                        <option value="5">수트</option>
+		                        <option value="6">팬츠</option>
+		                        <option value="7">언더웨어</option>
+		                        <option value="8">비치웨어</option>
+		                        <option value="9">기능성의류</option>
+		                    </select>
+		                </div>
+			        </td>
+		    </tr>
+		    <tr>
+		        <th>판매기간</th>
+		        <td><input type="text" class="datepicker" name="startDate" id="startDate" placeholder="판매 시작일">
+		        	<span style="display: inline-block; margin: 0px 25px;"> ~ </span> 
+		        	<input type="text" class="datepicker" name="endDate" id="endDate" placeholder="판매 종료일"></td>
+		        <th>판매상태</th>
 		        <td>
-		        <div id="categorySelects">
-	                    <select name="searchCate1" id="categoryNo" class="cateSelector">
-	                        <option value="999">대분류</option>
-	                        <option value="0">의류</option>
-	                        <option value="1">슈즈</option>
-	                        <option value="2">가방</option>
-	                        <option value="3">액세서리</option>
-	                        <option value="4">주얼리</option>
-	                    </select>
-	                    <select name="searchCate2" id="categoryNo2" class="cateSelector">
-	                    	<option value="999">소분류</option>
-	                        <option value="1">탑</option>
-	                        <option value="2">니트웨어</option>
-	                        <option value="3">셔츠/자켓</option>
-	                        <option value="4">셔츠</option>
-	                        <option value="5">수트</option>
-	                        <option value="6">팬츠</option>
-	                        <option value="7">언더웨어</option>
-	                        <option value="8">비치웨어</option>
-	                        <option value="9">기능성의류</option>
-	                    </select>
-	                </div>
+		            <select name="saleState" id="searchProdState">
+		            	<option value="999">선택</option>
+		                <option value="1">판매대기</option>
+		                <option value="2">판매중</option>
+		                <option value="3">판매종료</option>
+		            </select>
 		        </td>
-	    </tr>
-	    <tr>
-	        <th>판매기간</th>
-	        <td><input type="text" class="datepicker" name="startDate" id="startDate" placeholder="판매 시작일">
-	        	<span style="display: inline-block; margin: 0px 25px;"> ~ </span> 
-	        	<input type="text" class="datepicker" name="endDate" id="endDate" placeholder="판매 종료일"></td>
-	        <th>판매상태</th>
-	        <td>
-	            <select name="saleState" id="searchProdState">
-	            	<option value="999">선택</option>
-	                <option value="1">판매대기</option>
-	                <option value="2">판매중</option>
-	                <option value="3">판매종료</option>
-	            </select>
-	        </td>
-	    </tr>
-	    <tr>
-	        <th>브랜드</th>
-	        <td><input type="text" name="searchBrand" id="searchProdBrand"></td>
-	        <th>상품번호</th>
-	        <td>
-	        	<input type="text" name="searchPno" id="searchProdNo" />
-	        </td>
-	    </tr>
-	</table>
-	<div class="searchBtnSection">
-		<button id="searchBtn">검색</button>
-	</div>
+		    </tr>
+		    <tr>
+		        <th>브랜드</th>
+		        <td><input type="text" name="searchBrand" id="searchProdBrand"></td>
+		        <th>상품번호</th>
+		        <td>
+		        	<input type="text" name="searchPno" id="searchProdNo" />
+		        </td>
+		    </tr>
+		</table>
+		<div class="searchBtnSection">
+			<button id="searchBtn">검색</button>
+		</div>
 	</form>
-	<table id="prodListTable" border="0">
-		<tr>
-			<th colspan="9" class="sectionTitles">상품 리스트
-			<div class="explainTitles">현재 조회 상품 수 : 총 ${totalProduct}개</div></th>
-		</tr>
-	    <tr id="prodListTitle">
-	        <td>상품번호</td>
-	        <td>메인이미지</td>
-	        <td>브랜드</td>
-	        <td>상품명</td>
-	        <td>판매 가격</td>
-	        <td>판매 시작일</td>
-	        <td>판매 종료일</td>
-	        <td>옵션 수</td>
-	        <td>카테고리</td>
-	    </tr>
-	    <c:forEach items="${list}" var="prod">
-	    <tr class="prodListRows" id="${prod.productNo}">
-	    	<td class="prodRowPno">${prod.productNo}</td>
-			<td class="prodRowImg" align="center" style="margin:0px; padding: 2px;">
-				<img alt="첨부파일" src="${pageContext.request.contextPath}/resources/productUpload/${prod.mainImage}" width=65px height=50px>
-			</td>
-			<td class="prodRowBrand">${prod.productBrand}</td>
-			<td class="prodRowName"><a href="${pageContext.request.contextPath}/seller/modifyProduct.do?productNo=${prod.productNo}">${prod.productName}</a></td>
-			<td class="prodRowPrice"><fmt:formatNumber value="${prod.productPrice}" pattern="#,###" />원</td>
-			<td class="prodRowStart">${prod.productStartdate}</td>
-			<td class="prodRowEnd">${prod.productEnddate}</td>
-			<td class="prodRowOptionCnt">${prod.optionCount}</td>
-			<td class="prodRowCateNm">${prod.categoryName}</td>
-		</tr>
-		</c:forEach>
-	</table>
-	<div class="pageBarSection">
-		<c:out value="${pageBar}" escapeXml="false"/>
+	
+	<div class="charArea">
+		<!--차트가 그려질 부분-->
+		<div>
+			<canvas id="myChart" width="1100" height="500"></canvas>	
+		</div>
+		
+		<div>
+			<canvas id="productSaleRate" width="1100" height="400"></canvas>	
+		</div>
+		
+		<div>
+			<canvas id="productStar" width="300" height="300"></canvas>	
+		</div>
+		
+		<div>
+			<canvas id="genderRate" width="300" height="300"></canvas>	
+		</div>
+		
 	</div>
+	
 </div>
 
 <script>
@@ -240,6 +230,85 @@ li {
 	
 	    $('img.ui-datepicker-trigger').attr('style', 'padding: 7px;');
 	});
+	
+	// Chart.js
+	
+	// monthly sales revenue
+	var config = {
+        type: 'line',
+        data: {
+        labels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월'],
+        datasets: [{
+            label: '월 별 매출액(만원)',
+            data: [700, 600, 900, 1200, 700, 800, 1700, 2200, 1800, 1500, 2000],
+            backgroundColor: [
+                'rgba(13, 126, 206, 0.2)',
+
+            ],
+            borderColor: [
+                'rgba(13, 126, 206, 1)',
+
+            ],
+            pointBackgroundColor: [
+                'rgba(13, 126, 206, 1)'
+            ],
+            borderWidth: 2,
+            tension: 0.25
+        	}]
+    	},
+        options: {}
+   	};
+
+
+    var myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+	
+ 	// product SaleRate
+	var config1 = {
+        type: 'line',
+        data: {
+        labels: ['구찌후드티', '프라다니트','자라블레이저','톰브라운셔츠','구찌슬렉스','루이비통팬츠','캘빈클라임팬티'],
+        datasets: [{
+            label: '상품 별 총 매출액(만원)',
+            data: [100, 470, 300, 430, 700, 210, 45],
+            backgroundColor: [
+                'rgba(255, 135, 36, 0.8)',
+
+            ],
+            borderColor: [
+                'rgba(255, 135, 36, 1)',
+
+            ],
+            borderWidth: 2,
+            tension: 0.25
+        	}, {
+            label: '상품 별 총 판매량',
+            data: [30, 45, 100, 20, 10, 23, 75],
+            backgroundColor: [
+                'rgba(28, 197, 79, 0.8)',
+
+            ],
+            borderColor: [
+                'rgba(28, 197, 79, 1)',
+
+            ],
+            type: 'bar',
+            borderWidth: 2,
+            tension: 0.25
+        	}]
+    	},
+        options: {}
+   	};
+
+
+    var productSaleRate = new Chart(
+      document.getElementById('productSaleRate'),
+      config1
+    );
+    
+	
 </script>
 
 <c:import url="../common/footer.jsp"/>
