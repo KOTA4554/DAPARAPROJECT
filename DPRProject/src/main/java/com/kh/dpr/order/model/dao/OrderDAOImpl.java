@@ -46,4 +46,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return sqlSession.selectOne("orderSQL.selectImg", productNo);
 	}
 
+	@Override
+	public int minusStock(OrderDetail orderDetail) {
+		
+		return sqlSession.update("orderSQL.minusStock", orderDetail);
+	}
+
 }

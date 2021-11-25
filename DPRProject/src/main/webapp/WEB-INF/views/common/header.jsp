@@ -260,7 +260,7 @@
                         <li><a href="">정산 내역</a></li>
                      </ul>
                   </li>
-                  <li><a href="#">통계</a>
+                  <li><a href="${pageContext.request.contextPath}/statistic/statisticPage.do">통계</a>
                   </li>
 
 
